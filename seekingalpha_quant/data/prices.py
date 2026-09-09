@@ -11,13 +11,20 @@ from seekingalpha_quant.data.fmp_client import SymbolNotEntitled
 def fetch_price_history(client, ticker, lookback_days=380):
     """Fetch daily adjusted close history covering the trailing `lookback_days`.
 
+    Uses dividend-adjusted close (both split- and dividend-adjusted), not
+    FMP's plain "full" endpoint -- that one is split-adjusted only, which
+    understates trailing returns for higher-dividend-yield names.
+
     Well under FMP's ~5000-row-per-request cap, so a single call suffices
     (unlike the multi-decade backfill case in the sibling backtest project).
     Returns an empty DataFrame if FMP 402s the symbol under the current plan.
     """
     start = (dt.date.today() - dt.timedelta(days=lookback_days)).isoformat()
     try:
-        rows = client.get("/stable/historical-price-eod/full", {"symbol": ticker, "from": start})
+        rows = client.get(
+            "/stable/historical-price-eod/dividend-adjusted",
+            {"symbol": ticker, "from": start},
+        )
     except SymbolNotEntitled as exc:
         print(f"[skip] {ticker}: {exc}", file=sys.stderr)
         return pd.DataFrame()
@@ -65,7 +72,7 @@ def _return_ytd(df, close_col):
 
 def compute_momentum_row(client, ticker):
     df = fetch_price_history(client, ticker)
-    close_col = "close"
+    close_col = "adjClose"
     return {
         "ticker": ticker,
         "return_1m": _return_since(df, close_col, 30),

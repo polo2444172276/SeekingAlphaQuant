@@ -1,0 +1,173 @@
+<!doctype html>
+<html lang="en">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <title>Factor Ledger</title>
+  <style>
+    :root {
+      color-scheme: light dark;
+      --buy: #1a7f37;
+      --hold: #9a6700;
+      --sell: #cf222e;
+      --border: #d0d7de;
+    }
+    body {
+      font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, sans-serif;
+      margin: 0;
+      padding: 1rem;
+      background: Canvas;
+      color: CanvasText;
+    }
+    h1 { font-size: 1.25rem; margin: 0 0 0.25rem; }
+    .subtitle { color: GrayText; font-size: 0.85rem; margin-bottom: 1rem; }
+    table {
+      border-collapse: collapse;
+      width: 100%;
+      font-size: 0.85rem;
+    }
+    th, td {
+      border-bottom: 1px solid var(--border);
+      padding: 0.4rem 0.5rem;
+      text-align: right;
+      white-space: nowrap;
+    }
+    th:first-child, td:first-child,
+    th:nth-child(2), td:nth-child(2) { text-align: left; }
+    thead th {
+      position: sticky;
+      background: Canvas;
+      z-index: 1;
+    }
+    thead tr:first-child th { top: 0; z-index: 2; }
+    .factor-header {
+      cursor: pointer;
+      user-select: none;
+      border-left: 1px solid var(--border);
+    }
+    .factor-header:hover { background: color-mix(in srgb, Canvas 90%, CanvasText); }
+    .toggle-icon { font-size: 0.7em; color: GrayText; }
+    th[data-role="grade"] { border-left: 1px solid var(--border); }
+    .metric-col.hidden-col, td.metric-col.hidden-col { display: none; }
+    .ticker { font-weight: 600; }
+    .sector { color: GrayText; font-size: 0.8rem; }
+    .rating-Strong.Buy, .rating-Buy { color: var(--buy); font-weight: 600; }
+    .rating-Hold { color: var(--hold); font-weight: 600; }
+    .rating-Sell, .rating-Strong.Sell { color: var(--sell); font-weight: 600; }
+    .table-wrap { overflow: auto; max-height: 85vh; }
+    .controls { display: flex; gap: 0.5rem; margin-bottom: 0.75rem; }
+    #search {
+      flex: 1;
+      padding: 0.5rem;
+      font-size: 1rem;
+      border: 1px solid var(--border);
+      border-radius: 6px;
+      background: Field;
+      color: FieldText;
+    }
+    #count { color: GrayText; font-size: 0.8rem; align-self: center; white-space: nowrap; }
+    .row.hidden { display: none; }
+  </style>
+</head>
+<body>
+  <h1>Factor Ledger</h1>
+  <div class="subtitle">Snapshot: {{ date or "no data yet" }} &middot; {{ rows|length }} tickers &middot; click a factor name to show/hide its sub-metrics</div>
+  <div class="controls">
+    <input id="search" type="text" placeholder="Search ticker or sector..." autocomplete="off">
+    <span id="count"></span>
+  </div>
+  <div class="table-wrap">
+  <table id="ledger">
+    <thead>
+      <tr>
+        <th rowspan="2">Ticker</th>
+        <th rowspan="2">Sector</th>
+        {% for f in factor_defs %}
+        <th class="factor-header" data-factor="{{ f.key }}">{{ f.label }} <span class="toggle-icon">&#9656;</span></th>
+        {% endfor %}
+        <th rowspan="2">Score</th>
+        <th rowspan="2">Rating</th>
+      </tr>
+      <tr>
+        {% for f in factor_defs %}
+        <th data-factor="{{ f.key }}" data-role="grade">Grade</th>
+        {% for m in f.metrics %}
+        <th data-factor="{{ f.key }}" data-role="metric" class="metric-col hidden-col">{{ m.label }}</th>
+        {% endfor %}
+        {% endfor %}
+      </tr>
+    </thead>
+    <tbody>
+      {% for row in rows %}
+      <tr class="row" data-ticker="{{ row.ticker|lower }}" data-sector="{{ (row.sector or '')|lower }}">
+        <td class="ticker">{{ row.ticker }}</td>
+        <td class="sector">{{ row.sector or "–" }}</td>
+        {% for f in factor_defs %}
+        <td data-factor="{{ f.key }}" data-role="grade">{{ row[f.grade_col] or "–" }}</td>
+        {% for m in f.metrics %}
+        <td data-factor="{{ f.key }}" data-role="metric" class="metric-col hidden-col">{{ row[m.col] or "–" }}</td>
+        {% endfor %}
+        {% endfor %}
+        <td>{{ "%.1f"|format(row.overall_score) if row.overall_score is not none else "–" }}</td>
+        <td class="rating-{{ (row.overall_rating or 'Unknown').replace(' ', '.') }}">{{ row.overall_rating or "–" }}</td>
+      </tr>
+      {% else %}
+      <tr><td colspan="9">No snapshot data found.</td></tr>
+      {% endfor %}
+    </tbody>
+  </table>
+  </div>
+  <script>
+    // --- Search / filter ---
+    const search = document.getElementById("search");
+    const count = document.getElementById("count");
+    const rows = Array.from(document.querySelectorAll("tbody tr.row"));
+
+    function applyFilter() {
+      const q = search.value.trim().toLowerCase();
+      let shown = 0;
+      for (const row of rows) {
+        const match = !q
+          || row.dataset.ticker.includes(q)
+          || row.dataset.sector.includes(q);
+        row.classList.toggle("hidden", !match);
+        if (match) shown++;
+      }
+      count.textContent = q ? `${shown} / ${rows.length}` : "";
+    }
+    search.addEventListener("input", applyFilter);
+
+    // --- Per-factor sub-metric expand/collapse ---
+    document.querySelectorAll(".factor-header").forEach((header) => {
+      const factor = header.dataset.factor;
+      const metricHeaders = document.querySelectorAll(
+        `thead [data-factor="${factor}"][data-role="metric"]`
+      );
+      const metricCells = document.querySelectorAll(
+        `[data-factor="${factor}"][data-role="metric"]`
+      );
+      const icon = header.querySelector(".toggle-icon");
+      let expanded = false;
+
+      header.addEventListener("click", () => {
+        expanded = !expanded;
+        metricCells.forEach((cell) => cell.classList.toggle("hidden-col", !expanded));
+        header.colSpan = expanded ? 1 + metricHeaders.length : 1;
+        icon.innerHTML = expanded ? "&#9662;" : "&#9656;";
+        positionStickyRow();
+      });
+    });
+
+    // --- Keep the 2nd header row stuck right below the 1st (heights vary
+    // with expand/collapse, so this can't be a fixed CSS value) ---
+    function positionStickyRow() {
+      const firstRow = document.querySelector("thead tr:first-child");
+      const secondRow = document.querySelector("thead tr:nth-child(2)");
+      const h = firstRow.getBoundingClientRect().height;
+      secondRow.querySelectorAll("th").forEach((th) => { th.style.top = `${h}px`; });
+    }
+    window.addEventListener("resize", positionStickyRow);
+    positionStickyRow();
+  </script>
+</body>
+</html>

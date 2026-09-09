@@ -24,19 +24,32 @@ class SymbolNotEntitled(Exception):
 
 
 class FMPClient:
+    # Empirically, hammering the Starter plan with back-to-back requests
+    # (no delay) 429s within a few hundred calls -- throttle proactively
+    # rather than relying on retry/backoff alone.
+    MIN_REQUEST_INTERVAL = 0.13  # ~7.7 req/s / ~460 req/min, under the Starter plan's 500 req/min cap
+
     def __init__(self, api_key=None, base_url=None, cache_dir=None, session=None):
         self.api_key = api_key if api_key is not None else config.FMP_API_KEY
         self.base_url = base_url or config.FMP_BASE_URL
         self.cache_dir = cache_dir or config.CACHE_DIR
         self.session = session or requests.Session()
         os.makedirs(self.cache_dir, exist_ok=True)
+        self._last_request_at = 0.0
 
     def _cache_path(self, path, params):
         key = json.dumps({"path": path, "params": params}, sort_keys=True)
         digest = hashlib.sha256(key.encode()).hexdigest()
         return os.path.join(self.cache_dir, f"{digest}.json")
 
-    def get(self, path, params=None, use_cache=True, max_retries=3):
+    def _throttle(self):
+        elapsed = time.monotonic() - self._last_request_at
+        wait = self.MIN_REQUEST_INTERVAL - elapsed
+        if wait > 0:
+            time.sleep(wait)
+        self._last_request_at = time.monotonic()
+
+    def get(self, path, params=None, use_cache=True, max_retries=5):
         """GET a stable/v3-style FMP endpoint, e.g. path='/stable/ratios'."""
         params = dict(params or {})
         cache_path = self._cache_path(path, params)
@@ -59,10 +72,13 @@ class FMPClient:
 
         last_error = None
         for attempt in range(max_retries):
+            self._throttle()
             response = self.session.get(url, params=params, timeout=30)
             if response.status_code == 429:
                 last_error = RuntimeError(f"FMP rate limited (attempt {attempt + 1})")
-                time.sleep(2 ** attempt)
+                # A short exponential backoff isn't enough to clear a
+                # per-minute window -- wait long enough that it reliably has.
+                time.sleep(15 * (attempt + 1))
                 continue
             if response.status_code == 402:
                 message = f"{path} symbol={params.get('symbol')}: not available under the current FMP plan"

@@ -24,7 +24,11 @@ def fetch_ticker_row(client, ticker):
     Returns a ticker/sector-only row (all metrics None) if FMP 402s the
     symbol under the current plan, rather than aborting the whole panel.
     """
-    profile = _first(client.get("/stable/profile", {"symbol": ticker}))
+    try:
+        profile = _first(client.get("/stable/profile", {"symbol": ticker}))
+    except SymbolNotEntitled as exc:
+        print(f"[skip] {ticker}: {exc}", file=sys.stderr)
+        profile = {}
 
     try:
         ratios = _first(client.get("/stable/ratios-ttm", {"symbol": ticker}))

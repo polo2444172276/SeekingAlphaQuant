@@ -35,25 +35,31 @@ cp .env.example .env   # fill in FMP_API_KEY once you have one
 
 - **Done**: factor scoring math (`seekingalpha_quant/factors/`), overall
   rating combination (`seekingalpha_quant/scoring/combine.py`), config
-  (`seekingalpha_quant/config.py`), FMP client with disk caching
-  (`seekingalpha_quant/data/fmp_client.py`), live data ingestion
-  (`seekingalpha_quant/data/fundamentals.py`, `prices.py`, `estimates.py`),
-  and `scripts/run_snapshot.py` — a daily current-state snapshot (not yet
-  point-in-time/backtestable) for a hand-maintained watchlist
-  (`seekingalpha_quant/data/universe.py`, currently 30 large-caps). Verified
-  end-to-end against live FMP data. All logic also covered by `pytest
-  tests/` against in-memory fixtures — no API key required to run those.
+  (`seekingalpha_quant/config.py`), FMP client with disk caching and
+  client-side rate limiting (`seekingalpha_quant/data/fmp_client.py`), live
+  data ingestion (`seekingalpha_quant/data/fundamentals.py`, `prices.py`,
+  `estimates.py`), and `scripts/run_snapshot.py` — a daily current-state
+  snapshot (not yet point-in-time/backtestable) for the full S&P 500
+  (`seekingalpha_quant/data/universe.py`, reads
+  `data/sp500_constituents.csv`, refreshed via
+  `scripts/update_universe.py`). Verified end-to-end against live FMP data
+  for all 503 constituents (zero 402s under the Starter plan). All logic
+  also covered by `pytest tests/` against in-memory fixtures — no API key
+  required to run those.
 - **Known FMP plan gap**: the free tier 402s roughly a third of large-cap
   symbols across every fundamentals/price endpoint (not a rate limit — an
   inconsistent per-symbol allowlist); a paid Starter-tier key restored
-  access to all 30 tracked tickers. `fmp_client.py` caches a 402 response
-  itself (not just successes) so re-running doesn't keep re-probing a
-  symbol already known to be blocked under the plan in use — clear
-  `.cache/` after a plan upgrade to re-probe.
-- **Not yet built**: point-in-time S&P 500 universe reconstruction (the
-  official constituents endpoint 402s even on Starter — needs a higher
-  tier, or a non-FMP source), the backtest engine, and
-  `scripts/run_backtest.py`.
+  access to every S&P 500 constituent tried so far. `fmp_client.py` caches
+  a 402 response itself (not just successes) so re-running doesn't keep
+  re-probing a symbol already known to be blocked under the plan in use —
+  clear `.cache/` after a plan upgrade to re-probe. Separately, the
+  official `sp500-constituent` endpoint 402s even on Starter, so the
+  ticker/sector *list* itself comes from a free non-FMP source instead
+  (`scripts/update_universe.py`) — only the per-ticker fundamentals/price
+  data comes from FMP.
+- **Not yet built**: point-in-time S&P 500 membership reconstruction (today's
+  constituent list is used for all historical dates too), the backtest
+  engine, and `scripts/run_backtest.py`.
 
 ## Running tests
 

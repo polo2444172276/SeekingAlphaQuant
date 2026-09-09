@@ -26,6 +26,7 @@ from seekingalpha_quant.data.prices import build_momentum_panel
 from seekingalpha_quant.data.estimates import build_eps_revisions_panel
 from seekingalpha_quant.factors import valuation, growth, profitability, momentum, eps_revisions
 from seekingalpha_quant.scoring.combine import combine_factors
+from seekingalpha_quant.config import FACTOR_METRICS
 
 
 def main():
@@ -60,6 +61,23 @@ def main():
     }
 
     result = combine_factors(factor_frames)
+
+    # Sub-metric raw values, for the dashboard's per-factor drill-down --
+    # combine_factors only keeps the aggregated factor score/grade, so pull
+    # the underlying numbers straight from the raw panels instead of
+    # recomputing anything.
+    raw_metric_cols = [
+        col for metrics in FACTOR_METRICS.values() for col in metrics
+    ]
+    raw_panels = fundamentals_df.merge(
+        momentum_df.drop(columns=["sector"], errors="ignore"), on="ticker", how="outer"
+    ).merge(
+        eps_df.drop(columns=["sector"], errors="ignore"), on="ticker", how="outer"
+    )
+    result = result.merge(
+        raw_panels[["ticker"] + raw_metric_cols], on="ticker", how="left"
+    )
+
     result = result.sort_values("overall_score", ascending=False)
 
     display_cols = [
