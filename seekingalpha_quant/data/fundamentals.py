@@ -25,15 +25,15 @@ def fetch_ticker_row(client, ticker):
     symbol under the current plan, rather than aborting the whole panel.
     """
     try:
-        profile = _first(client.get("/stable/profile", {"symbol": ticker}))
+        profile = _first(client.get("/stable/profile", {"symbol": ticker}, daily_cache=True))
     except SymbolNotEntitled as exc:
         print(f"[skip] {ticker}: {exc}", file=sys.stderr)
         profile = {}
 
     try:
-        ratios = _first(client.get("/stable/ratios-ttm", {"symbol": ticker}))
-        key_metrics = _first(client.get("/stable/key-metrics-ttm", {"symbol": ticker}))
-        growth = _first(client.get("/stable/financial-growth", {"symbol": ticker, "limit": 1}))
+        ratios = _first(client.get("/stable/ratios-ttm", {"symbol": ticker}, daily_cache=True))
+        key_metrics = _first(client.get("/stable/key-metrics-ttm", {"symbol": ticker}, daily_cache=True))
+        growth = _first(client.get("/stable/financial-growth", {"symbol": ticker, "limit": 1}, daily_cache=True))
     except SymbolNotEntitled as exc:
         print(f"[skip] {ticker}: {exc}", file=sys.stderr)
         ratios, key_metrics, growth = {}, {}, {}

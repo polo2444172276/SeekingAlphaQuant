@@ -22,6 +22,37 @@ not a faithful replica. Exact SA factor weights and percentile-to-grade
 cutoffs are also not public; `config.py` uses documented, configurable
 approximations.
 
+The historical backfill (`seekingalpha_quant/backtest/`, see below) adds
+its own documented approximations on top of the above, since FMP's Starter
+plan doesn't expose pre-computed historical ratios at any point-in-time
+resolution:
+- **All Valuation/Growth ratios are computed by hand** from raw quarterly
+  financial statements + historical market cap
+  (`backtest/fundamentals_pit.py`), not pulled pre-computed — there's no
+  guarantee they exactly match FMP's own (undocumented) `ratios-ttm`
+  formulas used by the live daily snapshot, though a spot-check against
+  NVDA's current live-vs-backfilled numbers landed within a few percent.
+- **Growth is rolling-TTM, not fixed-fiscal-year**: `revenue_growth_yoy`
+  compares the trailing 4 quarters to the trailing 4 quarters one year
+  prior; the live daily snapshot instead compares this fiscal year to last
+  fiscal year (FMP's `financial-growth` endpoint, annual period). Both are
+  legitimate "YoY growth" measures, but they can diverge meaningfully for
+  a fast-decelerating/accelerating grower — confirmed this analytically
+  live for NVDA (rolling-TTM read ~83% vs. the live snapshot's fixed-FY
+  ~65% on the same day).
+- **ROIC has no public FMP formula to match**, live or historical; the
+  backfill approximates it as after-tax operating income (using each
+  ticker's own trailing effective tax rate) over invested capital
+  (debt + equity − cash).
+- **Sector is each ticker's *current* FMP sector classification, applied
+  to all of its history** — no attempt to track historical GICS
+  reclassifications.
+- **Point-in-time knowability** is gated on each filing's `acceptedDate`
+  (when it actually became public), not its fiscal period-end date, to
+  avoid lookahead bias — confirmed live that `acceptedDate` is populated
+  back to 2019 for the tickers checked; a missing value falls back to
+  period-end + 45 days.
+
 ## Setup
 
 ```bash
@@ -57,9 +88,20 @@ cp .env.example .env   # fill in FMP_API_KEY once you have one
   ticker/sector *list* itself comes from a free non-FMP source instead
   (`scripts/update_universe.py`) — only the per-ticker fundamentals/price
   data comes from FMP.
-- **Not yet built**: point-in-time S&P 500 membership reconstruction (today's
-  constituent list is used for all historical dates too), the backtest
-  engine, and `scripts/run_backtest.py`.
+- **Also done**: point-in-time historical backfill since 2019
+  (`seekingalpha_quant/backtest/`, run via `scripts/run_backtest.py`).
+  Valuation/Growth/Profitability/EPS Revisions are reconstructed at
+  quarterly resolution (gated on each filing's real `acceptedDate` to
+  avoid lookahead bias); Momentum, and therefore the combined overall
+  score, is recomputed daily and combined with whichever quarter's
+  fundamentals were most recently *known* as of that day (carried forward,
+  not recomputed daily). Point-in-time S&P 500 membership (avoiding
+  survivorship bias) comes from a free community-maintained changes log
+  (`scripts/update_membership_history.py` →
+  `data/sp500_membership_changes.csv`), not FMP (no point-in-time
+  constituents endpoint at any tier tried). Output is two Parquet files
+  under `data/history/` (gitignored, like `data/snapshots/` — generated
+  data isn't committed). No dashboard/chart integration yet — data only.
 
 ## Running tests
 

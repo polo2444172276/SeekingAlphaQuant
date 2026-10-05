@@ -16,16 +16,26 @@ UPGRADE_ACTIONS = {"upgrade", "initiate"}
 DOWNGRADE_ACTIONS = {"downgrade"}
 
 
-def _net_upgrades(grades, days):
+def _net_upgrades(grades, days, as_of=None):
     if grades is None:
         return None
-    cutoff = dt.date.today() - dt.timedelta(days=days)
+    anchor = as_of or dt.date.today()
+    cutoff = anchor - dt.timedelta(days=days)
     net = 0
     for row in grades:
         date = row.get("date")
         if not date:
             continue
-        if dt.date.fromisoformat(date) < cutoff:
+        graded_on = dt.date.fromisoformat(date)
+        if graded_on < cutoff:
+            continue
+        # The live daily snapshot only ever sees grades up to "today" (its
+        # `grades` list is always freshly fetched as-of now). The
+        # historical backfill fetches a ticker's *entire* grades history
+        # once and reuses it for every past rebalance date, so it must
+        # explicitly exclude anything graded after `anchor` -- otherwise
+        # a historical quarter would leak future analyst-rating info.
+        if graded_on > anchor:
             continue
         action = (row.get("action") or "").lower()
         if action in UPGRADE_ACTIONS:
@@ -37,7 +47,7 @@ def _net_upgrades(grades, days):
 
 def compute_eps_revisions_row(client, ticker):
     try:
-        grades = client.get("/stable/grades", {"symbol": ticker, "limit": 100})
+        grades = client.get("/stable/grades", {"symbol": ticker, "limit": 100}, daily_cache=True)
     except SymbolNotEntitled as exc:
         print(f"[skip] {ticker}: {exc}", file=sys.stderr)
         grades = None  # not the same as [] (genuinely no rating changes) — must not score as 0

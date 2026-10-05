@@ -5,6 +5,7 @@ test with FMP_DISABLE_NETWORK set) doesn't re-hit a paid, rate-limited API.
 No network call is made until FMP_API_KEY is set — see config.py.
 """
 
+import datetime as dt
 import hashlib
 import json
 import os
@@ -49,10 +50,20 @@ class FMPClient:
             time.sleep(wait)
         self._last_request_at = time.monotonic()
 
-    def get(self, path, params=None, use_cache=True, max_retries=5):
-        """GET a stable/v3-style FMP endpoint, e.g. path='/stable/ratios'."""
+    def get(self, path, params=None, use_cache=True, max_retries=5, daily_cache=False):
+        """GET a stable/v3-style FMP endpoint, e.g. path='/stable/ratios'.
+
+        daily_cache=True mixes today's date into the cache key (without
+        sending it to FMP) so the entry is reused for same-day re-runs but
+        always refetched the next calendar day -- for endpoints like TTM
+        fundamentals or analyst grades that have no date param of their own
+        and would otherwise be cached forever after the first fetch.
+        """
         params = dict(params or {})
-        cache_path = self._cache_path(path, params)
+        cache_key_params = dict(params)
+        if daily_cache:
+            cache_key_params["_cache_date"] = dt.date.today().isoformat()
+        cache_path = self._cache_path(path, cache_key_params)
 
         if use_cache and os.path.exists(cache_path):
             with open(cache_path, "r") as f:

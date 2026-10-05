@@ -7,7 +7,7 @@ from seekingalpha_quant.data.fmp_client import SymbolNotEntitled
 class _GatedClient:
     """Stub client that 402s every call, like a symbol FMP restricts."""
 
-    def get(self, path, params=None):
+    def get(self, path, params=None, **kwargs):
         raise SymbolNotEntitled(f"{path} symbol={params.get('symbol')}: not available")
 
 
