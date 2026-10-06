@@ -14,12 +14,17 @@ import os
 from dotenv import load_dotenv
 from flask import Flask, Response, render_template, request
 
-from seekingalpha_quant.config import FACTOR_METRICS
+from seekingalpha_quant.config import (
+    FACTOR_METRICS,
+    SMALLCAP_MAX_COVERAGE,
+    SMALLCAP_MIN_DOLLAR_VOLUME,
+)
 
 load_dotenv()
 
 BASE_DIR = os.path.dirname(os.path.dirname(os.path.abspath(__file__)))
 SNAPSHOT_DIR = os.path.join(BASE_DIR, "data", "snapshots")
+SMALLCAP_SNAPSHOT_DIR = os.path.join(BASE_DIR, "data", "snapshots_smallcap")
 
 DASHBOARD_USER = os.environ.get("DASHBOARD_USER", "admin")
 DASHBOARD_PASSWORD = os.environ.get("DASHBOARD_PASSWORD", "")
@@ -132,14 +137,21 @@ def _format_metric(col, value):
     return f"{v:.2f}"
 
 
-def latest_snapshot():
-    files = sorted(glob.glob(os.path.join(SNAPSHOT_DIR, "*.csv")))
+def _coerce_float(value):
+    if value is None or value == "":
+        return None
+    return float(value)
+
+
+def latest_snapshot(snapshot_dir):
+    files = sorted(glob.glob(os.path.join(snapshot_dir, "*.csv")))
     if not files:
         return None, []
     path = files[-1]
     date = os.path.splitext(os.path.basename(path))[0]
     with open(path, newline="") as f:
         rows = list(csv.DictReader(f))
+    has_screen_cols = rows and "analyst_coverage" in rows[0]
     for row in rows:
         for col in SCORE_COLS:
             row[col] = _parse_score(row[col])
@@ -147,19 +159,44 @@ def latest_snapshot():
             row[col] = row[col] or None
         for col in ALL_METRIC_COLS:
             row[col] = _format_metric(col, row.get(col))
+        if has_screen_cols:
+            coverage = _coerce_float(row.get("analyst_coverage"))
+            dollar_vol = _coerce_float(row.get("avg_dollar_volume"))
+            row["off_radar"] = (
+                coverage is not None and dollar_vol is not None
+                and coverage <= SMALLCAP_MAX_COVERAGE
+                and dollar_vol >= SMALLCAP_MIN_DOLLAR_VOLUME
+            )
+            row["analyst_coverage"] = None if coverage is None else int(coverage)
+            row["avg_dollar_volume"] = (
+                None if dollar_vol is None else f"${dollar_vol / 1_000_000:.1f}M"
+            )
     # Tickers with unresolved data (e.g. sector missing under the current
     # FMP plan) score None -- sort them after every real rating instead of
     # crashing the comparison.
     rows.sort(key=lambda r: (r["overall_score"] is None, -(r["overall_score"] or 0)))
-    return date, rows
+    return date, rows, has_screen_cols
 
 
 @app.route("/")
 @requires_auth
 def dashboard():
-    date, rows = latest_snapshot()
+    date, rows, has_screen_cols = latest_snapshot(SNAPSHOT_DIR)
     return render_template(
-        "dashboard.html", date=date, rows=rows, factor_defs=FACTOR_DEFS
+        "dashboard.html", date=date, rows=rows, factor_defs=FACTOR_DEFS,
+        active="sp500", title="Factor Ledger — S&P 500", has_screen_cols=has_screen_cols,
+        max_coverage=SMALLCAP_MAX_COVERAGE, min_dollar_volume=SMALLCAP_MIN_DOLLAR_VOLUME,
+    )
+
+
+@app.route("/smallcap")
+@requires_auth
+def smallcap_dashboard():
+    date, rows, has_screen_cols = latest_snapshot(SMALLCAP_SNAPSHOT_DIR)
+    return render_template(
+        "dashboard.html", date=date, rows=rows, factor_defs=FACTOR_DEFS,
+        active="smallcap", title="Factor Ledger — Small Cap", has_screen_cols=has_screen_cols,
+        max_coverage=SMALLCAP_MAX_COVERAGE, min_dollar_volume=SMALLCAP_MIN_DOLLAR_VOLUME,
     )
 
 

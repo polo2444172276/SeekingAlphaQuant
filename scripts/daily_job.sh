@@ -13,6 +13,14 @@ if [ ! -f "$CSV_PATH" ]; then
   exit 1
 fi
 
+python3 scripts/run_smallcap_snapshot.py
+SMALLCAP_CSV_PATH="data/snapshots_smallcap/${TODAY}.csv"
+
+if [ ! -f "$SMALLCAP_CSV_PATH" ]; then
+  echo "ERROR: expected CSV not found at $SMALLCAP_CSV_PATH"
+  exit 1
+fi
+
 # Snapshot data stays local (data/snapshots/ is gitignored) -- the dashboard
 # reads it straight off disk, no need to push it anywhere.
 

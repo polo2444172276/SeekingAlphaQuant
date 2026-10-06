@@ -3,7 +3,7 @@
 <head>
   <meta charset="utf-8">
   <meta name="viewport" content="width=device-width, initial-scale=1">
-  <title>Factor Ledger</title>
+  <title>{{ title or "Factor Ledger" }}</title>
   <style>
     :root {
       color-scheme: light dark;
@@ -67,13 +67,33 @@
     }
     #count { color: GrayText; font-size: 0.8rem; align-self: center; white-space: nowrap; }
     .row.hidden { display: none; }
+    .nav { display: flex; gap: 0.5rem; margin-bottom: 0.5rem; }
+    .nav a {
+      padding: 0.35rem 0.75rem;
+      border: 1px solid var(--border);
+      border-radius: 6px;
+      text-decoration: none;
+      color: CanvasText;
+      font-size: 0.85rem;
+    }
+    .nav a.active { background: color-mix(in srgb, Canvas 85%, CanvasText); font-weight: 600; }
   </style>
 </head>
 <body>
   <h1>Factor Ledger</h1>
+  <div class="nav">
+    <a href="/" class="{{ 'active' if active == 'sp500' else '' }}">S&amp;P 500</a>
+    <a href="/smallcap" class="{{ 'active' if active == 'smallcap' else '' }}">Small Cap</a>
+  </div>
   <div class="subtitle">Snapshot: {{ date or "no data yet" }} &middot; {{ rows|length }} tickers &middot; click a factor name to show/hide its sub-metrics</div>
   <div class="controls">
     <input id="search" type="text" placeholder="Search ticker or sector..." autocomplete="off">
+    {% if has_screen_cols %}
+    <label style="display:flex; align-items:center; gap:0.35rem; font-size:0.85rem; white-space:nowrap;">
+      <input id="off-radar-only" type="checkbox">
+      机构覆盖少(&le;{{ max_coverage }})+ 流动性OK(&ge;${{ "%.0f"|format(min_dollar_volume / 1_000_000) }}M)
+    </label>
+    {% endif %}
     <span id="count"></span>
   </div>
   <div class="table-wrap">
@@ -85,6 +105,10 @@
         {% for f in factor_defs %}
         <th class="factor-header" data-factor="{{ f.key }}">{{ f.label }} <span class="toggle-icon">&#9656;</span></th>
         {% endfor %}
+        {% if has_screen_cols %}
+        <th rowspan="2">Coverage</th>
+        <th rowspan="2">$Vol/day</th>
+        {% endif %}
         <th rowspan="2">Score</th>
         <th rowspan="2">Rating</th>
       </tr>
@@ -99,7 +123,7 @@
     </thead>
     <tbody>
       {% for row in rows %}
-      <tr class="row" data-ticker="{{ row.ticker|lower }}" data-sector="{{ (row.sector or '')|lower }}">
+      <tr class="row" data-ticker="{{ row.ticker|lower }}" data-sector="{{ (row.sector or '')|lower }}" {% if has_screen_cols %}data-off-radar="{{ row.off_radar|lower }}"{% endif %}>
         <td class="ticker">{{ row.ticker }}</td>
         <td class="sector">{{ row.sector or "–" }}</td>
         {% for f in factor_defs %}
@@ -108,6 +132,10 @@
         <td data-factor="{{ f.key }}" data-role="metric" class="metric-col hidden-col">{{ row[m.col] or "–" }}</td>
         {% endfor %}
         {% endfor %}
+        {% if has_screen_cols %}
+        <td>{{ row.analyst_coverage if row.analyst_coverage is not none else "–" }}</td>
+        <td>{{ row.avg_dollar_volume or "–" }}</td>
+        {% endif %}
         <td>{{ "%.1f"|format(row.overall_score) if row.overall_score is not none else "–" }}</td>
         <td class="rating-{{ (row.overall_rating or 'Unknown').replace(' ', '.') }}">{{ row.overall_rating or "–" }}</td>
       </tr>
@@ -121,21 +149,25 @@
     // --- Search / filter ---
     const search = document.getElementById("search");
     const count = document.getElementById("count");
+    const offRadarOnly = document.getElementById("off-radar-only");
     const rows = Array.from(document.querySelectorAll("tbody tr.row"));
 
     function applyFilter() {
       const q = search.value.trim().toLowerCase();
+      const radarOnly = offRadarOnly && offRadarOnly.checked;
       let shown = 0;
       for (const row of rows) {
-        const match = !q
+        const match = (!q
           || row.dataset.ticker.includes(q)
-          || row.dataset.sector.includes(q);
+          || row.dataset.sector.includes(q))
+          && (!radarOnly || row.dataset.offRadar === "true");
         row.classList.toggle("hidden", !match);
         if (match) shown++;
       }
-      count.textContent = q ? `${shown} / ${rows.length}` : "";
+      count.textContent = (q || radarOnly) ? `${shown} / ${rows.length}` : "";
     }
     search.addEventListener("input", applyFilter);
+    if (offRadarOnly) offRadarOnly.addEventListener("change", applyFilter);
 
     // --- Per-factor sub-metric expand/collapse ---
     document.querySelectorAll(".factor-header").forEach((header) => {
