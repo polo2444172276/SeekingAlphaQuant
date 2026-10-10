@@ -2,7 +2,9 @@ import numpy as np
 import pandas as pd
 
 from seekingalpha_quant.factors.base import compute_factor_score, sector_percentile
-from seekingalpha_quant.factors import eps_revisions, growth, momentum, profitability, valuation
+from seekingalpha_quant.factors import (
+    eps_revisions, growth, momentum, profitability, sector_specific, valuation,
+)
 
 
 def test_sector_percentile_higher_is_better():
@@ -138,3 +140,33 @@ def test_profitability_and_momentum_and_eps_revisions_smoke():
     assert eps_out.loc[eps_out["ticker"] == "B", "eps_revisions_score"].iloc[0] > eps_out.loc[
         eps_out["ticker"] == "A", "eps_revisions_score"
     ].iloc[0]
+
+
+def test_sector_specific_ranks_within_each_sector_metric():
+    df = pd.DataFrame(
+        {
+            "ticker": ["LOW_RULE40", "HIGH_RULE40", "LOW_FFO", "HIGH_FFO", "UNCOVERED"],
+            "sector": ["Technology", "Technology", "Real Estate", "Real Estate", "Energy"],
+            "rule_of_40": [10, 50, None, None, None],
+            "nim_proxy": [None, None, None, None, None],
+            "ffo_margin": [None, None, 0.2, 0.6, None],
+            "rd_intensity": [None, None, None, None, None],
+            "inventory_turnover": [None, None, None, None, None],
+        }
+    )
+    out = sector_specific.compute(df)
+
+    assert (
+        out.loc[out["ticker"] == "HIGH_RULE40", "sector_specific_score"].iloc[0]
+        > out.loc[out["ticker"] == "LOW_RULE40", "sector_specific_score"].iloc[0]
+    )
+    assert (
+        out.loc[out["ticker"] == "HIGH_FFO", "sector_specific_score"].iloc[0]
+        > out.loc[out["ticker"] == "LOW_FFO", "sector_specific_score"].iloc[0]
+    )
+    # A sector with no defined metric (e.g. Energy, not yet covered) scores
+    # None rather than 0 -- combine_factors renormalizes around a missing
+    # factor instead of penalizing it.
+    uncovered = out.loc[out["ticker"] == "UNCOVERED"].iloc[0]
+    assert pd.isna(uncovered["sector_specific_score"])
+    assert uncovered["sector_specific_grade"] is None

@@ -6,7 +6,7 @@ import pandas as pd
 
 from seekingalpha_quant.config import FACTOR_WEIGHTS, percentile_to_rating
 
-FACTORS = ("valuation", "growth", "profitability", "momentum", "eps_revisions")
+FACTORS = ("valuation", "growth", "profitability", "momentum", "eps_revisions", "sector_specific")
 
 
 def combine_factors(factor_frames, sector_col="sector"):

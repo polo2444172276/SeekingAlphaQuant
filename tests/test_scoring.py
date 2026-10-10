@@ -40,6 +40,7 @@ def test_combine_factors_all_present_equal_weight():
         "profitability": _factor_frame("profitability", {"AAA": 90, "BBB": 10}),
         "momentum": _factor_frame("momentum", {"AAA": 90, "BBB": 10}),
         "eps_revisions": _factor_frame("eps_revisions", {"AAA": 90, "BBB": 10}),
+        "sector_specific": _factor_frame("sector_specific", {"AAA": 90, "BBB": 10}),
     }
     combined = combine_factors(frames)
 
@@ -60,6 +61,7 @@ def test_combine_factors_missing_factor_for_one_ticker_renormalizes():
         "momentum": _factor_frame("momentum", {"AAA": 100, "BBB": 100}),
         # BBB has no eps_revisions coverage at all
         "eps_revisions": _factor_frame("eps_revisions", {"AAA": 100}),
+        "sector_specific": _factor_frame("sector_specific", {"AAA": 100, "BBB": 100}),
     }
     combined = combine_factors(frames)
     bbb = combined.loc[combined["ticker"] == "BBB"].iloc[0]
@@ -79,6 +81,7 @@ def test_combine_factors_all_factors_missing_gives_nan_not_a_crash():
         "profitability": _factor_frame("profitability", {"AAA": 100, "GATED": nan}),
         "momentum": _factor_frame("momentum", {"AAA": 100, "GATED": nan}),
         "eps_revisions": _factor_frame("eps_revisions", {"AAA": 100, "GATED": nan}),
+        "sector_specific": _factor_frame("sector_specific", {"AAA": 100, "GATED": nan}),
     }
     combined = combine_factors(frames)
     gated = combined.loc[combined["ticker"] == "GATED"].iloc[0]

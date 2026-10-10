@@ -34,20 +34,21 @@ DASHBOARD_PASSWORD = os.environ.get("DASHBOARD_PASSWORD", "")
 
 SCORE_COLS = [
     "valuation_score", "growth_score", "profitability_score",
-    "momentum_score", "eps_revisions_score", "overall_score",
+    "momentum_score", "eps_revisions_score", "sector_specific_score", "overall_score",
 ]
 GRADE_COLS = [
     "valuation_grade", "growth_grade", "profitability_grade",
-    "momentum_grade", "eps_revisions_grade",
+    "momentum_grade", "eps_revisions_grade", "sector_specific_grade",
 ]
 
-FACTOR_ORDER = ["valuation", "growth", "profitability", "momentum", "eps_revisions"]
+FACTOR_ORDER = ["valuation", "growth", "profitability", "momentum", "eps_revisions", "sector_specific"]
 FACTOR_LABELS = {
     "valuation": "Valuation",
     "growth": "Growth",
     "profitability": "Profitability",
     "momentum": "Momentum",
     "eps_revisions": "EPS Rev",
+    "sector_specific": "Sector",
 }
 METRIC_LABELS = {
     "pe_ratio": "P/E", "pb_ratio": "P/B", "ps_ratio": "P/S", "pcf_ratio": "P/CF",
@@ -62,6 +63,9 @@ METRIC_LABELS = {
     "return_1m": "1M", "return_3m": "3M", "return_6m": "6M",
     "return_9m": "9M", "return_ytd": "YTD", "return_12m": "12M",
     "net_upgrades_1m": "Net Upg 1M", "net_upgrades_3m": "Net Upg 3M",
+    "rule_of_40": "Rule of 40", "nim_proxy": "NIM (proxy)",
+    "ffo_margin": "FFO Margin", "rd_intensity": "R&D Intensity",
+    "inventory_turnover": "Inv. Turnover",
 }
 # How to format each raw metric's value; anything not listed here defaults
 # to a plain 2-decimal ratio (valuation multiples).
@@ -71,6 +75,7 @@ PERCENT_METRICS = {
     "gross_margin", "operating_margin", "net_margin", "ebitda_margin",
     "roe", "roa", "roic",
     "return_1m", "return_3m", "return_6m", "return_9m", "return_ytd", "return_12m",
+    "nim_proxy", "ffo_margin", "rd_intensity",
 }
 COUNT_METRICS = {"net_upgrades_1m", "net_upgrades_3m"}
 

@@ -24,7 +24,10 @@ from seekingalpha_quant.data.universe import TICKERS
 from seekingalpha_quant.data.fundamentals import build_fundamentals_panel
 from seekingalpha_quant.data.prices import build_momentum_panel
 from seekingalpha_quant.data.estimates import build_eps_revisions_panel
-from seekingalpha_quant.factors import valuation, growth, profitability, momentum, eps_revisions
+from seekingalpha_quant.data.sector_specific import build_sector_specific_panel
+from seekingalpha_quant.factors import (
+    valuation, growth, profitability, momentum, eps_revisions, sector_specific,
+)
 from seekingalpha_quant.scoring.combine import combine_factors
 from seekingalpha_quant.config import FACTOR_METRICS
 
@@ -52,12 +55,23 @@ def main():
     eps_df = build_eps_revisions_panel(client, tickers)
     eps_df = eps_df.merge(fundamentals_df[["ticker", "sector"]], on="ticker", how="left")
 
+    print("Fetching sector-specific fundamentals...", file=sys.stderr)
+    sector_df = build_sector_specific_panel(client, fundamentals_df["ticker"], fundamentals_df["sector"])
+    sector_df = sector_df.merge(
+        fundamentals_df[["ticker", "sector", "revenue_growth_yoy", "net_margin"]], on="ticker", how="left"
+    )
+    is_rule40_sector = sector_df["sector"].isin(["Technology", "Communication Services"])
+    sector_df.loc[is_rule40_sector, "rule_of_40"] = (
+        sector_df.loc[is_rule40_sector, "revenue_growth_yoy"] + sector_df.loc[is_rule40_sector, "net_margin"]
+    ) * 100
+
     factor_frames = {
         "valuation": valuation.compute(fundamentals_df),
         "growth": growth.compute(fundamentals_df),
         "profitability": profitability.compute(fundamentals_df),
         "momentum": momentum.compute(momentum_df),
         "eps_revisions": eps_revisions.compute(eps_df),
+        "sector_specific": sector_specific.compute(sector_df),
     }
 
     result = combine_factors(factor_frames)
@@ -73,6 +87,9 @@ def main():
         momentum_df.drop(columns=["sector"], errors="ignore"), on="ticker", how="outer"
     ).merge(
         eps_df.drop(columns=["sector"], errors="ignore"), on="ticker", how="outer"
+    ).merge(
+        sector_df.drop(columns=["sector", "revenue_growth_yoy", "net_margin"], errors="ignore"),
+        on="ticker", how="outer",
     )
     result = result.merge(
         raw_panels[["ticker"] + raw_metric_cols], on="ticker", how="left"
@@ -83,7 +100,7 @@ def main():
     display_cols = [
         "ticker", "sector",
         "valuation_grade", "growth_grade", "profitability_grade",
-        "momentum_grade", "eps_revisions_grade",
+        "momentum_grade", "eps_revisions_grade", "sector_specific_grade",
         "overall_score", "overall_rating",
     ]
     print(result[display_cols].to_string(index=False))

@@ -62,21 +62,44 @@ EPS_REVISIONS_METRICS = {
     "net_upgrades_3m": {"higher_is_better": True},
 }
 
+# One metric per sector, each only populated for the sector(s) it applies
+# to (every other row is NaN for that column) -- sector_percentile ranks
+# within-sector and treats NaN as "no opinion", so a ticker in a
+# not-yet-covered sector (Energy, Industrials, Basic Materials, Utilities)
+# just gets sector_specific_score = None rather than a penalized 0.
+# See seekingalpha_quant/data/sector_specific.py for how each is computed
+# and why the others (same-store sales, SaaS net-revenue-retention,
+# regulated utility ROE, O&G reserves) aren't -- they aren't in any
+# standard financial statement, so there's nothing to compute from FMP.
+SECTOR_SPECIFIC_METRICS = {
+    "rule_of_40": {"higher_is_better": True},        # Technology, Communication Services
+    "nim_proxy": {"higher_is_better": True},          # Financial Services
+    "ffo_margin": {"higher_is_better": True},         # Real Estate
+    "rd_intensity": {"higher_is_better": True},       # Healthcare
+    "inventory_turnover": {"higher_is_better": True}, # Consumer Cyclical, Consumer Defensive
+}
+
 FACTOR_METRICS = {
     "valuation": VALUATION_METRICS,
     "growth": GROWTH_METRICS,
     "profitability": PROFITABILITY_METRICS,
     "momentum": MOMENTUM_METRICS,
     "eps_revisions": EPS_REVISIONS_METRICS,
+    "sector_specific": SECTOR_SPECIFIC_METRICS,
 }
 
 # --- Combining factors into an overall rating ---------------------------
+# Equal-weighted across all six -- sector_specific is missing (None) for
+# roughly a third of sectors, but combine_factors() already renormalizes
+# over whichever factors are present per ticker, same as any other
+# missing-data case.
 FACTOR_WEIGHTS = {
-    "valuation": 0.20,
-    "growth": 0.20,
-    "profitability": 0.20,
-    "momentum": 0.20,
-    "eps_revisions": 0.20,
+    "valuation": 1 / 6,
+    "growth": 1 / 6,
+    "profitability": 1 / 6,
+    "momentum": 1 / 6,
+    "eps_revisions": 1 / 6,
+    "sector_specific": 1 / 6,
 }
 
 # Percentile (0-100, inclusive lower bound) -> letter grade, highest first.
@@ -104,6 +127,14 @@ RATING_CUTOFFS = [
     (20, "Sell"),
     (0, "Strong Sell"),
 ]
+
+
+# --- Small-cap / "under the radar" screen -------------------------------
+# Thresholds for scripts/run_smallcap_snapshot.py's coverage+liquidity
+# screen (not part of the 5-factor Quant Rating weighting -- these filter
+# which rows are worth a human's attention, they don't affect any score).
+SMALLCAP_MAX_COVERAGE = 5          # total analyst ratings outstanding (grades-consensus)
+SMALLCAP_MIN_DOLLAR_VOLUME = 5_000_000  # trailing-20-day average $ volume
 
 
 def percentile_to_grade(percentile):
