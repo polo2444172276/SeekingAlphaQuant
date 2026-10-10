@@ -162,9 +162,9 @@ def latest_snapshot(snapshot_dir):
     has_screen_cols = rows and "analyst_coverage" in rows[0]
     for row in rows:
         for col in SCORE_COLS:
-            row[col] = _parse_score(row[col])
+            row[col] = _parse_score(row.get(col))
         for col in GRADE_COLS + ["overall_rating"]:
-            row[col] = row[col] or None
+            row[col] = row.get(col) or None
         for col in ALL_METRIC_COLS:
             row[col] = _format_metric(col, row.get(col))
         if has_screen_cols:
