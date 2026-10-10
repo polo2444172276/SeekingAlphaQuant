@@ -1,0 +1,52 @@
+<!doctype html>
+<html lang="en">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <title>{{ title or "Factor Ledger" }}</title>
+  <style>
+    :root { color-scheme: light dark; --border: #d0d7de; }
+    body {
+      font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, sans-serif;
+      margin: 0;
+      padding: 1rem;
+      background: Canvas;
+      color: CanvasText;
+      max-width: 720px;
+    }
+    h1 { font-size: 1.25rem; margin: 0 0 0.25rem; }
+    .nav { display: flex; gap: 0.5rem; margin-bottom: 0.5rem; }
+    .nav a, .back {
+      padding: 0.35rem 0.75rem;
+      border: 1px solid var(--border);
+      border-radius: 6px;
+      text-decoration: none;
+      color: CanvasText;
+      font-size: 0.85rem;
+    }
+    .nav a.active { background: color-mix(in srgb, Canvas 85%, CanvasText); font-weight: 600; }
+    .entry { border: 1px solid var(--border); border-radius: 8px; padding: 1rem; margin-bottom: 1rem; }
+    .entry .date { color: GrayText; font-size: 0.8rem; margin-bottom: 0.5rem; }
+    .entry h1, .entry h2, .entry h3 { font-size: 1.05rem; margin: 1rem 0 0.4rem; }
+    .entry p { line-height: 1.5; margin: 0.5rem 0; }
+    .entry ul, .entry ol { padding-left: 1.4rem; }
+    .entry hr { border: none; border-top: 1px solid var(--border); margin: 0.75rem 0; }
+  </style>
+</head>
+<body>
+  <h1>{{ ticker }}</h1>
+  <div class="nav">
+    <a href="/">S&amp;P 500</a>
+    <a href="/smallcap">Small Cap</a>
+    <a href="/analysis" class="active">基本面研报</a>
+  </div>
+  <p><a class="back" href="/analysis">&larr; 返回列表</a></p>
+
+  {% for entry in entries %}
+  <div class="entry">
+    <div class="date">{{ entry.date }}</div>
+    {{ entry.html | safe }}
+  </div>
+  {% endfor %}
+</body>
+</html>

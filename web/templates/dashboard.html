@@ -84,6 +84,7 @@
   <div class="nav">
     <a href="/" class="{{ 'active' if active == 'sp500' else '' }}">S&amp;P 500</a>
     <a href="/smallcap" class="{{ 'active' if active == 'smallcap' else '' }}">Small Cap</a>
+    <a href="/analysis" class="{{ 'active' if active == 'analysis' else '' }}">基本面研报</a>
   </div>
   <div class="subtitle">Snapshot: {{ date or "no data yet" }} &middot; {{ rows|length }} tickers &middot; click a factor name to show/hide its sub-metrics</div>
   <div class="controls">

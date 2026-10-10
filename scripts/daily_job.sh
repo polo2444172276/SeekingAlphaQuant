@@ -1,6 +1,7 @@
 #!/bin/bash
 set -e
 cd /home/guolunli/SeekingAlphaQuant
+source /home/guolunli/.claude_env  # CLAUDE_CODE_OAUTH_TOKEN, for run_fundamental_analysis.py's headless `claude -p` calls
 
 echo "=== $(date -u) : starting daily job ==="
 
@@ -20,6 +21,10 @@ if [ ! -f "$SMALLCAP_CSV_PATH" ]; then
   echo "ERROR: expected CSV not found at $SMALLCAP_CSV_PATH"
   exit 1
 fi
+
+# Not fatal to the rest of the job -- a Claude CLI hiccup here shouldn't
+# block the cache cleanup below or mark snapshot data as missing.
+python3 scripts/run_fundamental_analysis.py || echo "WARNING: run_fundamental_analysis.py failed, continuing"
 
 # Snapshot data stays local (data/snapshots/ is gitignored) -- the dashboard
 # reads it straight off disk, no need to push it anywhere.

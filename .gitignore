@@ -6,4 +6,6 @@ __pycache__/
 .pytest_cache/
 logs/
 data/snapshots/
+data/snapshots_smallcap/
 data/history/
+data/fundamental_analysis/

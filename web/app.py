@@ -9,10 +9,12 @@ otherwise.
 import csv
 import glob
 import hmac
+import json
 import os
 
+import markdown
 from dotenv import load_dotenv
-from flask import Flask, Response, render_template, request
+from flask import Flask, Response, abort, render_template, request
 
 from seekingalpha_quant.config import (
     FACTOR_METRICS,
@@ -25,6 +27,7 @@ load_dotenv()
 BASE_DIR = os.path.dirname(os.path.dirname(os.path.abspath(__file__)))
 SNAPSHOT_DIR = os.path.join(BASE_DIR, "data", "snapshots")
 SMALLCAP_SNAPSHOT_DIR = os.path.join(BASE_DIR, "data", "snapshots_smallcap")
+ANALYSIS_DIR = os.path.join(BASE_DIR, "data", "fundamental_analysis")
 
 DASHBOARD_USER = os.environ.get("DASHBOARD_USER", "admin")
 DASHBOARD_PASSWORD = os.environ.get("DASHBOARD_PASSWORD", "")
@@ -197,6 +200,63 @@ def smallcap_dashboard():
         "dashboard.html", date=date, rows=rows, factor_defs=FACTOR_DEFS,
         active="smallcap", title="Factor Ledger — Small Cap", has_screen_cols=has_screen_cols,
         max_coverage=SMALLCAP_MAX_COVERAGE, min_dollar_volume=SMALLCAP_MIN_DOLLAR_VOLUME,
+    )
+
+
+def _load_all_analyses():
+    records = []
+    for path in sorted(glob.glob(os.path.join(ANALYSIS_DIR, "*.json"))):
+        with open(path) as f:
+            records.append(json.load(f))
+    return records
+
+
+@app.route("/analysis")
+@requires_auth
+def analysis_list():
+    _, smallcap_rows, _ = latest_snapshot(SMALLCAP_SNAPSHOT_DIR)
+    by_ticker = {row["ticker"]: row for row in smallcap_rows}
+
+    items = []
+    for record in _load_all_analyses():
+        ticker = record["ticker"]
+        if not record["analyses"]:
+            continue
+        latest = record["analyses"][-1]
+        row = by_ticker.get(ticker, {})
+        items.append({
+            "ticker": ticker,
+            "sector": row.get("sector"),
+            "overall_score": row.get("overall_score"),
+            "overall_rating": row.get("overall_rating"),
+            "latest_date": latest["date"],
+            "num_analyses": len(record["analyses"]),
+        })
+    items.sort(key=lambda r: r["latest_date"], reverse=True)
+
+    return render_template(
+        "analysis_list.html", items=items, active="analysis",
+        title="Factor Ledger — 基本面研报",
+    )
+
+
+@app.route("/analysis/<ticker>")
+@requires_auth
+def analysis_detail(ticker):
+    path = os.path.join(ANALYSIS_DIR, f"{ticker.upper()}.json")
+    if not os.path.exists(path):
+        abort(404)
+    with open(path) as f:
+        record = json.load(f)
+
+    entries = [
+        {"date": a["date"], "html": markdown.markdown(a["content"])}
+        for a in reversed(record["analyses"])
+    ]
+
+    return render_template(
+        "analysis_detail.html", ticker=record["ticker"], entries=entries,
+        active="analysis", title=f"Factor Ledger — {record['ticker']}",
     )
 
 
