@@ -266,22 +266,12 @@ def _pct_change(values, periods_back):
     return end / start - 1
 
 
-def _sparkline_points(values, width=280, height=40, pad=4):
-    vals = [v for v in values if v is not None]
-    if len(vals) < 2:
-        return ""
-    lo, hi = min(vals), max(vals)
-    span = (hi - lo) or 1
-    n = len(values)
-    step = (width - 2 * pad) / (n - 1)
-    points = []
-    for i, v in enumerate(values):
-        if v is None:
-            continue
-        x = pad + i * step
-        y = pad + (height - 2 * pad) * (1 - (v - lo) / span)
-        points.append(f"{x:.1f},{y:.1f}")
-    return " ".join(points)
+def _chart_points(dates, values, decimals=2):
+    """[{"x": date, "y": value}, ...] for Chart.js, skipping missing values."""
+    return [
+        {"x": d, "y": round(v, decimals)}
+        for d, v in zip(dates, values) if v is not None
+    ]
 
 
 def volatility_snapshot():
@@ -292,6 +282,7 @@ def volatility_snapshot():
     if not rows:
         return None, []
     date = rows[-1]["date"]
+    dates = [r["date"] for r in rows]
 
     metrics = []
     for m in VOLATILITY_METRICS:
@@ -312,7 +303,7 @@ def volatility_snapshot():
             "chg_1w_fmt": f"{chg_1w * 100:+.1f}%" if chg_1w is not None else "—",
             "chg_1m": chg_1m,
             "chg_1m_fmt": f"{chg_1m * 100:+.1f}%" if chg_1m is not None else "—",
-            "spark_points": _sparkline_points(values[-90:]),
+            "chart_json": json.dumps(_chart_points(dates, values)),
         })
     return date, metrics
 
@@ -346,8 +337,9 @@ def sentiment_dashboard():
         snapshot = json.load(f)
 
     overall = snapshot["overall"]
+    hist_dates = [p["date"] for p in overall["historical"]]
     hist_scores = [p["score"] for p in overall["historical"]]
-    overall["spark_points"] = _sparkline_points(hist_scores[-180:])
+    overall["chart_json"] = json.dumps(_chart_points(hist_dates, hist_scores, decimals=1))
     overall["rating_class"] = _rating_class(overall["rating"])
     overall["chg_1d"] = round(overall["score"] - overall["previous_close"], 1)
     overall["chg_1w"] = round(overall["score"] - overall["previous_1_week"], 1)
