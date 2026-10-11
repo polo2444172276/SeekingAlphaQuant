@@ -128,7 +128,8 @@ def build_prompt(ticker, row, profile):
         "问题 -1 到 5 每个最多用两句话回答;问题6需要给出三种情境,请分三行列出,每行格式为"
         f"'情境名: 合理股价区间或点位,相对当前股价{price_str} +X%/-X%'(用你自己估算的数字,不要省略)。"
         "每个问题的回答中,请用 **加粗** 标出1-2个最关键的词或结论,方便快速扫读,不要整段加粗。"
-        "如果某个问题(尤其是3、5这类依赖公开报道/管理层历史的问题)你没有足够可靠的信息,"
+        "你可以使用WebSearch查证最新情况(尤其是1、2、3、5这类依赖近期新闻、管理层动态、行业现状的问题),"
+        "不要只依赖训练数据里的旧信息;如果搜索后仍没有足够可靠的信息,"
         "直接说明'数据不足,无法判断',不要编造。不构成投资建议,只做研究参考。\n\n"
         f"公司简介:{description or '(无简介数据)'}\n\n"
         "量化因子数据:\n" + "\n".join(metrics_lines) + "\n\n"
@@ -137,9 +138,15 @@ def build_prompt(ticker, row, profile):
 
 
 def run_claude(prompt):
+    # --allowedTools WebSearch: headless `claude -p` has no tool access by
+    # default (no terminal to approve a permission prompt), so without this
+    # flag the model can only answer from training data and says so. With
+    # it, questions 1/2/3/5 (sector state, peer diffs, management track
+    # record, market-implied assumptions) can actually be checked against
+    # recent news instead of guessed from a stale cutoff.
     result = subprocess.run(
-        ["claude", "-p", prompt],
-        capture_output=True, text=True, timeout=180,
+        ["claude", "-p", prompt, "--allowedTools", "WebSearch"],
+        capture_output=True, text=True, timeout=300,
     )
     if result.returncode != 0:
         raise RuntimeError(f"claude -p exited {result.returncode}: {result.stderr[:500]}")
