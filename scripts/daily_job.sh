@@ -29,6 +29,9 @@ python3 scripts/run_fundamental_analysis.py || echo "WARNING: run_fundamental_an
 # Also non-fatal -- Yahoo Finance is a free, best-effort source with no SLA.
 python3 scripts/run_volatility_snapshot.py || echo "WARNING: run_volatility_snapshot.py failed, continuing"
 
+# Also non-fatal -- undocumented CNN endpoint, could change/break without notice.
+python3 scripts/run_sentiment_snapshot.py || echo "WARNING: run_sentiment_snapshot.py failed, continuing"
+
 # Snapshot data stays local (data/snapshots/ is gitignored) -- the dashboard
 # reads it straight off disk, no need to push it anywhere.
 

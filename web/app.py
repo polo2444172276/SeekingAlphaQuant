@@ -29,6 +29,7 @@ SNAPSHOT_DIR = os.path.join(BASE_DIR, "data", "snapshots")
 SMALLCAP_SNAPSHOT_DIR = os.path.join(BASE_DIR, "data", "snapshots_smallcap")
 ANALYSIS_DIR = os.path.join(BASE_DIR, "data", "fundamental_analysis")
 VOLATILITY_PATH = os.path.join(BASE_DIR, "data", "volatility", "history.csv")
+SENTIMENT_PATH = os.path.join(BASE_DIR, "data", "sentiment", "latest.json")
 
 VOLATILITY_METRICS = [
     {"col": "vix", "label": "VIX", "desc": "CBOE Volatility Index (S&P 500 30-day implied vol)"},
@@ -323,6 +324,42 @@ def volatility_dashboard():
     return render_template(
         "volatility.html", date=date, metrics=metrics,
         active="volatility", title="Factor Ledger — Volatility",
+    )
+
+
+RATING_ORDER = ["extreme fear", "fear", "neutral", "greed", "extreme greed"]
+
+
+def _rating_class(rating):
+    return (rating or "").replace(" ", "-")
+
+
+@app.route("/sentiment")
+@requires_auth
+def sentiment_dashboard():
+    if not os.path.exists(SENTIMENT_PATH):
+        return render_template(
+            "sentiment.html", date=None, overall=None, components=[],
+            active="sentiment", title="Factor Ledger — Sentiment",
+        )
+    with open(SENTIMENT_PATH) as f:
+        snapshot = json.load(f)
+
+    overall = snapshot["overall"]
+    hist_scores = [p["score"] for p in overall["historical"]]
+    overall["spark_points"] = _sparkline_points(hist_scores[-180:])
+    overall["rating_class"] = _rating_class(overall["rating"])
+    overall["chg_1d"] = round(overall["score"] - overall["previous_close"], 1)
+    overall["chg_1w"] = round(overall["score"] - overall["previous_1_week"], 1)
+    overall["chg_1m"] = round(overall["score"] - overall["previous_1_month"], 1)
+
+    components = snapshot["components"]
+    for c in components:
+        c["rating_class"] = _rating_class(c["rating"])
+
+    return render_template(
+        "sentiment.html", date=snapshot["date"], overall=overall, components=components,
+        active="sentiment", title="Factor Ledger — Sentiment",
     )
 
 

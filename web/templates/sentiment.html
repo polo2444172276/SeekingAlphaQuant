@@ -1,0 +1,128 @@
+<!doctype html>
+<html lang="en">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <title>{{ title or "Factor Ledger" }}</title>
+  <style>
+    :root {
+      color-scheme: light dark;
+      --extreme-fear: #cf222e;
+      --fear: #e0772a;
+      --neutral: #9a6700;
+      --greed: #4caf50;
+      --extreme-greed: #1a7f37;
+      --border: #d0d7de;
+    }
+    body {
+      font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, sans-serif;
+      margin: 0;
+      padding: 1rem;
+      background: Canvas;
+      color: CanvasText;
+      max-width: 720px;
+    }
+    h1 { font-size: 1.25rem; margin: 0 0 0.25rem; }
+    .subtitle { color: GrayText; font-size: 0.85rem; margin-bottom: 1rem; }
+    .nav { display: flex; gap: 0.5rem; margin-bottom: 0.75rem; flex-wrap: wrap; }
+    .nav a {
+      padding: 0.35rem 0.75rem;
+      border: 1px solid var(--border);
+      border-radius: 6px;
+      text-decoration: none;
+      color: CanvasText;
+      font-size: 0.85rem;
+    }
+    .nav a.active { background: color-mix(in srgb, Canvas 85%, CanvasText); font-weight: 600; }
+    .rating-extreme-fear { color: var(--extreme-fear); }
+    .rating-fear { color: var(--fear); }
+    .rating-neutral { color: var(--neutral); }
+    .rating-greed { color: var(--greed); }
+    .rating-extreme-greed { color: var(--extreme-greed); }
+    .card {
+      border: 1px solid var(--border);
+      border-radius: 10px;
+      padding: 1rem;
+      margin-bottom: 1rem;
+    }
+    .overall-head { display: flex; justify-content: space-between; align-items: baseline; }
+    .overall-score { font-size: 2.5rem; font-weight: 700; }
+    .overall-rating { font-size: 1.1rem; font-weight: 700; text-transform: capitalize; }
+    .changes { display: flex; gap: 1rem; font-size: 0.85rem; margin: 0.5rem 0; color: GrayText; }
+    svg.spark { width: 100%; height: 44px; display: block; }
+    .component {
+      display: flex;
+      align-items: center;
+      gap: 0.75rem;
+      padding: 0.5rem 0;
+      border-bottom: 1px solid var(--border);
+    }
+    .component:last-child { border-bottom: none; }
+    .component .label { flex: 1 1 auto; font-size: 0.9rem; }
+    .component .bar-wrap {
+      flex: 1 1 auto;
+      height: 8px;
+      border-radius: 4px;
+      background: color-mix(in srgb, Canvas 85%, CanvasText);
+      position: relative;
+      max-width: 140px;
+    }
+    .component .bar-fill {
+      position: absolute;
+      top: 0; left: 0; bottom: 0;
+      border-radius: 4px;
+    }
+    .component .score {
+      width: 3rem;
+      text-align: right;
+      font-weight: 600;
+      font-size: 0.9rem;
+    }
+  </style>
+</head>
+<body>
+  <h1>Market Sentiment</h1>
+  <div class="subtitle">CNN Fear &amp; Greed Index{% if date %} · as of {{ date }}{% endif %}</div>
+  <div class="nav">
+    <a href="/">S&amp;P 500</a>
+    <a href="/smallcap">Small Cap</a>
+    <a href="/sectors">Sector Performance</a>
+    <a href="/volatility">Volatility</a>
+    <a href="/sentiment" class="active">Sentiment</a>
+    <a href="/analysis">基本面研报</a>
+  </div>
+
+  {% if overall %}
+  <div class="card">
+    <div class="overall-head">
+      <span class="overall-score">{{ overall.score }}</span>
+      <span class="overall-rating rating-{{ overall.rating_class }}">{{ overall.rating }}</span>
+    </div>
+    <div class="changes">
+      <span>1D: {{ "%+.1f"|format(overall.chg_1d) }}</span>
+      <span>1W: {{ "%+.1f"|format(overall.chg_1w) }}</span>
+      <span>1M: {{ "%+.1f"|format(overall.chg_1m) }}</span>
+    </div>
+    {% if overall.spark_points %}
+    <svg class="spark" viewBox="0 0 280 40" preserveAspectRatio="none">
+      <polyline fill="none" stroke="currentColor" stroke-width="1.5" points="{{ overall.spark_points }}" />
+    </svg>
+    {% endif %}
+  </div>
+
+  <div class="card">
+    {% for c in components %}
+    <div class="component">
+      <span class="label">{{ c.label }}</span>
+      <span class="bar-wrap">
+        <span class="bar-fill rating-{{ c.rating_class }}" style="width: {{ c.score }}%; background: currentColor;"></span>
+      </span>
+      <span class="score rating-{{ c.rating_class }}">{{ c.score }}</span>
+    </div>
+    {% endfor %}
+  </div>
+  {% else %}
+  <p>No sentiment data yet — run scripts/run_sentiment_snapshot.py.</p>
+  {% endif %}
+</body>
+</html>

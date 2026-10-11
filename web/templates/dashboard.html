@@ -86,6 +86,7 @@
     <a href="/smallcap" class="{{ 'active' if active == 'smallcap' else '' }}">Small Cap</a>
     <a href="/sectors" class="{{ 'active' if active == 'sectors' else '' }}">Sector Performance</a>
     <a href="/volatility" class="{{ 'active' if active == 'volatility' else '' }}">Volatility</a>
+    <a href="/sentiment" class="{{ 'active' if active == 'sentiment' else '' }}">Sentiment</a>
     <a href="/analysis" class="{{ 'active' if active == 'analysis' else '' }}">基本面研报</a>
   </div>
   <div class="subtitle">Snapshot: {{ date or "no data yet" }} &middot; {{ rows|length }} tickers &middot; click a factor name to show/hide its sub-metrics</div>
