@@ -1,0 +1,82 @@
+<!doctype html>
+<html lang="en">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <title>{{ title or "Factor Ledger" }}</title>
+  <style>
+    :root { color-scheme: light dark; --up: #cf222e; --down: #1a7f37; --border: #d0d7de; }
+    body {
+      font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, sans-serif;
+      margin: 0;
+      padding: 1rem;
+      background: Canvas;
+      color: CanvasText;
+      max-width: 720px;
+    }
+    h1 { font-size: 1.25rem; margin: 0 0 0.25rem; }
+    .subtitle { color: GrayText; font-size: 0.85rem; margin-bottom: 1rem; }
+    .nav { display: flex; gap: 0.5rem; margin-bottom: 0.75rem; flex-wrap: wrap; }
+    .nav a {
+      padding: 0.35rem 0.75rem;
+      border: 1px solid var(--border);
+      border-radius: 6px;
+      text-decoration: none;
+      color: CanvasText;
+      font-size: 0.85rem;
+    }
+    .nav a.active { background: color-mix(in srgb, Canvas 85%, CanvasText); font-weight: 600; }
+    .card {
+      border: 1px solid var(--border);
+      border-radius: 10px;
+      padding: 1rem;
+      margin-bottom: 1rem;
+    }
+    .card-head { display: flex; justify-content: space-between; align-items: baseline; }
+    .card-head .label { font-weight: 700; font-size: 1.1rem; }
+    .card-head .desc { color: GrayText; font-size: 0.75rem; }
+    .card-value { font-size: 2rem; font-weight: 700; margin: 0.25rem 0 0.5rem; }
+    .changes { display: flex; gap: 1rem; font-size: 0.85rem; margin-bottom: 0.5rem; }
+    .changes .chg-label { color: GrayText; margin-right: 0.25rem; }
+    .up { color: var(--up); font-weight: 600; }
+    .down { color: var(--down); font-weight: 600; }
+    .flat { color: GrayText; }
+    svg.spark { width: 100%; height: 44px; display: block; }
+  </style>
+</head>
+<body>
+  <h1>Volatility</h1>
+  <div class="subtitle">VIX / MOVE / SKEW, daily closes (Yahoo Finance) · as of {{ date }}</div>
+  <div class="nav">
+    <a href="/">S&amp;P 500</a>
+    <a href="/smallcap">Small Cap</a>
+    <a href="/sectors">Sector Performance</a>
+    <a href="/volatility" class="active">Volatility</a>
+    <a href="/analysis">基本面研报</a>
+  </div>
+
+  {% for m in metrics %}
+  <div class="card">
+    <div class="card-head">
+      <span class="label">{{ m.label }}</span>
+      <span class="desc">{{ m.desc }}</span>
+    </div>
+    <div class="card-value">{{ m.latest if m.latest is not none else "—" }}</div>
+    <div class="changes">
+      <span><span class="chg-label">1D</span><span class="{{ 'up' if m.chg_1d and m.chg_1d > 0 else ('down' if m.chg_1d and m.chg_1d < 0 else 'flat') }}">{{ m.chg_1d_fmt }}</span></span>
+      <span><span class="chg-label">1W</span><span class="{{ 'up' if m.chg_1w and m.chg_1w > 0 else ('down' if m.chg_1w and m.chg_1w < 0 else 'flat') }}">{{ m.chg_1w_fmt }}</span></span>
+      <span><span class="chg-label">1M</span><span class="{{ 'up' if m.chg_1m and m.chg_1m > 0 else ('down' if m.chg_1m and m.chg_1m < 0 else 'flat') }}">{{ m.chg_1m_fmt }}</span></span>
+    </div>
+    {% if m.spark_points %}
+    <svg class="spark" viewBox="0 0 280 40" preserveAspectRatio="none">
+      <polyline fill="none" stroke="currentColor" stroke-width="1.5" points="{{ m.spark_points }}" />
+    </svg>
+    {% endif %}
+  </div>
+  {% endfor %}
+
+  {% if not metrics %}
+  <p>No volatility data yet — run scripts/run_volatility_snapshot.py.</p>
+  {% endif %}
+</body>
+</html>

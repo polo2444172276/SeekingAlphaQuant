@@ -70,17 +70,29 @@ def _return_ytd(df, close_col):
     return end_price / start_price - 1
 
 
+def _avg_dollar_volume(df, close_col, days=20):
+    """Trailing N-day average $ volume -- a liquidity proxy (not a scored
+    factor metric, used by scripts/run_smallcap_snapshot.py's screen)."""
+    if df.empty or "volume" not in df:
+        return None
+    recent = df.iloc[-days:]
+    dollar_vol = recent[close_col] * recent["volume"]
+    return dollar_vol.mean() if not dollar_vol.empty else None
+
+
 def compute_momentum_row(client, ticker):
     df = fetch_price_history(client, ticker)
     close_col = "adjClose"
     return {
         "ticker": ticker,
+        "return_1w": _return_since(df, close_col, 7),
         "return_1m": _return_since(df, close_col, 30),
         "return_3m": _return_since(df, close_col, 91),
         "return_6m": _return_since(df, close_col, 182),
         "return_9m": _return_since(df, close_col, 273),
         "return_12m": _return_since(df, close_col, 365),
         "return_ytd": _return_ytd(df, close_col),
+        "avg_dollar_volume": _avg_dollar_volume(df, close_col),
     }
 
 

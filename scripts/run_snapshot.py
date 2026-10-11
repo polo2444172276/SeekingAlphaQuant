@@ -82,7 +82,7 @@ def main():
     # recomputing anything.
     raw_metric_cols = [
         col for metrics in FACTOR_METRICS.values() for col in metrics
-    ]
+    ] + ["return_1w"]
     raw_panels = fundamentals_df.merge(
         momentum_df.drop(columns=["sector"], errors="ignore"), on="ticker", how="outer"
     ).merge(

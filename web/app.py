@@ -28,6 +28,13 @@ BASE_DIR = os.path.dirname(os.path.dirname(os.path.abspath(__file__)))
 SNAPSHOT_DIR = os.path.join(BASE_DIR, "data", "snapshots")
 SMALLCAP_SNAPSHOT_DIR = os.path.join(BASE_DIR, "data", "snapshots_smallcap")
 ANALYSIS_DIR = os.path.join(BASE_DIR, "data", "fundamental_analysis")
+VOLATILITY_PATH = os.path.join(BASE_DIR, "data", "volatility", "history.csv")
+
+VOLATILITY_METRICS = [
+    {"col": "vix", "label": "VIX", "desc": "CBOE Volatility Index (S&P 500 30-day implied vol)"},
+    {"col": "move", "label": "MOVE", "desc": "ICE BofA MOVE Index (Treasury rates implied vol)"},
+    {"col": "skew", "label": "SKEW", "desc": "CBOE SKEW Index (tail-risk / put-call skew proxy)"},
+]
 
 DASHBOARD_USER = os.environ.get("DASHBOARD_USER", "admin")
 DASHBOARD_PASSWORD = os.environ.get("DASHBOARD_PASSWORD", "")
@@ -78,6 +85,8 @@ PERCENT_METRICS = {
     "nim_proxy", "ffo_margin", "rd_intensity",
 }
 COUNT_METRICS = {"net_upgrades_1m", "net_upgrades_3m"}
+
+SECTOR_RETURN_METRICS = ["return_1w", "return_1m", "return_12m"]
 
 
 def _build_factor_defs():
@@ -186,6 +195,45 @@ def latest_snapshot(snapshot_dir):
     return date, rows, has_screen_cols
 
 
+def sector_performance(snapshot_dir):
+    """Equal-weighted average trailing return per sector, from the latest
+    snapshot in `snapshot_dir`. Averages only over tickers that actually
+    have a value for that window (new listings etc. are skipped, not
+    treated as 0)."""
+    files = sorted(glob.glob(os.path.join(snapshot_dir, "*.csv")))
+    if not files:
+        return None, []
+    path = files[-1]
+    date = os.path.splitext(os.path.basename(path))[0]
+    with open(path, newline="") as f:
+        rows = list(csv.DictReader(f))
+
+    by_sector = {}
+    for row in rows:
+        sector = row.get("sector")
+        if not sector:
+            continue
+        bucket = by_sector.setdefault(sector, {"count": 0, "sums": {}, "counts": {}})
+        bucket["count"] += 1
+        for m in SECTOR_RETURN_METRICS:
+            v = _coerce_float(row.get(m))
+            if v is not None:
+                bucket["sums"][m] = bucket["sums"].get(m, 0.0) + v
+                bucket["counts"][m] = bucket["counts"].get(m, 0) + 1
+
+    sectors = []
+    for sector, bucket in by_sector.items():
+        entry = {"sector": sector, "num_tickers": bucket["count"]}
+        for m in SECTOR_RETURN_METRICS:
+            c = bucket["counts"].get(m, 0)
+            avg = (bucket["sums"][m] / c) if c else None
+            entry[m] = avg
+            entry[f"{m}_fmt"] = f"{avg * 100:+.1f}%" if avg is not None else "—"
+        sectors.append(entry)
+    sectors.sort(key=lambda r: (r["return_1m"] is None, -(r["return_1m"] or 0)))
+    return date, sectors
+
+
 @app.route("/")
 @requires_auth
 def dashboard():
@@ -205,6 +253,86 @@ def smallcap_dashboard():
         "dashboard.html", date=date, rows=rows, factor_defs=FACTOR_DEFS,
         active="smallcap", title="Factor Ledger — Small Cap", has_screen_cols=has_screen_cols,
         max_coverage=SMALLCAP_MAX_COVERAGE, min_dollar_volume=SMALLCAP_MIN_DOLLAR_VOLUME,
+    )
+
+
+def _pct_change(values, periods_back):
+    if len(values) <= periods_back:
+        return None
+    start, end = values[-1 - periods_back], values[-1]
+    if start is None or end is None:
+        return None
+    return end / start - 1
+
+
+def _sparkline_points(values, width=280, height=40, pad=4):
+    vals = [v for v in values if v is not None]
+    if len(vals) < 2:
+        return ""
+    lo, hi = min(vals), max(vals)
+    span = (hi - lo) or 1
+    n = len(values)
+    step = (width - 2 * pad) / (n - 1)
+    points = []
+    for i, v in enumerate(values):
+        if v is None:
+            continue
+        x = pad + i * step
+        y = pad + (height - 2 * pad) * (1 - (v - lo) / span)
+        points.append(f"{x:.1f},{y:.1f}")
+    return " ".join(points)
+
+
+def volatility_snapshot():
+    if not os.path.exists(VOLATILITY_PATH):
+        return None, []
+    with open(VOLATILITY_PATH, newline="") as f:
+        rows = list(csv.DictReader(f))
+    if not rows:
+        return None, []
+    date = rows[-1]["date"]
+
+    metrics = []
+    for m in VOLATILITY_METRICS:
+        col = m["col"]
+        values = [_coerce_float(r.get(col)) for r in rows]
+        latest = values[-1]
+        chg_1d = _pct_change(values, 1)
+        chg_1w = _pct_change(values, 5)
+        chg_1m = _pct_change(values, 21)
+        metrics.append({
+            "col": col,
+            "label": m["label"],
+            "desc": m["desc"],
+            "latest": round(latest, 2) if latest is not None else None,
+            "chg_1d": chg_1d,
+            "chg_1d_fmt": f"{chg_1d * 100:+.1f}%" if chg_1d is not None else "—",
+            "chg_1w": chg_1w,
+            "chg_1w_fmt": f"{chg_1w * 100:+.1f}%" if chg_1w is not None else "—",
+            "chg_1m": chg_1m,
+            "chg_1m_fmt": f"{chg_1m * 100:+.1f}%" if chg_1m is not None else "—",
+            "spark_points": _sparkline_points(values[-90:]),
+        })
+    return date, metrics
+
+
+@app.route("/volatility")
+@requires_auth
+def volatility_dashboard():
+    date, metrics = volatility_snapshot()
+    return render_template(
+        "volatility.html", date=date, metrics=metrics,
+        active="volatility", title="Factor Ledger — Volatility",
+    )
+
+
+@app.route("/sectors")
+@requires_auth
+def sectors_dashboard():
+    date, sectors = sector_performance(SNAPSHOT_DIR)
+    return render_template(
+        "sectors.html", date=date, sectors=sectors,
+        active="sectors", title="Factor Ledger — Sector Performance",
     )
 
 
