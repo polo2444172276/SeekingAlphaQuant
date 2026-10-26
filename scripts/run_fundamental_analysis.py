@@ -117,22 +117,32 @@ def build_prompt(ticker, row, profile):
         "3) 这家公司管理层过去的执行风格如何,是否说到做到?最近的战略方向是什么?管理层的激励机制是否足够到位?\n"
         "4) 抛开行业分类,这家公司更像哪种风格的股票 —— 高增长股、稳定现金流股、深度价值股、周期股、"
         "困境反转股、资产价值股、特殊事件股、高风险非对称机会股(可以选一种或多种)?\n"
-        "5) 反向估值:假设当前股价是对的,把它反推成隐含的未来3年收入增速和稳态利润率/倍数假设"
-        "(给出具体数字,不要只说方向);再给出门槛假设——增速或利润率到什么具体数字,这个隐含逻辑就不成立。\n"
-        "6) 情景与催化剂:给出乐观/中性/悲观三档股价,但重点是中性档的触发条件(什么具体事情发生了"
-        "我们就在这一档,不要只贴标签);增速和利润率现实中通常同向变动,悲观档请把两者联合下修而不是只调一个变量;"
-        "最后给出可能让市场重新定价的具体催化剂(事件/时间点),想不到就直接说没有明显催化剂。"
+        "5) 量化市场共识:当前股价隐含了市场对这家公司的哪些具体假设?"
+        "用一致预期(未来1-2年营收增速、利润率)、当前估值倍数反推出的隐含假设、以及市场现在讲的叙事"
+        "(偏乐观还是偏悲观、在交易什么逻辑),给出具体数字,不要只说方向;这一题只负责客观还原市场在信什么,"
+        "不要夹杂你自己的判断。\n"
+        "6) Variant perception:找一个与上面市场共识不一致、且能被公开数据/渠道产业链信号验证的具体变量——"
+        "可以来自财务结构变化(毛利率、库存天数、预收款、经营现金流等)、渠道和产业链信息(经销商库存、"
+        "终端动销、上下游排产)、或商业模式变化(市场当成短期波动、实际可能是结构性改善或恶化)。"
+        "先说清楚差异化来源是时间维度错配(市场看短期你看中期,或反过来)还是结构拆分错配"
+        "(市场看总量你看结构);再逐条过三条验证标准:(a) 差异是否大到足以影响估值或盈利预期,"
+        "(b) 是否有多维度证据交叉支撑而不是单一数据点,(c) 未来是否有具体催化剂"
+        "(财报、新产品、管理层变化、行业政策)能让市场修正认知、给出大致时间点。"
+        "如果任何一条不成立,直接说这更像噪音而不是真正的variant perception,不要为了凑结论硬编;"
+        "只有三条都成立时,才在最后给出方向性判断——这个差异一旦被验证,相对当前股价{price_str}"
+        "股价大概率往哪个方向修正、大致影响区间,不需要展开乐观/中性/悲观三档。"
     )
     price_str = f"${price}" if price is not None else "未知"
+    questions = questions.format(price_str=price_str)
     return (
         f"你是一位基本面分析师。下面是股票 {ticker}({name}) 的量化因子打分、公司简介和股价。"
         f"请用中文依次回答下面编号为 -1 到 6 的问题,按编号原样列出问题和答案,不要额外加标题或总结段落。"
-        "问题 -1 到 4 每个最多两句话;问题5和6可以稍长(反向估值和情景分析需要具体数字和触发条件),"
-        "但不要堆砌空话,仍保持精炼。问题5的措辞应该是在描述市场的假设,而不是证明自己判断正确。"
-        f"问题6的三档情景请分三行列出,每行先给触发条件、再给价格区间和相对当前股价{price_str}的涨跌幅。"
+        "问题 -1 到 4 每个最多两句话;问题5和6可以稍长(量化市场共识和挖掘variant perception需要具体"
+        "数字和证据链),但不要堆砌空话,仍保持精炼。问题6的证据链必须基于公开信息和合理推演,"
+        "不要暗示非公开渠道消息或无法验证的'小道消息'。"
         "每个问题的回答中,请用 **加粗** 标出1-2个最关键的词或结论,方便快速扫读,不要整段加粗。"
-        "你可以使用WebSearch查证最新情况(尤其是1、2、3、5这类依赖近期新闻、管理层动态、行业现状的问题),"
-        "不要只依赖训练数据里的旧信息;如果搜索后仍没有足够可靠的信息,"
+        "你可以使用WebSearch查证最新情况(尤其是1、2、3、5、6这类依赖近期新闻、管理层动态、行业现状、"
+        "渠道产业链信息的问题),不要只依赖训练数据里的旧信息;如果搜索后仍没有足够可靠的信息,"
         "直接说明'数据不足,无法判断',不要编造。不构成投资建议,只做研究参考。\n\n"
         f"公司简介:{description or '(无简介数据)'}\n\n"
         "量化因子数据:\n" + "\n".join(metrics_lines) + "\n\n"
@@ -144,12 +154,13 @@ def run_claude(prompt):
     # --allowedTools WebSearch: headless `claude -p` has no tool access by
     # default (no terminal to approve a permission prompt), so without this
     # flag the model can only answer from training data and says so. With
-    # it, questions 1/2/3/5 (sector state, peer diffs, management track
-    # record, market-implied assumptions) can actually be checked against
-    # recent news instead of guessed from a stale cutoff.
+    # it, questions 1/2/3/5/6 (sector state, peer diffs, management track
+    # record, market-implied assumptions, variant-perception evidence chain)
+    # can actually be checked against recent news instead of guessed from a
+    # stale cutoff.
     result = subprocess.run(
         ["claude", "-p", prompt, "--allowedTools", "WebSearch"],
-        capture_output=True, text=True, timeout=420,
+        capture_output=True, text=True, timeout=600,
     )
     if result.returncode != 0:
         raise RuntimeError(f"claude -p exited {result.returncode}: {result.stderr[:500]}")
