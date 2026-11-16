@@ -10,17 +10,22 @@ Rules
 - Each lot is bought at the first close a reader could trade at after
   publication (same session for pre-market/intraday/date-only, next session
   for after-16:00) and sold at the first close strictly more than one year
-  later (long-term capital gain). Sale proceeds stay in cash (not reinvested).
+  later (long-term capital gain). By default the sale proceeds are
+  reinvested: they join the budget of the next contribution window after the
+  sale (equal-weighted across that window's picks). --no-reinvest keeps them
+  in cash instead.
 - Dividend-adjusted closes (dividends reinvested within each lot). Delisted
   names are held as cash at their last price after delisting.
 - Lots still open are marked to the latest close.
-- Benchmark: the same dollars on the same entry days buy SPY, same exit rule.
+- Benchmark: the same contributions on the same entry days buy SPY, same exit
+  and reinvestment rules (SPY proceeds are reinvested into SPY).
 
 PnL = cash + market value - contributions (principal excluded).
 Data: Supabase first (picks, prices_daily); missing prices fetched from FMP
 and cached back into the DB.
 
-Writes data/steve_cress/dca_backtest_daily.csv and dca_backtest_lots.csv.
+Writes data/steve_cress/dca_backtest_daily.csv and dca_backtest_lots.csv
+(suffix _noreinvest with --no-reinvest).
 """
 import csv
 import os
@@ -35,6 +40,8 @@ from seekingalpha_quant.data.market_data import load_daily  # noqa: E402
 OUT = os.path.join(ROOT, "data", "steve_cress")
 AMOUNT = 50.0
 START = date(2022, 1, 1)
+REINVEST = "--no-reinvest" not in sys.argv
+SUFFIX = "" if REINVEST else "_noreinvest"
 
 
 def add_year(d):
@@ -87,7 +94,8 @@ def main():
         return s[max(prior)] if prior else None
 
     cdates = list(contribution_dates(START, last))
-    lots, carry, skipped = [], 0.0, []
+    lots, carry, carry_spy, skipped = [], 0.0, 0.0, []
+    credited = set()  # lots whose sale proceeds were already reinvested
     for i, c in enumerate(cdates):
         nxt = cdates[i + 1] if i + 1 < len(cdates) else date(9999, 1, 1)
         win = {}
@@ -100,16 +108,24 @@ def main():
                     continue
                 if p["symbol"] not in win or e < win[p["symbol"]][0]:
                     win[p["symbol"]] = (e, p["source"])
-        budget = AMOUNT + carry
+        budget, budget_spy = AMOUNT + carry, AMOUNT + carry_spy
+        if REINVEST:
+            # proceeds of lots sold before this contribution date join this window's budget
+            for k, L in enumerate(lots):
+                if k not in credited and L["exit"] and L["exit"] < c:
+                    credited.add(k)
+                    budget += L["shares"] * price_on(L["ticker"], L["exit"])
+                    budget_spy += L["spy_shares"] * adj["SPY"][L["exit"]]
         if not win:
-            carry = budget
+            carry, carry_spy = budget, budget_spy
             continue
-        carry = 0.0
-        each = budget / len(win)
+        carry = carry_spy = 0.0
+        each, each_spy = budget / len(win), budget_spy / len(win)
         for t, (e, src) in win.items():
             x = next((cc for cc in cal if cc > add_year(e)), None)
             lots.append(dict(window=c, ticker=t, source=src, entry=e, exit=x if x and x <= last else None,
-                             dollars=each, shares=each / adj[t][e], spy_shares=each / adj["SPY"][e]))
+                             dollars=each, shares=each / adj[t][e],
+                             spy_dollars=each_spy, spy_shares=each_spy / adj["SPY"][e]))
 
     daily = []
     for d in cal:
@@ -124,7 +140,7 @@ def main():
             if L["entry"] > d:
                 continue
             cash -= L["dollars"]
-            cash_spy -= L["dollars"]
+            cash_spy -= L["spy_dollars"]
             if L["exit"] and L["exit"] <= d:
                 cash += L["shares"] * price_on(L["ticker"], L["exit"])
                 cash_spy += L["spy_shares"] * adj["SPY"][L["exit"]]
@@ -137,7 +153,7 @@ def main():
                           spy_market_value=round(mv_spy, 2), spy_pnl=round(cash_spy + mv_spy - contrib, 2),
                           open_lots=n_open))
 
-    with open(os.path.join(OUT, "dca_backtest_daily.csv"), "w", newline="") as f:
+    with open(os.path.join(OUT, f"dca_backtest_daily{SUFFIX}.csv"), "w", newline="") as f:
         w = csv.DictWriter(f, fieldnames=list(daily[0]))
         w.writeheader()
         w.writerows(daily)
@@ -146,7 +162,7 @@ def main():
         L["exit_value"] = L["shares"] * price_on(L["ticker"], end)
         L["return"] = L["exit_value"] / L["dollars"] - 1
         L["spy_return"] = adj["SPY"][end] / adj["SPY"][L["entry"]] - 1
-    with open(os.path.join(OUT, "dca_backtest_lots.csv"), "w", newline="") as f:
+    with open(os.path.join(OUT, f"dca_backtest_lots{SUFFIX}.csv"), "w", newline="") as f:
         w = csv.writer(f)
         w.writerow(["window", "ticker", "source", "entry", "exit", "status", "dollars", "exit_value",
                     "return", "spy_return"])

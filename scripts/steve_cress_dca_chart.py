@@ -23,12 +23,12 @@ body{margin:0;background:var(--surface);color:var(--ink);font:14px/1.45 system-u
 .tip div{display:flex;justify-content:space-between;gap:14px;color:var(--ink2)}.tip em{font-style:normal;color:var(--ink)}
 .note{color:var(--muted);font-size:12px;margin-top:12px}
 </style></head><body><div class="wrap">
-<h1>每半月 $50 定投 SA 推荐股，持有满 1 年</h1>
+<h1>每半月 $50 定投 SA 推荐股，持有满 1 年，卖出所得再投资</h1>
 <p class="sub">累计 PnL（不含本金）· __START__ 至 __END__ · 对比：同样金额、同一天买入 SPY、同样持有 1 年</p>
 <div class="kpis"><div class="kpi"><b>$__P__</b><span>推荐股 PnL</span></div><div class="kpi"><b>$__S__</b><span>SPY PnL</span></div><div class="kpi"><b>$__C__</b><span>累计投入本金</span></div></div>
-<div class="legend"><span><i style="background:var(--s1)"></i>推荐股</span><span><i style="background:var(--s2)"></i>SPY</span></div>
+<div class="legend"><span><i style="background:var(--s1)"></i>推荐股（再投资）</span><span><i style="background:var(--s2)"></i>SPY（再投资）</span><span><i style="background:repeating-linear-gradient(90deg,var(--s1) 0 4px,transparent 4px 7px)"></i>推荐股（不再投资）</span></div>
 <div class="chart" id="c"><div class="tip" id="tip"></div></div>
-<p class="note">规则：每月 1 日、15 日各到账 $50，等权买入接下来半个月内推荐的所有股票（三个来源，同一窗口内重复的只买一次；没有推荐的窗口资金顺延）。买入价为发布后第一个能成交的收盘价，持有超过 1 年后卖出，卖出所得留作现金不再投资。含分红再投资；退市股按最后价格转现金。</p>
+<p class="note">规则：每月 1 日、15 日各到账 $50，等权买入接下来半个月内推荐的所有股票（三个来源，同一窗口内重复的只买一次；没有推荐的窗口资金顺延）。买入价为发布后第一个能成交的收盘价，持有超过 1 年后卖出，卖出所得并入下一期的预算，等权买入那一期的推荐（SPY 对照组同理再买 SPY）。虚线为卖出后不再投资的版本。含分红再投资；退市股按最后价格转现金。</p>
 </div><script>
 const D=__DATA__;const W=960,H=380,m={l:56,r:16,t:12,b:32},iw=W-m.l-m.r,ih=H-m.t-m.b;
 const ns="http://www.w3.org/2000/svg",el=(n,a,p)=>{const e=document.createElementNS(ns,n);for(const k in a)e.setAttribute(k,a[k]);p&&p.appendChild(e);return e};
@@ -40,6 +40,7 @@ for(let v=lo;v<=hi;v+=500){el("line",{x1:m.l,x2:W-m.r,y1:y(v),y2:y(v),stroke:v==
 D.forEach((d,i)=>{if(i===0||D[i-1][0].slice(0,4)!==d[0].slice(0,4)){const t=el("text",{x:x(i),y:H-10,"text-anchor":"middle","font-size":11,fill:"var(--ink2)"},svg);t.textContent=d[0].slice(0,4)}});
 const path=k=>D.map((d,i)=>(i?"L":"M")+x(i).toFixed(1)+","+y(d[k]).toFixed(1)).join("");
 el("path",{d:path(2),fill:"none",stroke:"var(--s2)","stroke-width":2},svg);
+if(D[0][5]!==null)el("path",{d:path(5),fill:"none",stroke:"var(--s1)","stroke-width":1.5,"stroke-dasharray":"4 3",opacity:.8},svg);
 el("path",{d:path(1),fill:"none",stroke:"var(--s1)","stroke-width":2},svg);
 const n=D.length-1;
 [[1,"推荐股"],[2,"SPY"]].forEach(([k,l])=>{const t=el("text",{x:x(n)-4,y:y(D[n][k])-8,"text-anchor":"end","font-size":12,fill:"var(--ink)"},svg);t.textContent=l+" $"+Math.round(D[n][k]).toLocaleString()});
@@ -52,7 +53,7 @@ hit.addEventListener("mousemove",e=>{const b=svg.getBoundingClientRect();const p
  vl.setAttribute("x1",x(i));vl.setAttribute("x2",x(i));vl.setAttribute("opacity",1);
  d1.setAttribute("cx",x(i));d1.setAttribute("cy",y(d[1]));d1.setAttribute("opacity",1);
  d2.setAttribute("cx",x(i));d2.setAttribute("cy",y(d[2]));d2.setAttribute("opacity",1);
- tip.innerHTML=`<b>${d[0]}</b><div>推荐股 PnL<em>$${Math.round(d[1]).toLocaleString()}</em></div><div>SPY PnL<em>$${Math.round(d[2]).toLocaleString()}</em></div><div>累计本金<em>$${d[3].toLocaleString()}</em></div><div>持仓笔数<em>${d[4]}</em></div>`;
+ tip.innerHTML=`<b>${d[0]}</b><div>推荐股 PnL<em>$${Math.round(d[1]).toLocaleString()}</em></div><div>SPY PnL<em>$${Math.round(d[2]).toLocaleString()}</em></div>${d[5]!==null?`<div>推荐股（不再投资）<em>$${Math.round(d[5]).toLocaleString()}</em></div>`:""}<div>累计本金<em>$${d[3].toLocaleString()}</em></div><div>持仓笔数<em>${d[4]}</em></div>`;
  tip.style.display="block";const cb=c.getBoundingClientRect();let lx=e.clientX-cb.left+14;if(lx+180>cb.width)lx=e.clientX-cb.left-190;tip.style.left=lx+"px";tip.style.top="10px"});
 hit.addEventListener("mouseleave",()=>{tip.style.display="none";[vl,d1,d2].forEach(z=>z.setAttribute("opacity",0))});
 </script></body></html>"""
@@ -60,8 +61,10 @@ hit.addEventListener("mouseleave",()=>{tip.style.display="none";[vl,d1,d2].forEa
 
 def main():
     rows = list(csv.DictReader(open(os.path.join(D_DIR, "dca_backtest_daily.csv"))))
-    data = [[r["date"], float(r["pnl"]), float(r["spy_pnl"]), float(r["contributions"]), int(r["open_lots"])]
-            for r in rows]
+    nr_path = os.path.join(D_DIR, "dca_backtest_daily_noreinvest.csv")
+    nr = {r["date"]: float(r["pnl"]) for r in csv.DictReader(open(nr_path))} if os.path.exists(nr_path) else {}
+    data = [[r["date"], float(r["pnl"]), float(r["spy_pnl"]), float(r["contributions"]), int(r["open_lots"]),
+             nr.get(r["date"])] for r in rows]
     last = data[-1]
     html = (TEMPLATE.replace("__DATA__", json.dumps(data))
             .replace("__START__", data[0][0][:7]).replace("__END__", last[0])
