@@ -1,0 +1,5 @@
+variant,picks_taxable,spy_taxable,gap,picks_cash_end,picks_inv_tax,spy_inv_tax
+"baseline (taxes, 12-tranche proceeds & bonus)",807656,774783,32873,266073,119403,1524
+no tax on investment income,915631,776728,138903,267297,0,0
+proceeds & bonus invested immediately,603770,806331,-202562,24816,58939,86
+no investment tax + immediate,657893,806453,-148559,24816,0,0
