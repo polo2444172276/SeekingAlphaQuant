@@ -8,15 +8,21 @@ search) for data the database does not have — and when you do fetch it,
 write it back to the database so the next session has it.
 
 Order of preference:
-1. **Supabase Postgres** (REST Data API) — reference data, picks, recent and
-   ad-hoc prices, fundamentals, analysis results.
-2. **Supabase Storage bucket `market-data`** — bulk history as Parquet; query
-   locally with DuckDB. Catalogue: table `data_files`.
-3. **Live APIs** — Yahoo chart API, FMP (`financialmodelingprep.com`, key is
-   injected by the proxy), Eastmoney/Sina/Tencent for A-shares. Then upsert
-   what you fetched into `prices_daily` / `securities` (or a Parquet file +
-   `data_files` row for bulk history).
-4. **Web search** — only for things no data source has (news, articles,
+1. **Supabase** — one data source with two access paths; pick by query size,
+   not one after the other:
+   - **Postgres (REST Data API)** for small / precise reads and all writes:
+     reference data, picks, a handful of tickers' prices, fundamentals,
+     analysis results. Also the catalogue: `data_files` lists every Parquet
+     file, and `securities` / `index_membership` say what exists.
+   - **Parquet in Storage bucket `market-data` + DuckDB** for bulk history
+     (whole index, many years, backtests, cross-sectional scans). Look up the
+     files in `data_files`, download, query locally.
+2. **Live APIs** — only when Supabase lacks the data: Yahoo chart API, FMP
+   (`financialmodelingprep.com`, key is injected by the proxy),
+   Eastmoney/Sina/Tencent for A-shares. Then upsert what you fetched into
+   `prices_daily` / `securities` (or a Parquet file + `data_files` row for
+   bulk history).
+3. **Web search** — only for things no data source has (news, articles,
    corporate-action details).
 
 ## Access
