@@ -1,0 +1,69 @@
+company,ticker,picked,closed,return_pct,sector,rating,winner
+Powell Industries,POWL,2024-10-01,2026-11-05,67.54,Industrials,Sell,Y
+Powell Industries,POWL,2023-05-15,2026-11-05,589.92,Industrials,Sell,Y
+Corporacion America Airports,CAAP,2023-05-01,2026-11-02,109.55,Industrials,Hold,Y
+Powell Industries,POWL,2023-05-15,2026-09-08,900.29,Industrials,Sell,Y
+Powell Industries,POWL,2024-10-01,2026-09-08,142.91,Industrials,Sell,Y
+Vistance Networks,VISN,2025-08-15,2026-08-18,-26.38,Information Technology,Sell,
+Argan,AGX,2024-10-15,2026-07-17,356.94,Industrials,Hold,Y
+Royal Caribbean Cruises,RCL,2024-03-15,2026-06-02,126.26,Consumer Discretionary,Hold,Y
+SkyWest,SKYW,2024-06-03,2026-05-14,4.73,Industrials,Hold,
+Arcutis Biotherapeutics,ARQT,2025-03-17,2026-05-13,29.64,Health Care,Hold,
+Willdan Group,WLDN,2025-07-01,2026-04-27,4.47,Industrials,Hold,
+Pilgrim's Pride,PPC,2024-09-16,2026-04-01,-7.75,Consumer Staples,Hold,
+Powell Industries,POWL,2023-05-15,2026-03-11,857.03,Industrials,Sell,Y
+Powell Industries,POWL,2024-10-01,2026-03-11,132.40,Industrials,Sell,Y
+Wells Fargo,WFC,2025-03-03,2026-02-03,19.49,Financials,Strong Buy,
+Happen,HAPN,2024-12-16,2026-02-02,-3.11,Financials,Hold,
+PayPal Holdings,PYPL,2025-01-15,2026-01-26,-36.77,Financials,Hold,
+Argan,AGX,2024-10-15,2026-01-20,223.67,Industrials,Hold,Y
+Corporacion America Airports,CAAP,2023-05-01,2025-12-17,123.17,Industrials,Hold,Y
+DXP Enterprises,DXPE,2025-07-15,2025-11-13,-8.93,Industrials,Hold,
+Sprouts Farmers Market,SFM,2024-06-17,2025-11-06,-1.22,Consumer Staples,Sell,Y
+Q2 Holdings,QTWO,2024-12-02,2025-11-06,-34.74,Information Technology,Buy,
+Stride,LRN,2025-06-02,2025-11-04,-54.42,Consumer Discretionary,Buy,
+Celestica,CLS,2023-10-16,2025-10-31,1166.59,Information Technology,Hold,
+Royal Caribbean Cruises,RCL,2024-03-15,2025-10-29,121.36,Consumer Discretionary,Hold,Y
+Green Brick Partners,GRBK,2023-07-17,2025-10-27,18.45,Consumer Discretionary,Hold,
+AppLovin,APP,2023-11-15,2025-10-01,1571.37,Communication Services,Buy,
+Ituran Location and Control,ITRN,2025-02-18,2025-08-28,-14.88,Information Technology,Hold,
+General Motors,GM,2024-05-01,2025-08-25,30.83,Consumer Discretionary,Buy,
+PepsiCo,PEP,2024-01-16,2025-08-04,-16.54,Consumer Staples,Hold,
+United Rentals,URI,2023-02-15,2025-06-09,57.06,Industrials,Hold,
+Alphabet,GOOGL,2023-09-01,2025-05-14,19.46,Communication Services,Hold,
+Salesforce,CRM,2023-06-15,2025-05-12,38.01,Information Technology,Hold,
+Zeta Global Holdings,ZETA,2024-08-15,2025-05-08,-45.24,Information Technology,Strong Buy,
+Reinsurance Group of America,RGA,2024-08-01,2025-05-05,-11.82,Financials,Strong Buy,
+Abercrombie & Fitch,ANF,2023-10-02,2025-03-20,45.85,Consumer Discretionary,Strong Buy,
+Amphastar Pharmaceuticals,AMPH,2023-07-03,2025-03-06,-52.32,Health Care,Hold,
+Sprouts Farmers Market,SFM,2024-06-17,2025-02-18,118.32,Consumer Staples,Sell,Y
+Modine Manufacturing,MOD,2024-01-02,2025-02-14,54.50,Industrials,Strong Sell,
+Modine Manufacturing,MOD,2022-12-15,2025-02-14,348.50,Industrials,Strong Sell,
+M/I Homes,MHO,2022-10-03,2025-02-04,228.41,Consumer Discretionary,Hold,
+M/I Homes,MHO,2023-12-15,2025-02-04,-2.00,Consumer Discretionary,Hold,
+Comcast,CMCSA,2023-12-01,2024-12-30,-11.46,Communication Services,Hold,
+Terex,TEX,2023-01-16,2024-12-18,-2.89,Industrials,Hold,
+Cardinal Health,CAH,2024-03-01,2024-11-19,3.86,Health Care,Hold,
+Ardmore Shipping,ASC,2023-03-01,2024-11-08,-34.49,Energy,Strong Buy,
+Super Micro Computer (SA marks SMCI*),SMCI,2022-11-15,2024-10-30,301.41,Information Technology,Hold,
+Alpha Metallurgical Resources,AMR,2022-07-01,2024-09-12,59.51,Materials,Hold,
+GigaCloud Technology,GCT,2024-04-15,2024-09-12,-47.16,Consumer Discretionary,Strong Buy,
+Arch Resources,ARCH,2022-07-01,2024-08-26,-13.21,,Not Covered,
+Meta Platforms,META,2023-08-15,2024-08-20,72.47,Communication Services,Hold,
+HF Sinclair,DINO,2022-12-01,2024-08-06,-26.38,Energy,Strong Buy,
+Marathon Petroleum,MPC,2023-01-03,2024-07-29,48.69,Energy,Strong Buy,
+Valero Energy,VLO,2022-07-01,2024-07-15,38.00,Energy,Strong Buy,
+BlueLinx Holdings,BXC,2022-07-15,2024-07-01,22.01,Industrials,Hold,
+Super Micro Computer (SA marks SMCI*),SMCI,2022-11-15,2024-03-19,968.59,Information Technology,Hold,
+Axcelis Technologies,ACLS,2023-04-17,2024-02-16,-7.09,Information Technology,Hold,
+Perion Network,PERI,2023-03-15,2024-02-09,-30.35,Communication Services,Buy,
+Tecnoglass Holdings,TGLS,2023-04-03,2024-02-05,8.25,Industrials,Hold,
+ExxonMobil,XOM,2022-10-17,2024-01-26,1.91,Energy,Hold,
+Jackson Financial,JXN,2023-02-01,2024-01-16,8.09,Financials,Strong Buy,
+Suncor Energy,SU,2022-08-01,2023-10-23,0.21,Energy,Strong Buy,
+Harmonic,HLIT,2022-11-01,2023-08-07,-31.79,Information Technology,Hold,
+ConocoPhillips,COP,2022-07-01,2023-08-01,27.68,Energy,Strong Buy,
+Nucor,NUE,2022-07-01,2023-07-24,59.87,Materials,Strong Buy,
+Livent,LTHM,2022-09-15,2023-05-25,-31.74,,Not Covered,
+Chevron,CVX,2022-09-01,2023-05-12,0.09,Energy,Strong Buy,
+TravelCenters of America,TA,2022-08-15,2023-02-16,56.87,,Not Covered,
