@@ -311,6 +311,10 @@ def run(env, mode, rng=None, track=False):
     end = monthly[-1]
     taxable_mtm = end["taxable"] - accrued
     return dict(monthly=monthly, nav=nav, nav_dates=nav_dates,
+                state=dict(lots=[(L[0], L[1], L[2], m.cal[L[3]]) for L in lots], cash=cash,
+                           spy_shares=spy_shares, spy_cost=spy_cost, k401_shares=k401_shares, fund=fund,
+                           carry_loss=carry_loss, realized_ytd=realized.get(ly, [0.0, 0.0]),
+                           interest_ytd=interest.get(ly, 0.0)),
                 taxable_mtm=taxable_mtm, taxable_after_liq=taxable_mtm - liq_tax,
                 k401=end["k401"], fund=end["fund"], cash=end["cash"], accrued_tax=accrued, liq_tax=liq_tax,
                 taxes_wage=taxes_paid["wage"], taxes_inv=taxes_paid["investment"] + accrued, spent=spent,
