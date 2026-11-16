@@ -9,9 +9,9 @@ Career assumptions on top of personal_finance_sim.py:
   wages (federal + NJ income tax / taxable wages; FICA was paid at deferral),
   and the net cash goes to the taxable account.
 - From 2027 a new job continues the original trajectory: total comp
-  = $300k x 1.12^(year-2022), capped at $700k, split 7/12 base and 5/12
-  bonus; bonus for year Y paid in March Y+1 (so the 2031 bonus is outside
-  the horizon). The new employer has no internal fund (bonus fully in cash).
+  = $300k x 1.12^(year-2022), capped at $700k; base = 7/12 of total but at
+  most $300k, the rest is bonus; bonus for year Y paid in March Y+1 (so the
+  2031 bonus is outside the horizon).
   401k $10k + $10k match continue in SPY. Spending stays $7,100/month.
 - Tax: federal brackets / standard deduction / LTCG thresholds indexed 2.5%
   per year after 2026, Social Security wage base +4% per year; NJ brackets
@@ -43,6 +43,7 @@ PATHS = int(sys.argv[sys.argv.index("--paths") + 1]) if "--paths" in sys.argv el
 END_YEAR = 2031
 NONCOMPETE = 2026
 COMP_CAP = 700_000.0
+BASE_CAP = 300_000.0
 INFL, SSW = 0.025, 0.04
 
 # extend federal tables beyond 2026
@@ -73,7 +74,7 @@ def total_comp(y):
 
 
 def base_y(y):
-    return pf.base_for(y) if y <= NONCOMPETE else total_comp(y) * 7 / 12
+    return pf.base_for(y) if y <= NONCOMPETE else min(BASE_CAP, total_comp(y) * 7 / 12)
 
 
 def bonus_paid(y):
@@ -83,7 +84,7 @@ def bonus_paid(y):
         return b * (1 - pf.DEFER), b * pf.DEFER
     if y - 1 == NONCOMPETE:
         return 0.0, 0.0
-    b = total_comp(y - 1) * 5 / 12  # new employer: same 20% pre-tax deferral into its internal fund
+    b = total_comp(y - 1) - base_y(y - 1)  # new employer: same 20% pre-tax deferral into its internal fund
     return b * (1 - pf.DEFER), b * pf.DEFER
 
 
