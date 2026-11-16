@@ -1,7 +1,10 @@
 """Semi-monthly DCA into Seeking Alpha / Steven Cress picks, 1-year hold.
 
 Rules
-- On the 1st and 15th of every month from 2022-01-01, $50 arrives.
+- On the 1st and 15th of every month from 2022-01-01, $50 arrives. Because
+  SA published almost nothing in H1 2022 (one annual list on 2022-01-19,
+  Alpha Picks started 2022-07-01), the whole H1-2022 allowance (12 x $50)
+  arrives on 2022-01-01 instead (--no-frontload to disable).
 - That money (plus any cash left over from windows with no picks) is split
   equally across every distinct ticker SA recommends in the next half-month
   window [this contribution date, next contribution date), from all three
@@ -11,9 +14,10 @@ Rules
   publication (same session for pre-market/intraday/date-only, next session
   for after-16:00) and sold at the first close strictly more than one year
   later (long-term capital gain). By default the sale proceeds are
-  reinvested: they join the budget of the next contribution window after the
-  sale (equal-weighted across that window's picks). --no-reinvest keeps them
-  in cash instead.
+  reinvested gradually: they are unlocked in equal parts over the next
+  SPREAD contribution windows after the sale (default 12 = half a year,
+  --spread N to change; 1 = all into the next window), each part joining
+  that window's budget. --no-reinvest keeps proceeds in cash instead.
 - Dividend-adjusted closes (dividends reinvested within each lot). Delisted
   names are held as cash at their last price after delisting.
 - Lots still open are marked to the latest close.
@@ -41,7 +45,16 @@ OUT = os.path.join(ROOT, "data", "steve_cress")
 AMOUNT = 50.0
 START = date(2022, 1, 1)
 REINVEST = "--no-reinvest" not in sys.argv
+FRONTLOAD = "--no-frontload" not in sys.argv
+SPREAD = int(sys.argv[sys.argv.index("--spread") + 1]) if "--spread" in sys.argv else 12
 SUFFIX = "" if REINVEST else "_noreinvest"
+
+
+def contrib_amount(c):
+    """Cash arriving on contribution date c."""
+    if FRONTLOAD and c < date(2022, 7, 1):
+        return AMOUNT * 12 if c == START else 0.0
+    return AMOUNT
 
 
 def add_year(d):
@@ -95,7 +108,9 @@ def main():
 
     cdates = list(contribution_dates(START, last))
     lots, carry, carry_spy, skipped = [], 0.0, 0.0, []
-    credited = set()  # lots whose sale proceeds were already reinvested
+    credited = set()  # lots whose sale proceeds are already scheduled
+    unlock = [0.0] * len(cdates)  # proceeds released into each window
+    unlock_spy = [0.0] * len(cdates)
     for i, c in enumerate(cdates):
         nxt = cdates[i + 1] if i + 1 < len(cdates) else date(9999, 1, 1)
         win = {}
@@ -108,14 +123,19 @@ def main():
                     continue
                 if p["symbol"] not in win or e < win[p["symbol"]][0]:
                     win[p["symbol"]] = (e, p["source"])
-        budget, budget_spy = AMOUNT + carry, AMOUNT + carry_spy
         if REINVEST:
-            # proceeds of lots sold before this contribution date join this window's budget
+            # proceeds of lots sold before this contribution date are released in
+            # equal parts over this and the next SPREAD-1 windows
             for k, L in enumerate(lots):
                 if k not in credited and L["exit"] and L["exit"] < c:
                     credited.add(k)
-                    budget += L["shares"] * price_on(L["ticker"], L["exit"])
-                    budget_spy += L["spy_shares"] * adj["SPY"][L["exit"]]
+                    p = L["shares"] * price_on(L["ticker"], L["exit"])
+                    ps = L["spy_shares"] * adj["SPY"][L["exit"]]
+                    for j in range(i, min(i + SPREAD, len(cdates))):
+                        unlock[j] += p / SPREAD
+                        unlock_spy[j] += ps / SPREAD
+        amt = contrib_amount(c)
+        budget, budget_spy = amt + carry + unlock[i], amt + carry_spy + unlock_spy[i]
         if not win:
             carry, carry_spy = budget, budget_spy
             continue
@@ -131,7 +151,7 @@ def main():
     for d in cal:
         if d < date(2022, 1, 3):
             continue
-        contrib = AMOUNT * sum(1 for c in cdates if c <= d)
+        contrib = sum(contrib_amount(c) for c in cdates if c <= d)
         cash = contrib
         cash_spy = contrib
         mv = mv_spy = 0.0
@@ -172,8 +192,12 @@ def main():
                         round(L["return"], 4), round(L["spy_return"], 4)])
 
     end = daily[-1]
-    flows = [(c, -AMOUNT) for c in cdates]
-    print(f"period {daily[0]['date']} .. {end['date']}; contributions {len(cdates)} x ${AMOUNT:.0f} = ${end['contributions']:.0f}")
+    flows = [(c, -contrib_amount(c)) for c in cdates if contrib_amount(c)]
+    print(f"period {daily[0]['date']} .. {end['date']}; contributions ${end['contributions']:.0f} "
+          f"(frontload={FRONTLOAD}, reinvest={REINVEST}, spread={SPREAD})")
+    pending = sum(unlock[j] for j in range(len(cdates)) if cdates[j] > last)
+    if pending:
+        print(f"proceeds scheduled for future windows (held as cash): ${pending:,.0f}")
     print(f"lots {len(lots)} (closed {sum(1 for L in lots if L['exit'])}, open {sum(1 for L in lots if not L['exit'])}); skipped {skipped}")
     for name, k_pnl, k_cash, k_mv in (("Picks", "pnl", "cash", "market_value"), ("SPY", "spy_pnl", "spy_cash", "spy_market_value")):
         tv = end[k_cash] + end[k_mv]

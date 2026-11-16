@@ -28,7 +28,7 @@ body{margin:0;background:var(--surface);color:var(--ink);font:14px/1.45 system-u
 <div class="kpis"><div class="kpi"><b>$__P__</b><span>推荐股 PnL</span></div><div class="kpi"><b>$__S__</b><span>SPY PnL</span></div><div class="kpi"><b>$__C__</b><span>累计投入本金</span></div></div>
 <div class="legend"><span><i style="background:var(--s1)"></i>推荐股（再投资）</span><span><i style="background:var(--s2)"></i>SPY（再投资）</span><span><i style="background:repeating-linear-gradient(90deg,var(--s1) 0 4px,transparent 4px 7px)"></i>推荐股（不再投资）</span></div>
 <div class="chart" id="c"><div class="tip" id="tip"></div></div>
-<p class="note">规则：每月 1 日、15 日各到账 $50，等权买入接下来半个月内推荐的所有股票（三个来源，同一窗口内重复的只买一次；没有推荐的窗口资金顺延）。买入价为发布后第一个能成交的收盘价，持有超过 1 年后卖出，卖出所得并入下一期的预算，等权买入那一期的推荐（SPY 对照组同理再买 SPY）。虚线为卖出后不再投资的版本。含分红再投资；退市股按最后价格转现金。</p>
+<p class="note">规则：每月 1 日、15 日各到账 $50，等权买入接下来半个月内推荐的所有股票（三个来源，同一窗口内重复的只买一次；没有推荐的窗口资金顺延）。买入价为发布后第一个能成交的收盘价，持有超过 1 年后卖出，卖出所得分 12 份，在接下来半年的 12 期里每期解锁 1 份，并入当期预算（SPY 对照组同理再买 SPY）。2022 上半年的 12 期 $50（$600）在 2022-01-01 一次性到账。虚线为卖出后不再投资的版本。含分红再投资；退市股按最后价格转现金。</p>
 </div><script>
 const D=__DATA__;const W=960,H=380,m={l:56,r:16,t:12,b:32},iw=W-m.l-m.r,ih=H-m.t-m.b;
 const ns="http://www.w3.org/2000/svg",el=(n,a,p)=>{const e=document.createElementNS(ns,n);for(const k in a)e.setAttribute(k,a[k]);p&&p.appendChild(e);return e};
