@@ -11,3 +11,5 @@ data/history/
 data/fundamental_analysis/
 data/volatility/
 data/sentiment/
+data/top10_mcap/market_caps.csv
+data/top10_mcap/market_caps_done.txt
