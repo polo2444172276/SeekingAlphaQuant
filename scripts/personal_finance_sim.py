@@ -161,7 +161,7 @@ class Env:
         self.wt = {y: wage_tax(y) for y in years}
 
 
-def run(env, mode, rng=None):
+def run(env, mode, rng=None, track=False):
     """mode: 'picks' or 'spy'. Returns dict with monthly series and end stats."""
     m = env.m
     n = env.n
@@ -185,7 +185,9 @@ def run(env, mode, rng=None):
     gross = 0.0
     monthly = []
     win_ptr = 0
+    nav, nav_dates, prev_v = [], [], None  # time-weighted index of the taxable account (if track)
     for i, d in enumerate(m.cal):
+        flow = 0.0  # external money in (+) / out (-) of the taxable account today
         if i > 0:  # interest on uninvested cash (incl. scheduled + committed)
             days = (d - m.cal[i - 1]).days
             it = cash * env.rate[i - 1] * days / 365
@@ -215,6 +217,7 @@ def run(env, mode, rng=None):
             gross += b
             fund += DEFER * b
             cash += net
+            flow += net
             w0 = next((w for w in range(win_ptr, len(m.cdates)) if m.cdates[w] > d), len(m.cdates))
             release[w0:w0 + SPREAD] += net / SPREAD
             scheduled += net
@@ -230,6 +233,7 @@ def run(env, mode, rng=None):
             tax_due[ty] = due
             taxes_paid["investment"] += due
             cash -= due
+            flow -= due
         # paycheck + window decisions
         for w in env.win_of_day.get(i, []):
             c = m.cdates[w]
@@ -241,6 +245,7 @@ def run(env, mode, rng=None):
             taxes_paid["wage"] += wtax * gross_check / cash_pay
             gross += gross_check
             cash += net - SPEND_PER_CHECK
+            flow += net - SPEND_PER_CHECK
             spent += SPEND_PER_CHECK
             k401_shares += (K401 + MATCH) / 24 / P["SPY"][i]
             # release tranche
@@ -280,6 +285,12 @@ def run(env, mode, rng=None):
             ex = m.exit_idx[i] if i in m.exit_idx else None
             lots.append([t, sh, x, i, ex])
             cash -= x
+        if track:  # time-weighted NAV: today's value net of today's external flows
+            v = cash + sum(L[1] * P[L[0]][i] for L in lots) + spy_shares * P["SPY"][i]
+            if prev_v is not None and prev_v > 1_000:
+                nav.append(nav[-1] * (v - flow) / prev_v if nav else 1.0)
+                nav_dates.append(d)
+            prev_v = v
         # month-end snapshot
         if i == n - 1 or m.cal[i + 1].month != d.month:
             mv = sum(L[1] * P[L[0]][i] for L in lots) + spy_shares * P["SPY"][i]
@@ -299,20 +310,66 @@ def run(env, mode, rng=None):
     liq_tax = t_liq - t_real
     end = monthly[-1]
     taxable_mtm = end["taxable"] - accrued
-    return dict(monthly=monthly, taxable_mtm=taxable_mtm, taxable_after_liq=taxable_mtm - liq_tax,
+    return dict(monthly=monthly, nav=nav, nav_dates=nav_dates,
+                taxable_mtm=taxable_mtm, taxable_after_liq=taxable_mtm - liq_tax,
                 k401=end["k401"], fund=end["fund"], cash=end["cash"], accrued_tax=accrued, liq_tax=liq_tax,
                 taxes_wage=taxes_paid["wage"], taxes_inv=taxes_paid["investment"] + accrued, spent=spent,
                 gross=gross, realized=realized, interest=interest,
                 net_worth=taxable_mtm + end["k401"] + end["fund"])
 
 
+def episodes(dates, nav, min_depth=0.05):
+    """Peak-to-trough drawdown episodes of a NAV series, deepest first."""
+    out, peak_i, trough_i = [], 0, 0
+    for i in range(1, len(nav) + 1):
+        if i == len(nav) or nav[i] >= nav[peak_i]:
+            depth = nav[trough_i] / nav[peak_i] - 1
+            if depth <= -min_depth:
+                out.append(dict(peak=dates[peak_i], trough=dates[trough_i],
+                                recovered=dates[i] if i < len(nav) else None, depth=depth,
+                                days_down=(dates[trough_i] - dates[peak_i]).days,
+                                days_to_recover=(dates[i] - dates[trough_i]).days if i < len(nav) else None))
+            if i < len(nav):
+                peak_i = trough_i = i
+        elif nav[i] < nav[trough_i]:
+            trough_i = i
+    return sorted(out, key=lambda e: e["depth"])
+
+
+def write_drawdowns(env, accounts):
+    rows = []
+    for name, r in accounts.items():
+        for e in episodes(r["nav_dates"], r["nav"]):
+            rows.append(dict(account=name, peak=e["peak"], trough=e["trough"], recovered=e["recovered"] or "",
+                             depth_pct=round(100 * e["depth"], 1), days_down=e["days_down"],
+                             days_to_recover=e["days_to_recover"] if e["days_to_recover"] is not None else ""))
+    with open(os.path.join(OUT, "personal_finance_drawdowns.csv"), "w", newline="") as f:
+        w = csv.DictWriter(f, fieldnames=list(rows[0]))
+        w.writeheader()
+        w.writerows(rows)
+    with open(os.path.join(OUT, "personal_finance_nav.csv"), "w", newline="") as f:
+        w = csv.writer(f)
+        names = list(accounts)
+        w.writerow(["date"] + names)
+        idx = [dict(zip(accounts[k]["nav_dates"], accounts[k]["nav"])) for k in names]
+        for d in accounts[names[0]]["nav_dates"]:
+            w.writerow([d] + [round(ix.get(d, float("nan")), 6) for ix in idx])
+    for name in accounts:
+        print(f"\n{name}: drawdown episodes >= 5% (time-weighted, excludes deposits/tax payments)")
+        for r in [r for r in rows if r["account"] == name]:
+            print(f"  {r['depth_pct']:6.1f}%  peak {r['peak']}  trough {r['trough']}  "
+                  f"recovered {r['recovered'] or 'not yet'}  ({r['days_down']}d down, "
+                  f"{r['days_to_recover'] or '-'}d to recover)")
+
+
 def main():
     env = Env()
-    rng = np.random.default_rng(SEED)
-    spy = run(env, "spy")
-    picks = [run(env, "picks", rng) for _ in range(RUNS)]
+    spy = run(env, "spy", track=True)
+    picks = [run(env, "picks", np.random.default_rng(SEED + k)) for k in range(RUNS)]
     tv = np.array([r["taxable_mtm"] for r in picks])
-    med = picks[int(np.argmin(np.abs(tv - np.median(tv))))]
+    med_k = int(np.argmin(np.abs(tv - np.median(tv))))
+    med = run(env, "picks", np.random.default_rng(SEED + med_k), track=True)
+    write_drawdowns(env, {"SA picks (median run)": med, "SPY buy-and-hold": spy})
     q = lambda a, p: float(np.percentile(a, p))  # noqa: E731
 
     rows = []
