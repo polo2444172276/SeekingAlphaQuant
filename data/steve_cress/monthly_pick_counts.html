@@ -1,0 +1,51 @@
+<!doctype html>
+<html lang="zh"><head><meta charset="utf-8"><meta name="viewport" content="width=device-width,initial-scale=1">
+<title>Monthly Pick Counts</title>
+<style>
+:root{color-scheme:light;--surface:#fcfcfb;--ink:#0b0b0b;--ink2:#52514e;--muted:#8a8984;--grid:#e6e5e0;--s1:#2a78d6;--s2:#eb6834;--s3:#1baf7a}
+@media (prefers-color-scheme:dark){:root:not([data-theme="light"]){color-scheme:dark;--surface:#1a1a19;--ink:#f0efec;--ink2:#c3c2b7;--muted:#8f8e86;--grid:#2e2e2c;--s1:#3987e5;--s2:#d95926;--s3:#199e70}}
+:root[data-theme="dark"]{color-scheme:dark;--surface:#1a1a19;--ink:#f0efec;--ink2:#c3c2b7;--muted:#8f8e86;--grid:#2e2e2c;--s1:#3987e5;--s2:#d95926;--s3:#199e70}
+body{margin:0;background:var(--surface);color:var(--ink);font:14px/1.4 system-ui,-apple-system,"PingFang SC",sans-serif}
+.wrap{max-width:1100px;margin:0 auto;padding:24px 16px}
+h1{font-size:20px;margin:0 0 4px}.sub{color:var(--ink2);margin:0 0 16px}
+.legend{display:flex;gap:18px;flex-wrap:wrap;margin-bottom:8px;color:var(--ink2)}
+.legend span{display:inline-flex;align-items:center;gap:6px}.sw{width:12px;height:12px;border-radius:3px;display:inline-block}
+.chart{position:relative;width:100%}svg{display:block;width:100%;height:auto}
+.tip{position:absolute;pointer-events:none;background:var(--surface);border:1px solid var(--grid);box-shadow:0 2px 8px rgba(0,0,0,.15);border-radius:6px;padding:8px 10px;font-size:13px;display:none;white-space:nowrap}
+.tip b{display:block;margin-bottom:4px}.tip .r{display:flex;gap:8px;align-items:center;color:var(--ink2)}.tip .r em{margin-left:auto;font-style:normal;color:var(--ink);padding-left:12px}
+details{margin-top:20px;color:var(--ink2)}table{border-collapse:collapse;margin-top:8px;font-size:13px}td,th{padding:3px 10px;text-align:right;border-bottom:1px solid var(--grid)}th:first-child,td:first-child{text-align:left}
+.note{color:var(--muted);font-size:12px;margin-top:12px}
+</style></head><body><div class="wrap">
+<h1>Steven Cress 每月推荐数量</h1>
+<p class="sub">2022-01 至 2026-11 · 共 198 次推荐（年初 Top 10：49 · 年中 Top 10：40 · Alpha Picks：109）</p>
+<div class="legend"><span><i class="sw" style="background:var(--s1)"></i>年初 Top 10</span><span><i class="sw" style="background:var(--s2)"></i>年中 Top 10</span><span><i class="sw" style="background:var(--s3)"></i>Alpha Picks（每半月 1 只）</span></div>
+<div class="chart" id="c"><div class="tip" id="tip"></div></div>
+<p class="note">按发布月份统计。2024 年年初名单发布于 2023-12-31，计入 2023-12。2026-11 的 15 号那期尚未发布。</p>
+<details><summary>查看数据表</summary><table id="t"></table></details>
+</div>
+<script>
+const D=[["2022-01", 9, 0, 0], ["2022-02", 0, 0, 0], ["2022-03", 0, 0, 0], ["2022-04", 0, 0, 0], ["2022-05", 0, 0, 0], ["2022-06", 0, 0, 0], ["2022-07", 0, 0, 6], ["2022-08", 0, 0, 2], ["2022-09", 0, 0, 2], ["2022-10", 0, 0, 2], ["2022-11", 0, 0, 2], ["2022-12", 0, 0, 2], ["2023-01", 10, 0, 2], ["2023-02", 0, 0, 2], ["2023-03", 0, 0, 2], ["2023-04", 0, 0, 2], ["2023-05", 0, 0, 2], ["2023-06", 0, 0, 2], ["2023-07", 0, 10, 2], ["2023-08", 0, 0, 2], ["2023-09", 0, 0, 2], ["2023-10", 0, 0, 2], ["2023-11", 0, 0, 2], ["2023-12", 10, 0, 2], ["2024-01", 0, 0, 2], ["2024-02", 0, 0, 2], ["2024-03", 0, 0, 2], ["2024-04", 0, 0, 2], ["2024-05", 0, 0, 2], ["2024-06", 0, 10, 2], ["2024-07", 0, 0, 2], ["2024-08", 0, 0, 2], ["2024-09", 0, 0, 2], ["2024-10", 0, 0, 2], ["2024-11", 0, 0, 2], ["2024-12", 0, 0, 2], ["2025-01", 10, 0, 2], ["2025-02", 0, 0, 2], ["2025-03", 0, 0, 2], ["2025-04", 0, 0, 2], ["2025-05", 0, 0, 2], ["2025-06", 0, 10, 2], ["2025-07", 0, 0, 2], ["2025-08", 0, 0, 2], ["2025-09", 0, 0, 2], ["2025-10", 0, 0, 2], ["2025-11", 0, 0, 2], ["2025-12", 0, 0, 2], ["2026-01", 10, 0, 2], ["2026-02", 0, 0, 2], ["2026-03", 0, 0, 2], ["2026-04", 0, 0, 2], ["2026-05", 0, 0, 2], ["2026-06", 0, 0, 2], ["2026-07", 0, 10, 2], ["2026-08", 0, 0, 2], ["2026-09", 0, 0, 2], ["2026-10", 0, 0, 2], ["2026-11", 0, 0, 1]];
+const S=[["年初 Top 10","--s1"],["年中 Top 10","--s2"],["Alpha Picks","--s3"]];
+const W=1060,H=380,m={l:36,r:8,t:10,b:44},iw=W-m.l-m.r,ih=H-m.t-m.b,max=14;
+const ns="http://www.w3.org/2000/svg",el=(n,a,p)=>{const e=document.createElementNS(ns,n);for(const k in a)e.setAttribute(k,a[k]);p&&p.appendChild(e);return e};
+const svg=el("svg",{viewBox:`0 0 ${W} ${H}`,role:"img","aria-label":"每月推荐数量堆叠柱状图"});
+const c=document.getElementById("c");c.insertBefore(svg,c.firstChild);
+const y=v=>m.t+ih-v/max*ih,bw=iw/D.length,gap=Math.max(2,bw*.22);
+for(let v=0;v<=max;v+=2){el("line",{x1:m.l,x2:W-m.r,y1:y(v),y2:y(v),stroke:"var(--grid)","stroke-width":1},svg);const t=el("text",{x:m.l-6,y:y(v)+4,"text-anchor":"end","font-size":11,fill:"var(--muted)"},svg);t.textContent=v}
+const tip=document.getElementById("tip");
+D.forEach((d,i)=>{const x=m.l+i*bw+gap/2,w=bw-gap;let base=0;const g=el("g",{},svg);
+ const segs=[1,2,3].filter(k=>d[k]>0);
+ segs.forEach((k,j)=>{const h=d[k]/max*ih,top=y(base+d[k]);const isTop=j===segs.length-1;const r=Math.min(4,w/2);
+  const yb=y(base)-(base>0?1:0),yt=top+(isTop?0:1);
+  const p=isTop?`M${x},${yb}V${yt+r}Q${x},${yt} ${x+r},${yt}H${x+w-r}Q${x+w},${yt} ${x+w},${yt+r}V${yb}Z`:`M${x},${yb}V${yt}H${x+w}V${yb}Z`;
+  el("path",{d:p,fill:`var(${S[k-1][1]})`},g);base+=d[k]});
+ const tot=d[1]+d[2]+d[3];if(tot>=6){const t=el("text",{x:x+w/2,y:y(tot)-4,"text-anchor":"middle","font-size":10,fill:"var(--ink2)"},svg);t.textContent=tot}
+ if(d[0].endsWith("-01")||i===0){const t=el("text",{x:x+w/2,y:H-m.b+16,"text-anchor":"middle","font-size":11,fill:"var(--ink2)"},svg);t.textContent=d[0].slice(0,4)}
+ if(d[0].endsWith("-07")){const t=el("text",{x:x+w/2,y:H-m.b+16,"text-anchor":"middle","font-size":10,fill:"var(--muted)"},svg);t.textContent="Jul"}
+ const hit=el("rect",{x:m.l+i*bw,y:m.t,width:bw,height:ih,fill:"transparent"},svg);
+ hit.addEventListener("mousemove",e=>{const b=c.getBoundingClientRect();tip.innerHTML=`<b>${d[0]} · 共 ${tot}</b>`+S.map((s,k)=>`<div class="r"><i class="sw" style="background:var(${s[1]})"></i>${s[0]}<em>${d[k+1]}</em></div>`).join("");tip.style.display="block";let lx=e.clientX-b.left+12;if(lx+170>b.width)lx=e.clientX-b.left-180;tip.style.left=lx+"px";tip.style.top=(e.clientY-b.top-20)+"px";hit.setAttribute("fill","rgba(127,127,127,.08)")});
+ hit.addEventListener("mouseleave",()=>{tip.style.display="none";hit.setAttribute("fill","transparent")});
+});
+el("line",{x1:m.l,x2:W-m.r,y1:y(0),y2:y(0),stroke:"var(--muted)","stroke-width":1},svg);
+document.getElementById("t").innerHTML="<tr><th>月份</th><th>年初</th><th>年中</th><th>Alpha Picks</th><th>合计</th></tr>"+D.map(d=>`<tr><td>${d[0]}</td><td>${d[1]}</td><td>${d[2]}</td><td>${d[3]}</td><td>${d[1]+d[2]+d[3]}</td></tr>`).join("");
+</script></body></html>
