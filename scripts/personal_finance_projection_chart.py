@@ -21,11 +21,11 @@ table{border-collapse:collapse;width:100%;margin:6px 0 18px;font-size:13px}th,td
 .note{color:var(--muted);font-size:12px;margin-top:12px}
 </style></head><body><div class="wrap">
 <h1>到 2031 年底的总资产：SA 推荐股 vs 大盘</h1>
-<p class="sub">2022-01 至 __LASTACT__ 为模拟实际值，之后为 1000 条路径的蒙特卡洛推算 · 总资产 = 应税账户 + 401k（+ 2026 年底前的内部基金）</p>
+<p class="sub">2022-01 至 __LASTACT__ 为模拟实际值，之后为 1000 条路径的蒙特卡洛推算 · 总资产 = 应税账户 + 401k + 内部基金（税前）</p>
 __TABLE__
 <div class="legend"><span><i style="background:var(--s1)"></i>SA 推荐股：中位数</span><span><i style="background:var(--s1);height:10px;opacity:.35"></i>p10–p90</span><span><i style="background:var(--s2)"></i>SPY：中位数</span><span><i style="background:var(--s2);height:10px;opacity:.35"></i>p10–p90</span></div>
 <div class="chart" id="c"><div class="tip" id="tip"></div></div>
-<p class="note">推算假设：2026 年竞业限制，只发 base，当年工作没有 bonus；内部基金 2026-12-31 按当年工资平均所得税率（31.7%）扣税后转入应税账户。2027 年起新工作，总包按 $30 万 × 1.12^n 增长，封顶 $70 万（base 7/12、bonus 5/12，次年 3 月发），新公司没有内部基金。生活开支每月 $7,100。未来收益：从 2022-02 至 2026-10 的真实月度收益中成对随机抽样（推荐股账户的时间加权收益已包含现金拖累和选股）。推荐股每笔持有满 12 个月卖出再买入并交资本利得税，SPY 一直不卖。联邦税档 2027 年起每年按 2.5% 通胀调整，NJ 税档不变。注意：抽样池来自推荐股表现特别好的一段时期，未来未必重现。</p>
+<p class="note">推算假设：2026 年竞业限制，只发 base，当年工作没有 bonus；内部基金 2026-12-31 按当年工资平均所得税率（31.7%）扣税后转入应税账户。2027 年起新工作，总包按 $30 万 × 1.12^n 增长，封顶 $70 万（base 7/12、bonus 5/12，次年 3 月发），新公司同样把 bonus 的 20% 税前递延进内部基金（年化 20%，不取出，按税前余额计入总资产）。生活开支每月 $7,100。未来收益：从 2022-02 至 2026-10 的真实月度收益中成对随机抽样（推荐股账户的时间加权收益已包含现金拖累和选股）。推荐股每笔持有满 12 个月卖出再买入并交资本利得税，SPY 一直不卖。联邦税档 2027 年起每年按 2.5% 通胀调整，NJ 税档不变。注意：抽样池来自推荐股表现特别好的一段时期，未来未必重现。</p>
 </div><script>
 const D=__DATA__,ACT=__NACT__;const W=960,H=400,m={l:64,r:16,t:12,b:32},iw=W-m.l-m.r,ih=H-m.t-m.b;
 const ns="http://www.w3.org/2000/svg",el=(n,a,p)=>{const e=document.createElementNS(ns,n);for(const k in a)e.setAttribute(k,a[k]);p&&p.appendChild(e);return e};
@@ -59,8 +59,8 @@ def main():
     n_act = sum(1 for r in rows if r["kind"] == "actual")
     s = {(r["strategy"], r["metric"]): r for r in csv.DictReader(open(os.path.join(D_DIR, "projection_summary.csv")))}
     f = lambda v: f"${float(v) / 1e6:.2f}M"  # noqa: E731
-    names = [("总资产（应税账户市值 + 401k）", "net_worth"), ("应税账户（市值，已扣当年应计税）", "taxable"),
-             ("应税账户（全部卖出扣税后）", "after_liq"), ("401k（税前）", "k401")]
+    names = [("总资产（应税账户市值 + 401k + 新公司内部基金）", "net_worth"), ("应税账户（市值，已扣当年应计税）", "taxable"),
+             ("应税账户（全部卖出扣税后）", "after_liq"), ("401k（税前）", "k401"), ("新公司内部基金（税前）", "fund")]
     tbl = ("<table><tr><th>2031-12-31</th><th>推荐股 p5</th><th>推荐股中位数</th><th>推荐股 p95</th>"
            "<th>SPY p5</th><th>SPY 中位数</th><th>SPY p95</th></tr>")
     for label, k in names:

@@ -83,7 +83,8 @@ def bonus_paid(y):
         return b * (1 - pf.DEFER), b * pf.DEFER
     if y - 1 == NONCOMPETE:
         return 0.0, 0.0
-    return total_comp(y - 1) * 5 / 12, 0.0
+    b = total_comp(y - 1) * 5 / 12  # new employer: same 20% pre-tax deferral into its internal fund
+    return b * (1 - pf.DEFER), b * pf.DEFER
 
 
 def year_wages(y):
@@ -160,8 +161,9 @@ def main():
                     v[0] *= 1 + r
                     v[2] += 1
                 k401 = k401 * (1 + r_s) + (pf.K401 + pf.MATCH) / 12
-                if yy <= NONCOMPETE:
-                    fund *= (1 + pf.FUND_RET) ** (1 / 12)
+                fund *= (1 + pf.FUND_RET) ** (1 / 12)
+                if mm == 3 and yy > NONCOMPETE:  # new employer's internal fund deposit
+                    fund += bonus_paid(yy)[1]
                 # picks: sell vintages held > 12 months, rebuy (realise gain)
                 if strat == "picks":
                     for v in vint:
@@ -209,13 +211,13 @@ def main():
             t_liq, _ = income_tax(END_YEAR, wend, 0.0, st_ + ust, lt_ + ult, carry)
             taxable = sum(v[0] for v in vint) - accrued
             res[strat].append(dict(taxable=taxable, after_liq=taxable - (t_liq - t_real), k401=k401,
-                                   net_worth=taxable + k401))
+                                   fund=fund, net_worth=taxable + k401 + fund))
             paths_nw[strat].append(nw_path)
 
     q = lambda a, p: float(np.percentile(a, p))  # noqa: E731
     rows = []
     for strat in ("picks", "spy"):
-        for key in ("net_worth", "taxable", "after_liq", "k401"):
+        for key in ("net_worth", "taxable", "after_liq", "k401", "fund"):
             a = np.array([r[key] for r in res[strat]])
             rows.append(dict(strategy=strat, metric=key, p5=round(q(a, 5)), p25=round(q(a, 25)),
                              median=round(q(a, 50)), p75=round(q(a, 75)), p95=round(q(a, 95))))
