@@ -70,7 +70,7 @@ def main():
     rows = []
     by_year = defaultdict(list)
     for p in picks:
-        by_year[int(p["year"])].append(p)
+        by_year[p["list"]].append(p)
 
     def window(t, start, end):
         s = prices.get(t) or []
@@ -84,7 +84,7 @@ def main():
     summary = []
     for year in sorted(by_year):
         pub = datetime.strptime(by_year[year][0]["published_et"][:10], "%Y-%m-%d").date()
-        year_end = min(date(year, 12, 31), today)
+        year_end = min(date(int(year[:4]), 12, 31), today)
         for horizon, end in (("in_year", year_end), ("to_date", today)):
             rets = []
             for p in by_year[year]:
@@ -108,9 +108,9 @@ def main():
         w.writerow(["year", "horizon", "ticker", "entry_date", "entry_adj", "exit_date", "exit_adj", "return"])
         w.writerows(rows)
 
-    print(f"{'list':<6}{'horizon':<9}{'n':>3}{'EW picks':>10}{'SPY':>9}{'QQQ':>9}{'beat SPY':>10}")
+    print(f"{'list':<8}{'horizon':<9}{'n':>3}{'EW picks':>10}{'SPY':>9}{'QQQ':>9}{'beat SPY':>10}")
     for y, h, n, ew, spy, qqq, hits in summary:
-        print(f"{y:<6}{h:<9}{n:>3}{ew:>10.1%}{spy:>9.1%}{qqq:>9.1%}{hits:>6}/{n}")
+        print(f"{y:<8}{h:<9}{n:>3}{ew:>10.1%}{spy:>9.1%}{qqq:>9.1%}{hits:>6}/{n}")
     print(f"\nPer-ticker detail -> {os.path.relpath(OUT, ROOT)}")
 
 
