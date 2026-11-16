@@ -61,6 +61,7 @@ K401, MATCH = 10_000.0, 10_000.0
 DEFER, FUND_RET = 0.20, 0.20
 SPEND_PER_CHECK = 7_100.0 / 2
 SPREAD = 12
+FUND_PAYOUT = None  # scenario hook: (date, tax_rate) -> internal fund paid out net of tax
 CAP = 5
 
 # ---- tax tables (single filer) ---------------------------------------------
@@ -216,6 +217,16 @@ def run(env, mode, rng=None, track=False):
             taxes_paid["wage"] += wtax * (1 - DEFER) * b / cash_pay
             gross += b
             fund += DEFER * b
+            cash += net
+            flow += net
+            w0 = next((w for w in range(win_ptr, len(m.cdates)) if m.cdates[w] > d), len(m.cdates))
+            release[w0:w0 + SPREAD] += net / SPREAD
+            scheduled += net
+        # optional one-off internal-fund payout (scenario hook): FUND_PAYOUT = (date, tax_rate)
+        if FUND_PAYOUT and fund > 0 and d >= FUND_PAYOUT[0]:
+            net = fund * (1 - FUND_PAYOUT[1])
+            taxes_paid["wage"] += fund * FUND_PAYOUT[1]
+            fund = 0.0
             cash += net
             flow += net
             w0 = next((w for w in range(win_ptr, len(m.cdates)) if m.cdates[w] > d), len(m.cdates))
