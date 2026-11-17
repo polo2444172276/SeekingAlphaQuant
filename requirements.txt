@@ -9,3 +9,4 @@ gunicorn>=22.0
 markdown>=3.5
 yfinance>=0.2
 duckdb>=1.0
+matplotlib
