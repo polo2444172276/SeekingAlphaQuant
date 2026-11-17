@@ -2,9 +2,8 @@
 (QUAL quality, VLUE value, MTUM momentum, IUSG growth) and print their
 raw / excess monthly return correlations.
 
-Prices come from Supabase prices_daily. MTUM/QUAL rows from 2021-12 onward
-are FMP-sourced with mis-adjusted dividends, so those two are taken from
-Yahoo adjclose until the DB is repaired.
+Prices come from market_data.get_adj_close, which applies the data_issues
+overrides (MTUM/QUAL FMP rows from 2021-12 are mis-adjusted and overridden).
 
 Usage: python scripts/plot_factor_excess.py  -> data/factor_log_excess_vs_spy.png
 """
@@ -12,25 +11,14 @@ import os
 import sys
 ROOT = os.path.dirname(os.path.dirname(os.path.abspath(__file__)))
 sys.path.insert(0, ROOT)
-from seekingalpha_quant.data import supabase_db as db  # noqa: E402
-import json,urllib.request
+from seekingalpha_quant.data import market_data as md  # noqa: E402
 import pandas as pd, numpy as np
 import matplotlib; matplotlib.use("Agg")
 import matplotlib.pyplot as plt
 from matplotlib import font_manager
 
 
-def px(sym):
-    sid = db.select("securities", params={"select": "id", "market": "eq.US", "symbol": f"eq.{sym}"})[0]["id"]
-    r = pd.DataFrame(db.select("prices_daily", params={"select": "date,adj_close", "security_id": f"eq.{sid}"}))
-    return r.assign(date=pd.to_datetime(r.date)).set_index("date").adj_close.sort_index()
-
-
-P = pd.DataFrame({t: px(t) for t in ["SPY", "QUAL", "VLUE", "MTUM", "IUSG"]}).dropna()
-for t in ["MTUM","QUAL"]:   # replace mis-adjusted FMP rows with Yahoo adjclose
-    js=json.load(urllib.request.urlopen(urllib.request.Request(f"https://query1.finance.yahoo.com/v8/finance/chart/{t}?period1=1356998400&period2=9999999999&interval=1d&events=div",headers={"User-Agent":"research-script/1.0"})))
-    r=js["chart"]["result"][0]
-    P[t]=pd.Series(r["indicators"]["adjclose"][0]["adjclose"],index=pd.to_datetime(r["timestamp"],unit="s").normalize())
+P = md.get_adj_close(["SPY", "QUAL", "VLUE", "MTUM", "IUSG"])
 P=P.dropna()
 d=P.pct_change().dropna(); print("max |daily| after fix:", d.abs().max().round(3).to_dict())
 m=P.resample("ME").last().pct_change().dropna()

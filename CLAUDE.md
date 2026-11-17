@@ -25,6 +25,22 @@ Order of preference:
 3. **Web search** — only for things no data source has (news, articles,
    corporate-action details).
 
+## Reading prices: always through `market_data`
+
+- `from seekingalpha_quant.data import market_data as md`
+  - `md.get_prices(symbols, start, end)` → long frame (symbol, date, OHLC,
+    adj_close, volume, source, issue_id)
+  - `md.get_adj_close(symbols, start, end)` → wide frame for returns work
+  - picks REST or Parquet by symbol count, and applies the bad-data registry.
+- Don't query `prices_daily` directly for analysis: the raw table keeps what
+  loaders wrote, including known-bad rows.
+- **Bad-data registry**: `data_issues` (what is wrong, evidence, action
+  `override` / `exclude` / `flag`, status) + `prices_daily_overrides`
+  (corrected rows). When you find bad data, register it — don't patch around it
+  in your script and don't silently overwrite raw rows:
+  `python scripts/register_data_issue.py override-yahoo SYM --from YYYY-MM-DD --reason "..."`
+  (also `flag`, `exclude`, `list`). Retire an issue by setting `status='retired'`.
+
 ## Access
 
 - Client: `seekingalpha_quant/data/supabase_db.py`
@@ -52,6 +68,8 @@ Order of preference:
 | `fundamentals` | statements as JSONB with `accepted_at` for point-in-time use |
 | `data_files` | Parquet files in bucket `market-data` (path, market, kind, year, rows, dates, sha256) |
 | `analysis_results` | saved analysis outputs (JSON) |
+| `data_issues` | bad-data registry: known problems, evidence, action (override / exclude / flag) |
+| `prices_daily_overrides` | corrected price rows for `override` issues (same columns as prices_daily + issue_id) |
 | `data_change_log` | audit trail: one row per write statement (session, script@git-ref, note, table, op, row count, key ranges) |
 
 Parquet layout: `us/sp500/prices_daily/year=YYYY.parquet` (more markets to come).
