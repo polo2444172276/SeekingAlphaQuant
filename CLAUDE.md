@@ -52,8 +52,24 @@ Order of preference:
 | `fundamentals` | statements as JSONB with `accepted_at` for point-in-time use |
 | `data_files` | Parquet files in bucket `market-data` (path, market, kind, year, rows, dates, sha256) |
 | `analysis_results` | saved analysis outputs (JSON) |
+| `data_change_log` | audit trail: one row per write statement (session, script@git-ref, note, table, op, row count, key ranges) |
 
 Parquet layout: `us/sp500/prices_daily/year=YYYY.parquet` (more markets to come).
+
+## Audit trail (who changed what, when)
+
+- Every write through `supabase_db.py` is logged automatically in
+  `data_change_log` by DB triggers (`db/migrations/2026-11-17_data_change_log.sql`).
+  The client sends `x-session-id` (`session_...` for Claude cloud sessions,
+  `local:user@host` elsewhere, override with `SA_SESSION_ID`), `x-session-url`
+  and `x-client` (script name + git short sha) on every request.
+- Wrap writes in `with db.change_note("why"):` so the log says why.
+- Storage (Parquet) uploads have no trigger; `upload()` logs them itself.
+- Writes from the SQL Editor show up as `sql-editor:<role>`.
+- Before touching data someone else loaded, check the log:
+  `select("data_change_log", {"table_name": "eq.public.prices_daily", "order": "changed_at.desc"})`.
+- Don't overwrite rows from another `source` silently; insert only missing dates,
+  or say so in the note.
 
 ## Conventions
 
