@@ -1,0 +1,1306 @@
+# Stanley Druckenmiller — Lost Tree Club talk + Q&A with Ken Langone (Jan 2015)
+# Source: https://gist.github.com/timhwang21/e6a2b24e064182dd9099ad00e4f4f9a6 (OCR of covestreetcapital.com Druckenmiller-_Speech.pdf)
+# Fetched: 2026-11-21
+
+Last week the transcript of a talk Stanley Druckenmiller gave went a little viral on #financetwitter.
+
+
+(http://covestreetcapital.com/Blog/wp-content/uploads/2015/03/Druckenmiller-_Speech.pdf)
+
+
+Only problem- it's been traveling around in the form of an image PDF,
+making it hard to cut + paste or search for your favorite quotes.
+So I ran it through a couple programs, and bleepblorp, a text transcript is below.
+
+
+If you want *just the text,* and not this surrounding web page, click "Raw" in the corner above.
+
+
+While there may be some errors in this conversion, the original transcript also has some uninintelligible notes,
+so check the original PDF above before submitting corrections.
+
+
+@bluechoochoo
+
+
+Stanley Druckenmiller Lost Tree Club 1—18—15
+
+
+D = Don; SR = Sam Reeves; KL = Ken Langone;
+
+
+M5 = male speaker
+
+
+D:
+Good evening, ladies and gentlemen, fellow members,
+and guests. I'm Don [unint.], and Joyce and I are
+chairing the 2015 version of the forum, and we're so
+happy to have such a great turnout. We're delighted
+to have Stan Druckenmiller and his wife, Fiona here
+this evening. And I’m going to just give you a
+little bit of oversight of two gentlemen who are
+great sponsors of the forum, Sam Reeves and Ken
+Langone. They're co—sponsors of Stanley
+Druckenmiller, and they've been just terrific through
+the years.
+
+
+Let me just tell you a little bit about Sam. Most of
+you know both of them quite well. They're long-term
+members of our club, and they're really accomplished
+so much in their lifetime — lifetimes I should say.
+Sam, I sort of think of him as the king of cotton.
+Dunavant Enterprises, Inc., a cotton merchant,
+probably the largest in the world, Sam is a partner,
+president, co-chairman. He actually retired from
+that in 1995 and then he started Pinnacle Trading
+International of which he was president and CEO.
+
+
+His board memberships, I'll just mention a few: two
+Morgan Stanley Funds; Tiger Management Corp., I
+understand that he was one of the early investors
+with Julian Robertson; Pacific Gas and Electric and
+then other things, a member of the board of trustees
+of the Fuller Theological Seminary; chairman of the
+board of the Saint Agnes Medical Center in Fresno,
+California; received the highest honor from their
+Chamber of Commerce and just an all-around terrific
+guy. And the runner-up in the member/member that
+ended yesterday. How about that?
+
+
+He has time for golf too. Well, he and Betsy support so many
+charities that if I started to name them, we’d be
+here for a long time, but everything from hospitals,
+churches, the University of North Carolina. Just
+absolutely outstanding.
+
+
+Now, last week I introduced Ken Langone, and of
+course he was the sponsor of Dr. John Damry [ph.] —
+Hamre, excuse me, who is president of CSIS, which is
+a Washington think tank, and he really was a
+spellbinder. He was absolutely terrific. And Ken
+continues to be a great supporter. I got to just
+tell you — again, I'm a little bit repetitive because
+I talked about it. He not only is a good source of
+great sponsors, but he has spoken himself, and he
+first told us a story of EDS, Electronic Data
+Systems, the Ross Perot company, which he was
+instrumental in bringing public. And then, of course
+the Home Depot story. He's co-founder with Bernie
+Marcus and Arthur Blank, and that's just an
+absolutely phenomenal story.
+
+
+Ken gives us his overviews on economics and business
+with CNBC, and he does so many things. He's won so
+many awards and the charities are again too numerous
+to mention. He still runs Invamed, an investment
+banking firm, and he's the prime mover and the
+inspiration for the NYU Langone Medical Center. He's
+the driving force, and he's pursuing excellency all
+the time.
+
+
+So, you know quite a bit about these two men, but
+there's one thing you don't know about Ken Langone,
+and that is that I have the unique situation of
+having gotten him involved in a real estate
+investment which he subsequently called the worst
+bleeping investment I ever made in my life. I
+figured enough years have gone by where he wouldn’t
+be too troubled by me bringing this up, but in any
+event, nobody's perfect, right. At this point I want
+to bring up Sam, Sam Reeves to introduce our guest
+speaker. [applause]
+
+
+SR:
+Thank you, Don, and thank you for yours and Joyce's
+leadership in the forum. And we've had these
+wonderful speakers and tonight there's no exception.
+I think tonight is going to be fascinating and
+thought-provoking as we hear maybe a different slant
+on investing. We all have savings. We all want to
+enhance the value of those savings. Thirty to 35
+years ago basically it was just a ratio of stocks
+versus bonds and that would depend on the stock
+broker. By 1980 when Stan first started in the
+business, you had different type of strategies. You
+had the hedge fund strategies that were just coming
+on, you had the LBOs, you had private equity. You
+had all the different strategies coming on. Then you
+had Volcker battling against inflation. Won that.
+Then you had the Reagan supply-side. So, that
+created tremendous tailwinds for investing. Then you
+had the technology revolution, you had the frontier
+markets, your emerging markets, all these things, the
+currently fluctuation driven by a lot of the central
+banks being on steroids, if you would.
+
+
+All of these developments created a chance for
+massive gains and massive losses. And with increased
+complexity of all of this we all need help in
+investing. We need money managers, but I think you
+need more than that. You need prescient
+practitioners, and we're going to talk about that a
+little bit and rightfully so because $1,000 invested
+30 years ago in S&P - S&P’s compounded about 11, a
+little over 11.3, something like that. Your $1,000
+would be $27,000 before taxes today, 25 up years, 5
+down years, which is also important.
+
+
+Probably the poster child of investors, Warren
+Buffett in the last 30 years has compounded just
+under 20 percent. A thousand dollars 30 years ago
+would be $177,000 today, 24 up years and six down
+years of which three of the six were more than 20
+percent, and that‘s going to be interesting when we
+get to that.
+
+
+The pundit that you see on TV all the time, the
+egotistical Bill Gross who you would think is the
+greatest investor there's ever been, he compounded
+the last 30 years before he got fired at 7.8 percent,
+and $1,000 would be $10,000. In the process he's
+made a couple billion dollars.
+
+
+So, our speaker tonight if he invested $1,000 30
+years ago, today it would be $2.6 million before
+taxes and after taxes, because people say hedge funds
+don't do a very good job, they‘re not tax efficient,
+$300,000 still. Thirty years, no losses. Brian and
+I were talking last night it's hard to do anything
+for 30 years and not have one losing year. That's a
+phenomenal thing.
+
+
+So, I think there's five takeaways from here. Never
+underestimate the compounding, the power of it; the
+damage of down years; the impact of taxes; absolute
+returns. Again you think of relative, growth is all
+about relative. It's like me comparing myself to
+Kanny relative. With Kenny, I'm pretty good at
+playing golf. But in an absolute basis neither one
+of us is any good at all. So, there's a lot of
+difference between absolute and relative. So, I'm
+more in the absolute returns. And then finally you
+better choose a money manager that is a prescient
+practitioner.
+
+
+There's two other things I’d like to highlight about
+the speaker this evening is that we know that the
+public record suggests - and it says here in this -
+the flyer that we had is right here. It says he was
+the most charitable man in America in 2009. That's
+half right. Fiona and Stan as a couple were the most
+charitable and still are probably one of the most
+charitable couples in America.
+
+
+And I want to say something else about Fiona because
+Fiona, many of you don’t know, is one of the great
+money managers at Dreyfus. I used to read about
+Fiona before I ever met Fiona. And so she was — and
+then she became a mom, and there's three daughters.
+Sarah‘s here now, who's in - sitting there with her
+dad - in med school now, NYU. Ken, isn't that true,
+she's there? And then Hannah is at home where Stan
+would like to be watching the football game. And
+then Tess is at Brown, who has her own band and
+travels around, and she’s got all these CDs and
+everything else.
+
+
+Then also Fiona then became and really has a lot of
+insight into neuroscience. She and Stan have founded
+the institute again at NYU that's won many
+recognitions, et cetera, the Nobel Peace Prize,
+[unint.], et cetera, et cetera. Amazing things that
+are going on there. And then to add to that five,
+years ago started a jewelry boutique I guess you
+would call it. FD is the name of it, and today it's
+one of the leading brand names in the world. So, she
+has customers in Europe, China, India. United States,
+et cetera, et cetera. In fact it might be an
+interesting for Harvard a case study because I think
+probably what as I look and think about what Fiona
+does, you have a lot of inequities and all these
+things. It may be a wonderful case study. You have
+international things going on, but that's another
+subject.
+
+
+But to go back to their charitable things, what very
+few people know was during this time he's running
+these funds, he had a fund that very few people knew
+about that was called No Margin, and this fund was
+for not-for-profits. No fees, no anything. It was a
+pure — all the returns went to the not-for-profits.
+Over $1 billion in this fund, and all of the hot
+issues - in those days you remember back, some of us
+are old enough to remember hot issues, those went in.
+So, these not—for-profits had tremendous upside
+potential. And that was when I had my friend Ed
+Hurley [Ph.] set me up as a 501(c)(3) so I could be a
+charitable donation for Druck.
+
+
+Finally, I think that when Druck closed his fund in
+2010, he during these years had been returning
+profits each year to the investors, and I've never
+seen or heard of this before, in the way of
+dividends. And when he closed out in 2010, none of
+the investors, the hundred investors, had a net — had
+all the initial investment back. No one had any
+capital at risk. Everything had come back plus some,
+plus when he distributed the $14 billion. So, when
+he retired, these 99 people, including Kenny and I
+and a bunch of them, we had to go back to work. He
+retired; the rest of us go back to work.
+
+
+But it is a fabulous record that I think that Stan -
+and it is a delight for me to share some of that with
+you because it's not a well-known record, but it's an
+envious record and I think historical. So, Stan,
+share if you can, how did this happen? How did this
+happen? And then also what do you see going forward?
+
+
+[applause]
+
+
+SD:
+Thank you, Sam. I know there are a lot of people in
+the audience who would like to know what's going on
+in the football game. The Seahawks have taken the
+lead 22 to 19...with one minute to play.
+
+
+This is a special moment to me.
+I've never spoken in front of my own
+community before, and it‘s particularly special
+because I get to share the stage with probably the
+two most important people in terms of influence in my
+life outside of my family, Sam Reeves and Ken
+Langone. It's not really an accurate statement
+because I actually consider both of them part of my
+family. So, that's a real thrill for me.
+Sam, with the over-the—top introduction, of course, which I
+anticipated because it's Sam Reeves.
+
+
+I thought I would spend a moment just reflecting on
+why I believe my record was what it was, and maybe
+you can draw something from that. But the first
+thing I'd say very clearly, I'm no genius. I was not
+in the top 10 percent of my high school class. My
+SATs were so mediocre I went to Bowdoin because it
+was the only good school that didn‘t require SATs,
+and it turned out to be a very fortunate event for
+me.
+
+
+But I'd list a number of reasons why I think I had
+the record I did because maybe you can draw on it in
+some of your own investing or also maybe in picking a
+money manager. Number one, I had an incredible
+passion, and still do, for the business. The thought
+that every event in the world affects some security
+price somewhere I just found incredibly
+intellectually [unint.] to try and figure out what
+the next puzzle was and what was going to move what.
+And the fact that I could bet on that interaction,
+those who know me, I do like to bet. One of the
+great things of this business, I get to gamble for a
+living and channel it through the markets instead of
+illegal activity. That was just sort of nirvana for
+me that I could constantly be making these bets,
+watch the market moving, and get my grades in the
+newspaper every day.
+
+
+The second thing I would say is I had two great
+mentors. One I stumbled upon and one I sought out.
+
+
+And I see some young people in the audience and
+probably some grandparents who have some influence on
+some young people in the audience, and I would just
+say this. If you're early on in your career and they
+give you a choice between a great mentor or higher
+pay, take the mentor every time. It's not even
+close. And don‘t even think about leaving that
+mentor until your learning curve peaks. There's just
+nothing to me so invaluable in my business, but in
+many businesses, as great mentors. And a lot of kids
+are just too short-sighted in terms of going for the
+short-term money instead of preparing themselves for
+the longer term.
+
+
+The third thing I'd say is I developed partly through
+dumb luck ~ I'll get into that — a very unique risk
+management system. The first thing I heard when I
+got in the business, not from my mentor, was bulls
+make money, bears make money, and pigs get
+slaughtered. I'm here to tell you I was a pig. And
+I strongly believe the only way to make long-term
+returns in our business that are superior is by being
+a pig. I think diversification and all the stuff
+they're teaching at business school today is probably
+the most misguided concept everywhere.
+
+
+And if you look at all the great investors that are
+as different as Warren Buffett, Carl Icahn, Ken
+Langone, they tend to be very, very concentrated
+bets. They see something, they bet it, and they bet
+the ranch on it. And that's kind of the way my
+philosophy evolved, which was if you see - only maybe
+one or two times a year do you see something that
+really, really excites you. And if you look at what
+excites you and then you look down the road, your
+record on those particular transactions is far
+superior to everything else, but the mistake I'd say
+98 percent of money managers and individuals make is
+they feel like they got to be playing in a bunch of
+stuff. And if you really see it, put all your eggs
+in one basket and then watch the basket very
+carefully.
+
+
+Now, I told you it was kind of dumb luck how I fell
+into this. Ken Langone knows my first mentor very
+well. He's not a well-known guy, but he was
+absolutely brilliant, and I would say a bit of a
+maverick. He was at Pittsburgh National bank. I
+started there when I was 23 years old. I was in a
+research department. There were eight of us. I was
+the only one without an MBA, and I was the only one
+under 32 years of age. I was 23 years old.
+
+
+After about a year and a half - I was a banking and a
+chemical analyst - this guy calls me into his office
+and announces he’s going to make me the director of
+research, and these other eight guys and my
+52-year-old boss are going to report to me. So, I
+started to think I'm pretty good stuff here. But he
+instantly said, “Now, do you know why I'm doing
+this?” I said no. He says, “Because for the same
+reason they send 18-year-olds to war. You're too
+dumb, too young, and too inexperienced not to know to
+charge. We around here have been in a bear market
+since 1968." This was 1978. “I think a big secular
+bull market's coming. We've all got scars. We're
+not going to be able to pull the trigger. So, I need
+a young, inexperienced guy. But I think you‘ve got
+the magic to go in there and lead the charge." So, I
+told you he was a maverick, and as you can already
+see, he's a little bit eccentric. After he put me in
+there, he was gone in three months. I'll get to that
+in a minute.
+
+
+But before he left, he taught me two things. A,
+never, ever invest in the present. It doesn't matter
+what a company’s earning, what they have earned. He
+taught me that you have to visualize the situation 18
+months from now, and whatever that is, that's where
+the price will be, not where it is today. And too
+many people tend to look at the present, oh this is a
+great company, they've done this or this central bank
+is doing all the right things. But you have to look
+to the future. If you invest in the present, you're
+going to get run over.
+
+
+The other thing he taught me is earnings don't move
+the overall market; it's the Federal Reserve Board.
+And whatever I do, focus on the central banks and
+focus on the movement of liquidity, that most people
+in the market are looking for earnings and
+conventional measures. It's liquidity that moves
+markets.
+
+
+Now, I told you he left three months later, and
+here's where the dumb luck came in in terms of my
+investment philosophy. So, right after he leaves,
+the Shah of Iran goes under. So, oil looks like it's
+going to go up 300 percent. I'm 26 — 25, excuse me.
+I don't have any experience. I don't know anything
+about portfolio managers. So, I go well, this is
+easy. Let's put 70 percent of our money in oil
+stocks and let's put 30 percent in defense stocks and
+let's sell all our bonds. So, and I would have
+agreed with him if I had some experience and I was a
+little more experienced, but the portfolio managers
+that were competing with me for the top job, they, of
+course, thought it was crazy. I would have thought
+it was crazy too if I’d have had any experience, but
+the list I proposed went up 100 percent. The S&P was
+flat. And then at 26 years old they made me chief
+investment officer of the whole place. So, the
+reason I say there was a lot of luck involved is
+because as Drelles predicted, it was my youth and it
+was my inexperience, and I was ready to charge.
+
+
+So, the next thing that happened when I started at
+Duquesne, Ronald Reagan had become President, and we
+had a radical man named Paul Volcker running the
+Federal Reserve. And inflation was 12 percent. The
+whole world thought it was going to go through the
+roof, and Paul Volcker had other ideas. And he had
+raised interest rates to 18 percent on the short end,
+and I could see that there is no way this man was
+going to let inflation go. So, I had just started at
+Duquesne. I had a small amount of new capital. I
+took 50 percent of the capital and put it into
+30—year treasury bonds yielding 14 percent, and I
+owned nothing else. Sort of like the oil and defense
+story, but now we're on a different gig. And sure
+enough, the bonds went up despite a bear market in
+equities. Right out of the chute I was able to be up
+40 percent. And more importantly, it sort of shaped
+my philosophy again of you don't need like 15 stocks
+or this currency or that. If you see it, you got to
+go for it because that's a better bet than 90 percent
+of the other stuff you would add onto it.
+
+
+So, after that happened, my second mentor was George
+Soros, and unlike Speros Drelles, I imagine most of
+you have heard of George Soros. And had I known
+George Soros when I made the bond bet, I probably
+would have made a lot more money because I wouldn't
+have put 50 percent in the bonds, I probably would
+have put about 150 percent in the bonds. So, how did
+I meet George Soros? By the early to mid-‘BOs
+commodities were having dramatic moves. currencies
+were having big moves, bonds were having big moves,
+and I was developing a philosophy that if I can look
+at all these different buckets and I‘m going to make
+concentrated bets, I'd rather have a menu of assets
+to choose from to make my big bets and particularly
+since a lot of these assets go up when equities go
+down, and that's how it was moving.
+
+
+And then I read The Alchemy of Finance because I'd
+heard about this guy, Soros. And when I read The
+Alchemy of Finance, I understood very quickly that he
+was already employing an advanced version of the
+philosophy I was developing in my fund. So, when I
+went over to work for George, my idea was I was going
+to get my PhD in macro portfolio manager and then
+leave in a couple years or get fired like the nine
+predecessors had. But it’s funny because I went over
+there, I thought what I would learn would be like
+what makes the yen goes up, what makes the deutsche
+mark move, what makes this, and to my really big
+surprise, I was as proficient as he was, maybe more
+so, in predicting trends.
+
+
+That's not what I learned from George Soros, but I
+learned something incredibly valuable, and that is
+when you see it, to bet big. So what I had told you
+was already evolving, he totally cemented. I know we
+got a bunch of golfers in the room. For those who
+follow baseball, I had a higher batting average;
+Sores had a much bigger slugging percentage. When I
+took over Quantum, I was running Quantum and
+Duquesne. He was running his personal account, which
+was about the size of an institution back then, by
+the way, and he was focusing 90 percent of his time
+on philanthropy and not really working day to day.
+In fact a lot of the time he wasn't even around.
+
+
+And I’d say 90 percent of the ideas he were [ph.]
+using came from me, and it was very insightful and
+I'm a competitive person, frankly embarrassing, that
+in his personal account working about 10 percent of
+the time he continued to beat Duquesne and Quantum
+while I was managing the money. And again it's
+because he was taking my ideas and he just had more
+guts. He was betting more money with my ideas than I
+was.
+
+
+Probably nothing explains our relationship and what
+I've learned from him more than the British pound.
+So, in 1992 in August of that year my housing analyst
+in Britain called me up and basically said that
+Britain looked like they were going into a recession
+because the interest rate increases they were
+experiencing were causing a downturn in housing. At
+the same time, if you remember, Germany. the wall had
+fallen in '89 and they had reunited with East
+Germany, and because they'd had this disastrous
+experience with inflation back in the ’203, they were
+obsessed when the deutsche mark and the [unint.]
+combined, that they would not have another
+inflationary experience. So, the Bundesbank, which
+was getting growth from the [unint.] and had a
+history of worrying about inflation, was raising
+rates like crazy. That all sounds normal except the
+deutsche mark and the British pound were linked. And
+you cannot have two currencies where one economic
+outlook is going like this way and the other outlook
+is going that way. So, in August of '92 there was 7
+billion in Quantum.
+I put a billion and a half, short the British pound...
+...based on the thesis I just gave you. So,
+fast-forward September, next month. I wake up one
+morning and the head of the Bundesbank, Helmut
+Schlesinger, has given an editorial in the Financial
+Times, and I’ll skip all the flowers. It basically
+said the British pound is crap and we don't want to
+be united with this currency. So, I thought well,
+this is my opportunity. So, I decided I’m going to
+bet like Soros bets on the British pound against the
+deutsche mark.
+
+
+It just so happens he's in the office. He's usually
+in Eastern Europe at this time doing his thing. So,
+I go in at 4:00 and I said, “George, I'm going to
+sell $5.5 billion worth of British pounds tonight and
+buy deutsche marks. Here's why I'm doing it, that
+means we‘ll have 100 percent of the fund in this one
+trade." And as I'm talking, he starts wincing like
+what is wrong with this kid, and I think he's about
+to blow away my thesis and he says, “That is the most
+ridiculous use of money management I ever heard.
+What you described is an incredible one-way bet. We
+should have 200 percent of our net worth in this
+trade, not 100 percent. Do you know how often
+something like this comes around? Like one or 20
+years. What is wrong with you?" So, we started
+shorting the British pound that night. We didn‘t get
+the whole 15 billion on, but we got enough that I'm
+sure some people in the room have read about it in
+the financial press.
+
+
+So, that's probably enough old war stories tonight.
+I love telling old war stories because I like to
+reminisce when I was a money manager and doing better
+returns than I have since I retired, but I do think
+it's important maybe let's try and move me to the
+present here a little bit. So, I told you that one
+of the things I learned from Drelles was to focus on
+central banks. And Sam was kind enough to point out
+some very good returns we had over the years.
+
+
+One of the things I would say is about 80 percent of
+the big, big money we made was in bear markets and
+equities because crazy things were going on in
+response to what I would call central bank mistakes
+during that 30-year period. And probably in my mind
+the poster child for a central bank mistake was
+actually the U.S. Federal Reserve in 2003 and 2004.
+I recall very vividly at the end of the fourth
+quarter of 2003 calling my staff in because interest
+rates, fed funds were one percent. The nominal
+growth in the U.S. that quarter had been nine
+percent. All our economic charts were going through
+the roof, and not only did they have rates at one
+percent, they had this considerable period — sound
+familiar? — language that they were going to be there
+for a considerable time period.
+
+
+So, I said I want you guys to try and block out where
+fed funds are and just consider this economic data
+and let's play a game. We've all come down from
+Mars. Where do you think fed funds would be if you
+just saw this data and didn't know where they were?
+And I‘d say of the seven people the lowest guess was
+3 percent and the highest was 6 percent. So, we had
+great conviction that the Federal Reserve was making
+a mistake with way too loose monetary policy. We
+didn‘t know how it was going to manifest itself, but
+we were on alert that this is going to and very
+badly.
+
+
+Sure enough, about a year and a half later an analyst
+from Bear Stearns came in and showed me some subprime
+situation, the whole housing thing, and we were able
+to figure out by mid-'05 that this thing was going to
+end in a spectacular housing bust, which had been
+engineered - or not engineered but engendered by the
+Federal Reserve's too-loose monetary policy and end
+in a deflationary event. And we were lucky enough
+that it turned out to be correct. My returns weren‘t
+very good in '06 because I was a little early, but
+’07 and ’08 were - they were a lot of fun.
+
+
+So. that's why if you look at today — can we get the
+charts up please? I'm experiencing a very strong
+sense of deja vu. Let's just play the game I played
+with my analysts back in 2003, 2004 and go through a
+series of charts. So, this is the United States
+households' net worth per household. And it's
+textbook. You see the big drop in the financial
+crisis. It's textbook when you have consumer balance
+sheets torn to pieces by a financial crisis to use
+super loose monetary policy to rebuild those balance
+sheets, which the Federal Reserve did beautifully.
+
+
+What’s interesting though is if you look forward by
+2011, we had already exceeded the '07 levels, which I
+think a lot of people would agree was already an
+overheated [ph.] period, and since then we’ve gone
+straight up for two more years, and household net
+worth is certainly in very, very good shape.
+
+
+Here's employment. As you can see after another big
+problem after the financial crisis, the employment
+market has largely healed, and we're down at 5.6 on
+the unemployment rate. Here's industrial production.
+Again, big drop after '07. Look at this thing. It's
+screaming. Here's retail sales. Again you see the
+damage, but you see where we are now. You're right
+on a 60-year uptrend, which is actually very good.
+
+
+And then I'm sure for those of you who are
+unfortunate enough to watch CNBC and read other
+financial statements, you'll know that the fed is
+absolutely obsessed with Japan. They’ve been talking
+about this Japan analogy for 10 or 15 years now or
+certainly since Bernanke took over. And let me just
+show you something. This is the core CPI in the U.S.
+I‘m sure you've heard the word “deflation” more than
+you’d like to hear it in the last three or four
+years. We've never had deflation. Our CPI has gone
+up 40 percent over this time with not one period of
+deflation. And at the bottom you see Japan, which is
+down 15 percent. I did think there was a case, a
+viable case in '09, '10 that we may follow Japan.
+
+
+But you know what, I've thought a lot of things when
+I’m managing money with great, great conviction, and
+a lot of times I'm wrong. And when you're betting
+the ranch and the circumstances change, you have to
+change, and that's how I've always managed money.
+But the feds‘ thesis to me has been proved dead wrong
+about three or four years ago, which is okay, but
+there was no pivot.
+
+
+Here's another one that I like to look at. Has
+anybody heard on CNBC in the last week comparisons
+with 1937 and the mistake the Federal Reserve made in
+1937 because it is a constant thing they’re bringing
+up? But again, here's the net worth chart I showed
+in the first slide in dark blue, but look at the
+light blue line, which is net worth in the 19305 in
+the U.S. We're not even close to the kind of numbers
+we had in 1937. And if I showed you all those other
+four charts, they wouldn't have moved during the four
+years either.
+
+
+And finally, one more comparison with Japan. In
+light blue is average net worth per household in the
+U.S. In dark blue is Japan. If you took apples to
+apples the same time period, there's just no
+comparison.
+
+
+So, my point is this, if I was giving you a quiz and
+you looked at these five charts and you hear all this
+talk about a deflation and depression and how
+horrible things are, let me just say this, the
+Federal Reserve was founded in 1913. This is the
+first time in 102 years, A, the central bank bought
+bonds and, B, that we‘ve had zero interest rates and
+we've had them for five or six years. So, do you
+think this is the worst economic period looking at
+these numbers we’ve been in in the last 102 years?
+To me it's incredible.
+
+
+Now, the fed will say well, you know, if we didn't
+have rates down here and we didn't increase our
+balance sheet, the economy probably wouldn‘t have
+done as well as it's done in the last year or two.
+
+
+You know what, I think that's fair, it probably
+wouldn’t have. It also wouldn't have done as well as
+it did in 2004 and 2005. But you can’t measure
+what’s happening just in the present in the near
+term. You got to look at the long term.
+
+
+And to me it's quite clear that it was the Federal
+Reserve policy. I don't know whether you remember.
+they kept coming up with this term back at the time,
+they wanted an insurance policy. This we got to
+ensure this economic recovery keeps going. The only
+thing they ensured in my mind was the financial
+crisis. So, to me you're getting the same language
+again out of policymakers. On a risk-reward basis
+why not let this thing a little hot? You know, we
+got to ensure that it gets out. But the problem with
+this is when you have zero money for so long, the
+marginal benefits you get through consumption greatly
+diminish, but there's one thing that doesn't
+diminish, which is unintended consequences.
+
+
+People like me, others, when they get zero money -
+and I know a lot of people in this room are probably
+experiencing this, you are forced into other assets
+and risk assets and behavior that you really don't
+want to do, and it's not those concentrated bet kind
+of stuff I met [ph.] earlier. It's like gees, these
+zero rates are killing me. I got to do this. And
+the problem is the longer rates stay at zero and the
+longer assets respond to that, the more egregious
+behavior comes up.
+
+
+Now. people will say well the PE is not that hard.
+Where's the beef? Again, I feel more like it was in
+'04 where every bone in my body said this is a bad
+risk reward, but I can't figure out how it's going to
+end. I just know it's going to end badly, and a year
+and a half later we figure out it was housing and
+Subprime. I feel the same way now. There are early
+signs. If you look at IPOs, 80 percent of them are
+unprofitable when they come. The only other time
+we've been at 80 percent or higher was 1999.
+
+
+The other thing I would look at is credit. There are
+some really weird things going on in the credit
+market that maybe Kenny and I can talk about later.
+
+
+But there are already early signs starting to emerge.
+And to me if I had a message out here, I know you're
+frustrated about zero rates, I know that it's so
+tempting to go ahead and make investments and it
+looks good for today, but when this thing ends,
+because we've had speculation, we've had money
+building up for four to six years in terms of a risk
+pattern, I think it could end very badly. Kenny, do
+you want to come up? [applause]
+
+
+MS:
+You've never been on the left in your life, Ken.
+
+
+KL:
+I am now. [laughter] There's a first time for
+everything, Stanley. There’s one addition I'd make
+to Sam's introduction, and not only do the
+Druckenmillers share their treasure with so many
+charities, but they share their time. Everything
+they support, they support not only as they say with
+their checkbook, but with their time and their effort
+and their great abilities. And for the both of you
+for all of us here we say thank you. Okay.
+
+
+[applause]
+
+
+You mentioned in your talk that there are already
+early signs of excesses due to over-easy [ph.]
+monetary policy. What are some of the signs you see?
+
+
+SD:
+Okay. I mentioned credit. I mentioned credit.
+Let's talk about that for a minute. In 2006 and
+2007, which I think most of us would agree was not a
+down period in terms of speculation, corporations
+issued $700 billion in debt over that two-year
+period. In 2013 and 2014 they've already issued $1.1
+trillion in debt, 50 percent more than they did in
+the '06. '07 period over the same time period. But
+more disturbing to me if you look at the debt that is
+being issued, Kenny, back in '06, '07, 28 percent of
+that debt was B rated. Today 71 percent of the debt
+that's been issued in the last two years is B rated.
+So, not only have we issued a lot more debt, we're
+doing so at much less standards. Another way to
+look...
+
+
+SD: ...at that is if those in the audience who know what
+covenant-light loans are, which is loans without a
+lot of stuff tied around you, back in '06, '07 less
+than 20 percent of the debt was issued coy-light.
+
+
+Now that number is over 60 percent. So, that's one
+sign. The other sign I would say is in corporate
+behavior, just behavior itself. So, let's look at
+the current earnings of corporate America. Last year
+they earned $1.1 trillion; 1.4 trillion in
+depreciation. Now, that’s about $2.5 trillion in
+operating cash flow. They spent 1.? trillion on
+business and capital equipment and another 700
+billion on dividends. So, virtually all of their
+operating cash flow has gone to business spending and
+dividends, which is okay. I'm enboard with that.
+
+
+But then they increase their debt 600 billion. How
+did that happen if they didn't have negative cash
+flow? Because they went out and bought $567 billion
+worth of stock back with debt, by issuing debt. So,
+what's happening is their book value is staying
+virtually the same, but their debt is going like
+this. From 1987 when Greenspan took over for
+Volcker, our economy went from 150 percent debt to
+GDP to 390 percent as we had these easy money
+policies moving people more and more out the risk
+curve. Interestingly, in the financial crisis that
+went down from about 390 to 365. But now because of
+corporate behavior, government behavior, and
+everything else, those ratios are starting to go back
+up again.
+
+
+Look, if you think we can have zero interest rates
+forever, maybe it won't matter, but in my view one of
+two things is going to happen with all that debt. A,
+if interest rates go up, they're screwed and, B, if
+the economy is as bad as all the bears say it is,
+which I don't believe, some industries will get into
+trouble where they can't even cover the debt at this
+level.
+
+
+And just one example might be 18 percent of the
+high-yield debt issued in the last year is energy.
+And I don't mean to offend any Texans in the room,
+but if you ever met anybody from Texas, those guys
+know how to gamble, and if you let them stick a hole
+in the ground with your money, they’re going to do
+it. So, I don’t exactly know what’s going to happen.
+I don't know when it's going to happen. I just have
+the same horrific sense I had back in '04. And by
+the way, it lasted another two years. So. you don‘t
+need to run out and sell whatever tonight.
+
+
+KL:
+Will this unprecedented global money printing ever
+stop? And what is your intermediate and long-term
+view on inflation?
+
+
+SD:
+Well, the global money printing is interesting
+because the United States is the world‘s central
+bank. And Japan had this guy named Shirakawa running
+the central bank, and he didn't believe in this
+stuff. So, what happened when he didn't print the
+money but the U.S. was printing the money and we're
+[inaud.], the Japanese yen started to appreciate and
+it stayed appreciating, and it basically hollowed out
+the country. And they were eventually forced, as you
+know, two years ago into flooding their system with
+money.
+
+
+You have a very, very similar situation going on in
+Europe now. I know Mario Draghi and Angela Merkel
+don't like QE. They don’t like anything about it,
+but again, the chump - I have this partner. I don't
+know if he's in the room, Kevin Warsh who's on the
+Federal Reserve Board. He said Japan used to be the
+new chump because they had the overvalued currency.
+Now it's Europe. So, their currency went from 82 say
+back in 2000 all the way up to 160, and it was 140
+last summer, and they're absolutely getting murdered.
+And now they're apparently caving in and they're
+going to print money.
+
+
+I don't know when it's going to stop. And on
+inflation this could end up being inflationary. It
+could also end up being deflationary because if you
+print money and save banks, the yield curve goes
+negative and they can't earn any money or let's say
+the price of oil goes to $30, you could get a
+deflationary event. If you had asked me this
+question in late '03, I'd have said well, this
+probably ends with inflation, but by the time we
+needed to, we figured out no, this is going to end in
+deflation. So, the fed keeps talking about
+deflation, but there is nothing more deflationary
+than creating a phony asset bubble, having a bunch of
+investors plow into it and then having it pop. That
+is deflationary.
+
+
+KL:
+You mentioned some of your biggest winners in your
+career. What is the biggest mistake you made and
+what did you learn from it?
+
+
+SD:
+Well, I made a lot of mistakes, but I made one real
+doozy. So, this is kind of a funny story, at least
+it is 15 years later because the pain has subsided a little.
+But in 1999 after Yahoo and America Online
+had already gone up like tenfold, I got the bright
+idea at Soros to short internet stocks. And I put
+200 million in them in about February and by
+mid-march the 200 million short I had lost $600
+million on, gotten completely beat up and was down
+like 15 percent on the year. And I was very proud of
+the fact that I never had a down year, and I thought
+well, I’m finished.
+
+
+So, the next thing that happens is I can't remember
+whether I went to Silicon Valley or I talked to some
+22-year-old with Asperger's. But whoever it was,
+they convinced me about this new tech boom that was
+going to take place. So I went and hired a couple of
+gun slingers because we only knew about IBM and
+Hewlett-Packard. I needed Veritas and Verisign. I
+wanted the six. So, we hired this guy and we end up
+on the Year — we had been down 15 and we ended up
+like 35 percent on the year. And the Nasdaq's gone
+up 400 percent.
+
+
+So, I'll never forget it. January of 2000 I go into
+Soros's office and I say I'm selling all the tech
+stocks, selling everything. This is crazy. [unint.]
+at 104 times earnings. This is nuts. Just kind of
+as I explained earlier, we're going to step aside,
+wait for the net fat pitch. I didn't fire the two
+gun slingers. They didn't have enough money to
+really hurt the fund, but they started making 3
+percent a day and I'm out. It is driving me nuts. I
+mean their little account is like up 50 percent on
+the year. I think Quantum was up seven. It's just
+sitting there.
+
+
+So like around March I could feel it coming. I just
+- I had to play. I couldn't help myself. And three
+times during the same week I pick up a - don't do it.
+Don't do it. Anyway, I pick up the phone finally. I
+think I missed the top by an hour. I bought
+$6 billion worth of tech stocks. and in six weeks I
+had left Soros and I had lost $3 billion in that one
+play. You asked me what I learned. I didn't learn
+anything. I already knew that I wasn't supposed to
+do that. I was just an emotional basket case and
+couldn't help myself. So, maybe I learned not to do
+it again. but I already knew that.
+
+
+KL:
+Here's one you may not be able to answer. Why are
+the regulators so intent on penalizing our best
+banks?
+
+
+SD:
+Because the regulators are appointed by politicians
+and the banks make a perfect punching bag for what's
+going on. And I will say this, I think there were
+very, very bad actors in '06, ‘07. Let's not kid
+ourselves in the banking industries.
+
+
+KL:
+I agree.
+
+
+SD:
+But the point I was making earlier is there was a
+great enabler, and that was the Federal Reserve...
+
+
+KL:
+Yeah.
+
+
+SD:
+...pushing people out the risk curve. And what I
+just can't understand for the life of me, we've done
+Dodd-Frank, we got 5,000 people watching Jamie Dimon
+when he goes to the bathroom. I mean all this stuff
+going on to supposedly prevent the next financial
+crisis. And if you look to me at the real root cause
+behind the financial crisis, we're doubling down.
+Our monetary policy is so much more reckless and so
+much more aggressively pushing the people in this
+room and everybody else out the risk curve that we’re
+doubling down on the same policy that really put us
+there and enabled those bad actors [ph.] to do what
+they do. Now, no matter what you want to say about
+them, if we had had five or six percent interest
+rates, it would have never happened because they
+couldn't have gotten the money to do it.
+
+
+KL:
+What's the future of the euro?
+
+
+SD:
+The currency or the union?
+
+
+KL:
+The currency
+
+
+SD:
+I think the euro needs to continue to go down because
+eight of those countries have such a cost
+disadvantage versus Germany right now. It's about 40
+percent because they haven't been behaving themselves
+since the euro was put together that you have severe
+outright deflation not like pretend deflation like we
+talk about on the board. It’s real deflation. And
+they've got sclerosis. I can't see Europe surviving
+without the euro going down to somewhere in the
+mid-80s. And if you think that's a ridiculous
+forecast, when I restarted Duquesne in 2000, the euro
+was 82. Now, that was extreme. But let me ask you
+this, think of the Europe and United States back in
+2000 and think of them today. Do you think Europe
+has made incremental gains versus the United States
+or declines? So, to me it's not unreasonable to see
+the euro continue to go down.
+
+
+The other thing I‘ll say, I do analyze currencies,
+and it would be almost unprecedented to have a
+10-month currency trend. Because all the
+dislocations happen when your currency is overvalued
+and it’s up long enough, it takes years to unwind
+those dislocations. And it's hard to argue the euro
+is not in a trend. It's down from 140 to 117. And
+using the rule of time, I don't think it’s
+unreasonable to expect it to break 100 sometime in
+the next year or two.
+
+
+In terms of the euro region itself, there’s still a
+lot of questions. That was put together for
+political reasons really to create political unity.
+And as most people in this room know, it's doing just
+the opposite. It's creating political disunity. So,
+I don't think it's even a given that that thing stays
+together.
+
+
+KL:
+Okay. You put money out with other managers. What
+qualities and characteristics do you look for in
+those people that you place money with?
+
+
+SD:
+Number one, passion. I mentioned earlier I was
+passionate about the business. The problem with this
+business if you're not passionate, it is so
+invigorating to certain individuals, they're going to
+work 24/7, and you're competing against them. So,
+every time you buy something, one of them is selling
+it. So, if you‘re with one of the lazy people or one
+of the people that are just doing it for the money,
+you're going to get run over by those people.
+
+
+The other characteristic I like to look for in a
+money manager is when I look at their record, I
+immediately go to the bear markets and see how they
+did. Particularly given sort of the five-year
+outlook I've given, I want to make sure I've got a
+money manager who knows how to make money and manage
+money in turbulent times, not just in bull markets.
+
+
+The other thing I look for, Kenny, is open-mindedness
+and humility. I have never interviewed a money
+manager who told you he'd never made a mistake, and a 
+lot of them do, who didn‘t stink. Every great money manager I've ever met, all they want to talk about is
+their mistakes. There's a great humility there. But
+and then obviously integrity because passion without
+integrity leads to jail. So, if you want someone
+who's absolutely obsessed with the business and
+obsessed with winning, they're not in it for the
+money, they're in it for winning, you better have
+somebody with integrity.
+
+
+
+
+KL:
+You've expressed concerns about entitlement. What's
+the solution? You got a loaded crowd here now. Be
+careful.
+
+
+SD:
+That's a rough one. So, if you go back to 1965, the
+senior poverty rate in this country was 30 percent,
+and it’s 9 percent now. I think everybody can
+applaud that's a great achievement. The problem is
+you go back to 1965, your child poverty was 21
+
+
+percent, and now it's 25 percent. So, all the gains we've made in terms of poverty the last 40 years have accrued to the
+elderly. If you look at the average per capita
+income in this country, we're spending 56 percent of
+every worker’s dollars on the elderly, and we're
+spending 7 percent on children.
+
+
+So, how would I solve it? Well, I couldn't because
+if I wanted to do it, nobody would ever vote me in
+office. But I would just say that some solutions are
+a combination of tax reform dealing specifically with
+the problem because the longer this goes on, the more
+you're either going to have to raise taxes or cut
+spending down the road because of compounding. I
+would freeze — forget COLAs. I would freeze all the
+entitlement payments right now because they've
+already taken such a tremendous share away from the
+rest of our population.
+
+
+You know, it's funny. if you go back to as late as
+1970, entitlements were 28 percent of all federal
+outlays. Now they're 72 percent. And when you start
+talking about oh my God, we can't freeze this stuff,
+why not? You just picked up 50 points of share on
+everybody. Why not freeze it? And, you know, Ken
+and I have talked. I mean it's ridiculous that our
+Social Security is not means tested. It's
+ridiculous. I mean the fact that he's getting - what
+is your monthly check?
+
+
+KL:
+Twenty-five hundred dollars a month.
+
+
+SD:
+It's ridiculous.
+
+
+KL:
+And Elaine gets another thousand.
+
+
+SD:
+While we have 24 percent of the kids in this country
+in poverty and probably, you know, the elephant in
+the room is obviously the health care system. You've
+got to get the market into the equation so people see
+the cost and they have to make an economic decision.
+A lot of this goes into end-of-life payments. You
+wonder if you had to pay 30 to 40 percent of the bill
+instead of not even knowing what the bill is, whether
+different choices would be made.
+
+
+But you talk about entitlement. The federal debt
+right now is $17 trillion. The reason it‘s
+$17 trillion and not higher is because all those
+payments that are promised to Kenny, a lot of the
+people in this room, myself not too far in the
+future, they're not on the government balance sheet.
+Any company in America if you owe payments of that
+certainty, it would be a debt. In the U.S.
+government accounting it's revenue.
+
+
+If you present valued what we have promised to
+seniors in Medicare and Social Security and Medicaid
+payments, the federal debt right now under gap
+accounting would be $205 trillion, not 17 because we
+have a demographic boom, which is the other side of
+the baby boom. As everybody knows in this room, it's
+the grey boom. We are creating 11,000 seniors in
+this country every day. Every day we're creating
+11,000 new seniors, and we're only creating about 18
+percent of youth employed to support those payments
+to them. So, we've got a big problem, and it really
+doesn't start until 2024, 2025, but if you wait 'til
+2024, it's too late. It's not unlike climate change.
+
+
+It's probably not a problem for 30 years, but if you
+wait 30 years, you can't fix it. So, you got to
+start now.
+
+
+KL:
+This is my question, is there any way possible you
+think that we could have a soft landing from all the
+excesses we've had in the last 10 or 15 Years?
+
+
+SD:
+Anything's possible. I sure hope so.
+And I haven't committed. I'm not net short equities. I mean the
+stock market right now as a percentage of GDP is
+higher than - with the exception of nine months from
+'99 to — it's the highest it's been in the last
+hundred years of any other period except for those
+nine months. But you know what, when you look at the
+monetary policy we're running, it should be - it
+should be about where it is. This is crazy stuff
+we're doing. So, I would say you have to be on alert
+to that ending badly. Is it for sure going to end
+badly? Not necessarily. I don't quite know how we
+get out of this, but it's possible.
+
+
+KL: Okay. Stanley, fabulous. Thank you so much.
+
+
+SD:
+Thanks, Ken.
+
+
+KL:
+Great, great night. [applause]
+
+
+				END OF FILE
+
+
+

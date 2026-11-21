@@ -1,0 +1,308 @@
+# Stanley Druckenmiller — Morgan Stanley 'Hard Lessons' with Iliana Bouzali (recorded Jan 30, 2026; released Feb 2026), extended version
+# Source: https://aletteraday.substack.com/p/letter-320-stan-druckenmiller-and
+# Note: Transcribed by A Letter a Day (Letter #320); summary/bios after paywall not included
+# Fetched: 2026-11-21
+
+Last week, Morgan Stanely released an interview with Stan Druckenmiller on YouTube and X. After transcribing the interview, I found out Morgan Stanley actually simultaneously released an extended version, along with bonus clips, on their website, which you can watch here .
+
+Today, I wanted to share the transcripts of that extended version, as well as the bonus clips (a total of ~40% extra content).
+
+Short Bios
+
+Stan Druckenmiller is the Founder of Duquesne Family Office.
+
+Iliana Bouzali is the Global Head of Derivatives Distribution and Structuring at Morgan Stanley.
+
+Full Bio, Summary, and Related Resources below paywall
+
+A Letter a Day is a reader-supported publication. To receive new posts and support my work, consider becoming a free or paid subscriber.
+
+Transcript
+
+Iliana Bouzali: Stan, thank you very much for doing this.
+
+Stan Druckenmiller: I’m thrilled to be here. I think the world of Morgan Stanley, so it’s the least I can do.
+
+Iliana Bouzali: That is a privilege for us to have you here. As we arrived, there were some news that Kevin Warsh may be our next Fed Chair. It seems to me that they’re stealing all your employees at this point. Any thoughts?
+
+Stan Druckenmiller: Kevin is extraordinary. He’s been like a swiss army knife at Duquesne. He runs our private equity, he helps with economic forecasts—because of my dysfunctional personality, he handles the networking outside the firm. So, I’m sad and I’m gonna miss him. On the other hand, I’m incredibly excited for him. I’m excited for the country, and I couldn’t think of anybody better prepared to be Fed Chair for what’s ahead of us. It’s like he’s been training for this for 25 years. He was the youngest Fed Governor and then he went through the financial crisis and—maybe he even learned a little something at Duquesne the last 15 years. So, I think, he’s got a huge brain, extraordinary talent. And I think it’s really, really exciting.
+
+Iliana Bouzali: Fantastic. I’ve been privy to some of your equity trades over the past year or so where it did feel you were early. And I’m curious if you can maybe take us through one or two and how they came together.
+
+Stan Druckenmiller: I’ll pick one that might surprise you because it’s not very sexy and it’s not AI or anything, but I think it’s a good example of our process at Duquesne. In the middle of last summer and toward the fall, the AI things started to get, let me say, disturbingly heated, and started to at least have some rhyme with what I went through in ‘99-2000. And we were looking for other areas. The group brought in a company, Teva Pharmaceuticals. So Teva was apparently, if you didn’t know what was going on, a boring generic drug company out of Israel selling at 6x earnings.
+
+We met with the company. A big transition was going on. Richard Francis had come in, who ran the same playbook at Sandoz. I was very impressed with him; he knew how to take low-hanging fruit in terms of operating efficiency. But much more importantly, he was taking them from a generic drug company to a growth company by embracing biosimilars, replacing the generic drugs (which is why they were 6x earnings) with biosimilars and even some actual drugs. The amazing thing is the investor base were value investors. So they hated it. The stock sat there at 6x earnings while you could see this incredible management initiative going on. No one really believed him. Growth investors didn’t want it because it hadn’t made the transition yet. Value investors didn’t want it and were actually selling it because he was doing a growth strategy.
+
+That was about six or seven months ago, and the stock was $16. Today it’s $32, and not much has happened other than he’s proved biosimilars. They’ve come up with a drug that’s not a generic, so it’s rerated from 6x earnings to, I guess, 11.5-12x earnings. So it was a whole different set of circumstances, but it encapsulates what we look at. If you look at today, you’re not going to make any money. If you try and look ahead and what might change and how investors might perceive something ahead, this one happened a little more quickly than I thought, but that would be a recent name.
+
+Iliana Bouzali: Fascinating and very intriguing. I say it’s intriguing because I think many people, maybe people not in the market but certainly many people, when they think of Stan Druckenmiller, they think of a huge macro investor. And I have seen you dabble, more than dabble, really go into areas of the market, especially in equities, that are much more niche, such as healthcare or biotech. My question is, do you have to be an expert, an analyst, someone that understands the whole pipeline of drugs to get that right?
+
+Stan Druckenmiller: Thank God the answer is an emphatic no. But I’ve got to have an expert at Duquesne who is, and trust his judgment. And then I’ve got to have a feel for how the market will embrace the change he’s describing. We did make a big move into biotech. I could sense that there was a potential leadership change just because of the phobia around AI. And I knew, because I’ve been on the board of Memorial Sloan Kettering for 30 years, that probably the best use case out there of AI is biotech through drug discovery, diagnostics, monitoring, everything. So biotech had been on its butt for about four years. I also grew up with technical analysis, and you could see the momentum changing. So that was the theory behind biotech.
+
+But honestly, when the analysts start talking about genetic sequencing and gene editing and proteins, it’s going right over Stan’s head. But I get their level of enthusiasm. We have a very good biotech team. That’s really important because I trust them, and when they’re really enthusiastic, that’s as important to me as the actual facts because I’m not smart enough to understand a lot of the actual facts.
+
+Iliana Bouzali: So, you filter not just the data, but the people that work for you.
+
+Stan Druckenmiller: My advantage is not IQ, it’s trigger pulling. I admit it’s some kind of intelligence, but my mother-in-law says I’m an idiot savant. I wasn’t in the top 10% of my class. A lot of people think I’m smarter than I am because I’m good at our business, but I have a very narrow form of intelligence that allows me to love and play this game.
+
+Iliana Bouzali: Should we turn to markets?
+
+Stan Druckenmiller: Do we have to?
+
+Iliana Bouzali: It seems to be almost obligatory with you.
+
+Stan Druckenmiller: Okay.
+
+Iliana Bouzali: So when it comes to markets, it seems to me you treat them less like forecasts and more like systems that reveal themselves. So let’s pretend you don’t have a hedge fund and you come down from Mars and you have to start a portfolio from scratch. How do you anchor it at this moment in time? What do you buy first?
+
+Stan Druckenmiller: That’s a hard question. Just a couple of principles before I would start. It appears to me the US economy is already strong, and it’s going to get much stronger because we’re looking at the Big Beautiful Bill, looking at a lot of stimulus. My guess is the Fed is certainly not going to hike and probably going to cut.
+
+So that’s a backdrop. But against that backdrop, that would be wonderful if we were undervalued. We’re not undervalued; we’re toward the top of the valuation range historically. What would be exciting about developing a hedge fund portfolio right now is the one thing I’m sure of is there’s massive disruption and massive change ahead. So actually, for the opportunity set for the next three or four years, I’m really excited. Macro has been dead for 10 or 15 years; I don’t think that’s the case anymore. If you know anything about me, I tend to change my mind every three weeks. But given the backdrop, we would probably be long an eclectic basket of equities. Until the fall, for the last three years, our portfolio was very much AI-driven.
+
+We still have drips and drabs of AI around, but it’s not driving the engine anymore. To some extent, we still have big positions in Japan and Korea. Some of them are AI, some of them are not. We’re bearish on the US dollar, mainly because it’s toward the top of the historic range in terms of purchasing power, and foreigners are way, way overloaded in dollars. And I don’t know whether it’s a sell-America trade, because it’s more like if they don’t buy American assets on a net basis because of the trade balance and because of the positioning, the dollar will go down on its own. And we think that is the most likely course here.
+
+And we own copper. It’s not a genius trade; it’s a big consensus trade. There’s no meaningful supply coming on; it’s very tight for the next eight years. And obviously, you have a big add-on from AI and data centers. We’re not long copper equities as much as we are—we just keep rolling the front end. We have some gold; that’s mainly a geopolitical trade, it’s not so much a monetary trade. And then because we’re long all these risk assets I just mentioned, we’re short bonds. I don’t necessarily expect to make money short bonds, but I think we might make a lot. If I’m right on the economy and it’s disinflationary growth, I probably break even. I don’t lose anything, but it allows me to hold the other assets I mentioned. If I’m wrong and the strong growth creates inflation, it wouldn’t be that unusual if the Fed were to cut into a booming economy for inflation to take off, particularly with what’s going on in commodities. So, I’m open-minded to that. But we create a matrix, and the bonds are helpful in both ways.
+
+Bouzali: You said something before that I want to unpack a little bit. You said, “I don’t wanna give you too many views because if you know me, I can change my mind in two or three weeks.” My question is, The equity market has changed a lot over the past decade, and you have all these new types of capital, whether it’s multi-strats, hedge funds, retail investors, systematic players, ETFs. How has that changed the time horizon that you feel you have an edge in versus, let’s say, 10 years ago? Are you more comfortable with the one-week, the one-month, the one-year trade, or maybe it’s not prescriptive? How do you think about that?
+
+Druckenmiller: Most trades I put on, I think in terms of 18 months to three years, that’s how long I think they’re probably gonna evolve. Not every trade, you know, some are a year, some are five years. But I will admit that I’ve put on a three year trade that five days later I’m out of, and I’ve reversed. But if you’re talking about how I conceptualize it, all this noise about how much the system in the market has changed, that has not changed what I just said at all.
+
+The violence that creates, is more useful for entry points if it goes against what my belief over the given timeframe is. So, I think it’s a lot of noise. It makes my life annoying ‘cause I’d rather just have nice calm markets that move in a direction, but also creates opportunities. And you have to use the volatility as opposed to being abused by the volatility other than mentally, which I’m gonna be, but you can’t let yourself be a victim of volatility and you can take advantage of it. It’s just hard mentally.
+
+Iliana Bouzali: But you said, “I’d rather have trending markets.” Fair. Am I wrong in sometimes thinking you’re more comfortable being contrarian, or do you embrace the consensus more? How do you think about that?
+
+Stan Druckenmiller: I think contrarianism is overrated. Soros used to say the crowd’s right 80% of the time. You just can’t be caught in the other 20% because you can get your head handed to you. I get some intellectual satisfaction out of playing in the 20%. But as a concept, I think contrarianism is overrated. I do like it when I have extreme conviction and no one else believes it. It gives me even more conviction. I don’t care if a trade is crowded if I think the thesis is right and the trend is with me. For entry points, I care, but I don’t really care in terms of the investment. It doesn’t bother me.
+
+Iliana Bouzali: You mentioned, “It gives me an intellectual satisfaction when I’m early on a trade.” We had an investor Zoom call in December 2022, and we were discussing macro—rates, dollar, US versus rest of the world. And after we spoke a little bit, I asked you what you think on rates. And I will quote essentially verbatim what you said. You said, “I couldn’t care less about rates. The only thing that matters is AI and Nvidia.”
+
+Stan Druckenmiller: I don’t remember that, but that’s nice.
+
+Iliana Bouzali: What was going on? How did you see it?
+
+Stan Druckenmiller: So the Nvidia story is quite interesting, and it’s a perfect example of the process we spoke about earlier where I rely on other people. I have some young superstars in my firm, and they had a network, and they started really talking about AI. This was in early to mid-2022. Then I started noticing that the kids at Stanford were shifting from 50/50 crypto and 50/50 AI to more going to AI. And that’s something we’ve always looked at in venture is where the kids are going. When we bought Palantir in ‘08-’09, it was because that was a cool company back then that all the kids wanted to go to. My partner had in people from his AI network in Palo Alto. They came in and explained AI. Most of it went over my head, but I knew that this was really big.
+
+Iliana Bouzali: Why did you feel it was really big? It could have been a fad. You didn’t feel this way for other fads.
+
+Stan Druckenmiller: Because I had total trust in my partner, and I thought I was grasping the enormity. It turns out I wasn’t grasping the enormity because I didn’t know about large language models, but I knew about all the other conventional stuff that was going on in AI. So I said to my partner, “What should I buy?” He said, “Nvidia. That’s the way to play AI.” So, just on this, about as much as you just heard, I bought a not-big position in Nvidia—enough to get hurt on or to make some money on. Then, about two weeks later, ChatGPT happened, which he had not mentioned in our conversation. Well, even I understood the enormity of what that meant when I saw even the rudimentary things it was doing back then.
+
+So then I doubled the position. Then one of the great services you and Morgan Stanley provide are these macro calls. And all the macro guys, including myself (luckily, I hadn’t talked yet), were espousing their views on the world, which are probably worth a nickel and a cup of coffee. And an analyst there, who was from the tech world, said, “You guys are in the trees, and you’re missing the forest. There’s something much bigger than anything you’re talking about, even for macro.” And he went on to amplify everything I had heard three or four weeks ago about AI, but this time I had ChatGPT between that conversation and him. So then I doubled my position again, and literally, I don’t think I knew how to spell Nvidia three months before.
+
+When the stock took off, I knew through years of experience when you have massive, massive change, investors just can’t make themselves keep up with it. And it was funny because the person who knew 10x more than anybody at the table, and probably 50x more than me about AI, he sold his Nvidia shortly thereafter. But I knew that this stock would go up for at least two or three years and go up a lot. And I said publicly in an interview about five months later, “I cannot possibly see myself selling Nvidia over the next two or three years,” because it had already gone from like $150 to $390 and this person couldn’t believe I still owned it. And I basically said, “Not only do I own it, the way these things evolve, this stock can’t not go up for at least three years.”
+
+So then the stock goes to 800. And I violated everything I said in the interview. I couldn’t stand success. It had gone from $150 to $800. I was long-term in it. I couldn’t deal with it, and I sold it. And then it was $1,400 like five weeks later, and I was sick. But it’s amazing how little I knew about Nvidia. I couldn’t even tell you what the earnings were.
+
+Iliana Bouzali: That’s a sign of confidence, and it’s because you’re Stan Druckenmiller that you can be so blatantly honest about the way you think about these things. And I think it’s very encouraging to portfolio managers that are coming up in the business, and they often feel like they need to be intellectually very much on their game constantly. What I’m getting from this, the ability to filter, to manage instead of being wedded to a spreadsheet, is really unique and quite helpful. You said something that you violated what you had said and sold at $800. Would you have done that 20 years ago? Is this a sign of a more mature way of trading now versus before?
+
+Stan Druckenmiller: Probably not. I’m not used to making 6x my money in an equity in two years, and I’m not Warren Buffett. I think I would have screwed it up 20 years ago when I was good, too.
+
+Bouzali: Let’s stay with AI for a little longer, and then I wanna talk a little bit about process. We can’t get through this interview without having big intellectual conversations about AI. If I could summarize the consensus right now for AI, it is something like: AI will be very deflationary, and it will lead to massive job losses. What do you say to that?
+
+Druckenmiller: I say anybody who believes that with conviction suffers from arrogance and not an open mind. I don’t think any of us know how this movie’s going to play out. First of all, every technological revolution since was known to man, it’s been declared for jobs, “It’s the end of the world,” all the way back to the horse and buggy. Now, there are brilliant people saying it’s going to happen. And I’m open-minded to that too because the speed is like nothing we’ve ever seen before. But you have to acknowledge, when it’s happened every other cycle, that it’s not a given.
+
+I can’t remember who it was talking about radiologists, because when I first learned about AI, before ChatGPT, and one of my family members was a radiologist, I told him, “You might not have a job in five or 10 years,” because we had started this company that basically looks for pathology in prostate cancer, and the machines could do it as well or better.
+
+So, you know what? That technology is fantastic. It works better even than anybody imagined. It works better than humans. But we have more radiologists now than we had 10 years ago. Why? Because the radiologist is now spending his time talking to the patient, going through what this means in their life, going through the decisions. He has more time to do the real stuff. And they trust the doctor. And that’s the way it could play out in many, many, many different ways.
+
+Nursing, I’ve read the same thing going on. They don’t have to do all the monitoring anymore, but they get to spend more time giving comfort and so forth and so on.
+
+Now look, it obviously looks disinflationary, but let me ask you this. When COVID happened, the five year forward I think went to 40bps, and five years later, inflation was 9%. So let’s say the pessimists are right on AI. It is possible you get a government response with printing and universal income. After all, inflation is caused by money, that you actually get an inflationary outcome.
+
+So you just have to always be looking at what other people might not be. And then if you’re prepared for it mentally, you can adjust quickly enough in your portfolio to it as it unrolls.
+
+Iliana Bouzali: I know many people who would love to get inside your head and understand your mental models. You spoke to us about your way of thinking, and I have a really honest, basic question. How much of it can be taught and how much of it is innate?
+
+Stan Druckenmiller: Look, I was given a gift. I don’t know why I was given the gift, but I have this gift, and it’s for compounding money. Certainly, part of it is innate. You either have the skill set for this business or you don’t. Having said that, I had a great mentor in Pittsburgh when I started out, and I find it very common that great investors have incredible mentors. So to me, it’s a necessary condition that you have this innate skill set or gift, but it’s almost a necessary condition on top of it that you have a mentor. I’m sure there are some people out there that that’s not true of, but for me, it was a combination.
+
+I was very lucky to have two mentors. One, I learned all the kind of stuff we’re talking about. And then Soros, it’s funny, when I went there, I thought I would learn what makes the yen and the mark go up and move. And modestly, I learned I knew much more about that than he did. What I learned from him was sizing. It’s not whether you’re right or wrong; it’s how much you make when you’re right and how much you lose when you’re wrong. And that was an invaluable lesson. So you can have something innate, but if you don’t have mentors and people to teach you, you’re not going to maximize it as much as you do when you do have them.
+
+Iliana Bouzali: What are some things, if there are some things, that you have unlearned over the past 20, 30 years, or you had to unlearn?
+
+Stan Druckenmiller: I don’t unlearn anything because scars are something I always keep in mind because they can help you out. But I will say, through a bunch of circumstances that I won’t repeat, I was promoted way too early. I was made an analyst when I was 23, and I was made the head portfolio guy by the time I was 26. And I didn’t go to business school. So I never learned all the fundamentals I needed to learn in terms of analysis. So I relied heavily, and my mentor was really into it, and back then nobody was doing it, on technical analysis. And I learned all the intricate details of it.
+
+I can unequivocally tell you that technical analysis is about 20% as effective today as it was then because no one was using it. But when everybody’s using it, it doesn’t work anymore because you don’t have a unique thing to act against. So it’s kind of sad because it’s easy, and you can be lazy. You don’t have to work that hard. Just look at a chart instead of going into a 10-Q and all this other stuff. But technical analysis is a problem.
+
+And in the same vein, price versus heat news was huge for me for 20 or 30 years. If you had great news and a stock wasn’t responding to the news, 90% of the time bad news was coming. Unfortunately, around 2000, a lot of smart people started coming to our business. I was the only one in my class, I think, from Bowdoin that went into the financial industry because we’d been in a bear market for 10 years. Well, then again, every wise guy learned what I’m just talking about, so it doesn’t work anymore. So back then, if a company reported horrible earnings, opened down in the aftermarket, and then was up 10% the next day, it was almost guaranteed to be higher six months later. That’s not true anymore because everybody else has learned that. So those would be the two big things. I haven’t unlearned them, but I don’t rely on them to the extent that I used to.
+
+Iliana Bouzali: They’ve been loved to death, basically. Are there any other signals that have been elevated in importance then, conversely, to signals that have been diminished?
+
+Stan Druckenmiller: Not really. There’s no silver bullet, and I’m the great beneficiary of 40 years of scars and successes that I can go back on and a lot of pattern recognition because there’s not much I haven’t seen in this business.
+
+I’d say the biggest disappointment in my career has been I think I have more wisdom and I have more tools of the trade than I had in my 30s and 40s, and I was a much better portfolio manager then because back then I had courage. I would take bigger convicted positions. I’m trying to regain some of my nerve just because it’s more fun.
+
+Iliana Bouzali: So you’re chickening out?
+
+Stan Druckenmiller: Oh, for sure. I’ve been chickening out for a long time. I’m Mr. Taco. Except it’s not “T,” it’s “Daco”—Druck always chickens out.
+
+Ilana Bousali: In terms of other experiences that you’ve had, or a chip on your shoulder, do you have a chip on your shoulder that makes you better at this?
+
+Stan Druckenmiller: No, no. I just grew up. My dad and my sisters played games with me all the time. I’m just a really sore loser. I love games, but I really hate to lose. So I’m just very driven. It’s a sickness. I don’t know where it comes from, but I might as well channel it and make it productive instead of just a disease because it is a little bit unseemly, but it’s who I am.
+
+Iliana Bouzali: Embrace it. Finally, this show is called Hard Lessons. Can you look back in your life or career and maybe take us through something that you had to learn the hard way?
+
+Stan Druckenmiller: Let me just say I have so many scars, you can’t believe it. Everyone knows how I played the NASDAQ melt-up in ‘99, sold it perfectly in January, and then bought the exact top. And someone says, “What did you learn from that?” I said, “Nothing. I learned not to do that 20 years before, but I got emotional, which I fight every day.”
+
+I would literally throw up once or twice a week just from anxiety when I’d have a drawdown and so forth. And at some point in my career, I learned that you’re going to continue to make mistakes. You’re going to continue to get emotional. You’re going to continue to have that happen now and then. But you’ve got a gift. And just stop torturing yourself for 48 hours or maybe longer over this because you’ve been doing this long enough, and the record is there long enough that it’s no longer a random accident, which I did not believe for 15 years. So the hard lessons have been hundreds of mistakes, but they’re just a moment in time. And when you have these drawdowns, and if there are money managers listening to this, and you’re good, it’s easier said than done, just get over it and move on.
+
+Iliana Bouzali: So Stan Druckenmiller had imposter syndrome for 15 years?
+
+Stan Druckenmiller: Yes. Maybe longer.
+
+Iliana Bouzali: Wow.
+
+Stan Druckenmiller: Maybe longer.
+
+Stan Druckenmiller: Incredible. As we’re finishing, I want to say thank you for being here. I got to know you later in your career, and it’s just been fascinating to see you think and trade, to see you in action. You’ve been very generous with your time. And on behalf of Morgan Stanley, thank you very much.
+
+Stan Druckenmiller: As I said in the beginning, I wouldn’t do this for many, and I think the world of Morgan Stanley. So it was delightful to be here.
+
+Iliana Bouzali: Thank you, Stan.
+
+Stan Druckenmiller: Thanks, Iliana.
+
+Bonus Clip 1
+
+Iliana Bouzali: Should we do some multiple choice? For fun?
+
+Stan Druckenmiller: Okay.
+
+Iliana Bouzali: The hardest skill to teach in investing is: A) Pattern recognition, B) Risk sizing, C) Patience, D) Knowing when to stop analyzing.
+
+Stan Druckenmiller: They’re all pretty good, but I like #4 the best. I think it’s the biggest mistake in our business. At some point, the analysis becomes counterproductive. And, it’s funny, you asked me about things changing, and adjusting. That’s one thing I’ve learned, and it’s greatly to my advantage. Speed matters now. With AI and email and everything else, if you sit around and analyze a company for four months, and you’re not willing to operate with 15-20% of information, you’ll often miss a big move and then you’re afraid to buy it because it has moved. And that, to me, is a core belief. Sometimes, when the opportunity is so big, and you just kind of know it, you’ve just got to plunge in without the proper information. Do the work, and if it doesn’t work out, doesn’t matter if it’s a profit or loss—next.
+
+Iliana Bouzali: I love that you embrace a lot of these counterintuitive things. There’s the business school way—
+
+Stan Druckenmiller: Well, it’s because I’m not so smart. So I just go with my gut, so I don’t have to compete with all these people.
+
+Iliana: Bouzali: Incredible. Alright, next. The most misleading macro variable or data?
+
+Stan Druckenmiller: Before you read the answers: Unemployment.
+
+Iliana Bouzali: Haha.
+
+Stan Druckenmiller: It’s just ridiculous.
+
+Iliana Bouzali: It is. It’s part of my—it’s #2: Payrolls.
+
+Stan Druckenmiller: Why in the world are we using a lagging indicator to predict the economy? It’s like, stupid.
+
+Iliana Bouzali: #3. Places where you get good insights from these days: A) Positioning data, B) Talking to companies directly, C) Watching correlations shift live, D) Equity, thematics, and internals.
+
+Stan Druckenmiller: I’ve always gotten a lot of information from the market internals. In fact, “Mr. Macro” here, all my macro is not from macro data, it’s from companies and putting together a puzzle between companies that lead the economy, companies that lag the economy, and you put that puzzle together, and we’re not perfect, but we’ve been a lot better than the Fed predicting the economy, and we don’t have models, we don’t have any of that stuff. We do use macro data for entries and exits, but in terms of fundamentals, I’ve got a knack developed over many years for just hearing companies, hearing their tones, and then put the mosaic together when you talk to enough industries.
+
+Iliana Bouzali: One of the reasons you used to be an incredible macro investor, and you’re an okay investor now—
+
+Stan Druckenmiller: As Tiger Woods said, “Better than most.”
+
+Iliana Bouzali: Better than most.
+
+Stan Druckenmiller: Better than most.
+
+Iliana Bouzali: Better than most. That’s what matters. It’s relative. Is because you get equities right. The bottom up right.
+
+Stan Druckenmiller: Oh, yeah. When I was at Soros, the whole purpose of the equity team was for me to get macro information. I didn’t care if they made money in their equity book. When macro died, after the GFC, their main function, informational flow to me, was not what to buy or sell, it was what was going on in their companies so I could figure out what to do with the Deutsche Mark, or bonds, or stuff like that.
+
+Iliana Bouzali: Selfishly, it makes me really happy, because I work in equities. Next, risk you fear most in 2026? A) Kinetic war of some sorts, B) A policy error, inflation, C) Liquidity accident, D) Narrative-driven bubbles.
+
+Stan Druckenmiller: Probably narrative-driven bubbles. I’m not really heavily focused on anything you mentioned. But—I used to say it a lot: I have never seen—and I’ve studied a lot of economic history—a really bad economic outcome, something much worse than a garden-variety recession—let’s say the Great Depression, let’s say the Great Financial Crisis—without an asset bubble. They’re all preceded by asset bubbles. So if you really really want to cause a big problem—and I’m not talking about a recession—cause an asset bubble. So, I don’t think we’re there.
+
+Iliana Bouzali: You don’t think we’re there thought? Early innings?
+
+Stan Druckenmiller: Definitely not early. But—
+
+Iliana Bouzali: Early-ish.
+
+Stan Druckenmiller: Maybe 8th inning. If we went [up] materially from here, I’d be very concerned.
+
+Bonus Clip 2
+
+Iliana Bouzali: Can we do some word association?
+
+Stan Druckenmiller: Okay.
+
+Iliana Bouzali: So the way this works is, I say a word, and you say whatever comes to mind.
+
+Stan Druckenmiller: Oh, boy.
+
+Iliana Bouzali: Yup. U.S. economy.
+
+Stan Druckenmiller: Strong.
+
+Iliana Bouzali: Biotech.
+
+Stan Druckenmiller: Exciting.
+
+Iliana Bouzali: By the way, you can do full sentences, too. Only if you want to.
+
+Stan Druckenmiller: As you know, I’m somewhat abrupt.
+
+Iliana Bouzali: I do. Retail investors.
+
+Stan Druckenmiller: Formidable.
+
+Iliana Bouzali: Yield curve.
+
+Stan Druckenmiller: Over-rated.
+
+Iliana Bouzali: Really?
+
+Stan Druckenmiller: Yup.
+
+Iliana Bouzali: So we’re in with the equity as a macro indicator, out with the yield curve?
+
+Stan Druckenmiller: Oh, no. It’s a pretty good indicator. I’ve never traded the yield curve much. I talk to my peers, “I got the curve on.” I’m like, “Look, rates are gonna go up or they’re gonna go down.” When I said over-rated, I misunderstood the word. No, I didn’t misunderstand, it’s what came to my head. I’m talking about trading the yield curve as opposed to just trading bonds outright.
+
+Iliana Bouzali: Right.
+
+Stan Druckenmiller: Very rarely do you win on both sides. In other words, it’s very rarely do shorts rates go down and long rates go up, which is what happened last year. But I had the down part correctly.
+
+Iliana Bouzali: Humanoids.
+
+Stan Druckenmiller: It’s interesting, because I ask my young Partner, “Why should humanoids be like humans? Why would that possibly be the most efficient form of a robot?” And I expect him to say it’s not. And he said, “Well, for example, Stan, your kitchen is designed for a human to work in. So if you want a humanoid to work for you, and do your tasks in the kitchen, it should be a humanoid. In an Amazon factory, it doesn’t have to be a humanoid.” By the way, I just learned this yesterday. I’ve been sitting here, I don’t know why I hadn’t asked him before, asking him about humanoids and how ridiculous this is, making robots humans when there must be a better way to make a functioning robot.
+
+Iliana Bouzali: Gold.
+
+Stan Druckenmiller: Gold. Fascinating.
+
+Iliana Bouzali: Tariffs.
+
+Stan Druckenmiller: Not a fan. I’m fine with them up to like 10%, because we over-consume in this country, and if you can have a consumption tax that the foreigners bear part of the burden, I don’t have a problem with them. If you get into some of the kind of ranges we’ve gotten into, I can’t stand them. But I’m a Ronald Reagan old-school economist. But, to a point, I think they’re fine.
+
+Iliana Bouzali: Crypto?
+
+Stan Druckenmiller: I said this a long time ago, and I’m gonna say it again: “It’s a solution looking for a problem.” I’m very sad that it ever happened as a store of value, because it wasn’t needed. But it’s a brand, and these people love it, so it’s going to be a store of value. On the other hand, blockchain, and the use of stablecoins, if you want to throw crypto into that, tokens, incredibly useful in terms of productivity. I assume our whole payments systems will be stablecoins in 10-15 years. Efficient, quicker, cheaper.
+
+Iliana Bouzali: China. Or China-US relations.
+
+Stan Druckenmiller: Kevin Warsh said something brilliant about eight years ago, when Trump took on China. He said, “This is probably the best China and US relations will ever be. They’re probably only going to get worse from here.” And it sounded like the craziest statement I had ever heard. And I converted shortly thereafter. And I think that’s still the trend. That our relations are in a bear market.
+
+Iliana Bouzali: Euro. And “the Euro.”
+
+Stan Druckenmiller: Euro broke my heart, because I lived off the Deutsche Mark for 10 years. When they got rid of the Deutsche Mark, my gravy train was over, and I never made returns like I made in the ‘90s again. Look, I don’t know, that place—As an American who likes innovation and who likes action as opposed to being a cultural idiot, which is what I am, I’m not big on the Euro. By the way, there’s companies in Europe we’ve invested in; we think they’re great. So it’s not an overriding comment.
+
+Iliana Bouzali: Curing cancer.
+
+Stan Druckenmiller: Gonna happen. Soon.
+
+Iliana Bouzali: What’s your market? In years.
+
+Stan Druckenmiller: I think in 10 years, 95% of cancers will be just a manageable disease.
+
+Iliana Bouzali: Incredible. Morgan Stanley.
+
+Stan Druckenmiller: Quality and trust. That’s where I go with that firm.
+
+Iliana Bouzali: Sounds like a good firm.
+
+Stan Druckenmiller: It has some problems with it.
+
+Iliana Bouzali: Some people?
+
+Stan Druckenmiller: Just maybe one or two. The other thousands are great.
+
+Iliana Bouzali: Dollar as a reserve currency.
+
+Stan Druckenmiller: It’s the cleanest dirty shirt, or whatever that saying is. I think it’ll be around for a while. We’re doing everything we can to destroy it, but—I’m 72, it’ll probably outlive me. I doubt it’ll be the reserve currency in 50 years, but I don’t have a clue what would be. Maybe some crypto thing I hate.
+
+Iliana Bouzali: Fed and Treasury working together. Can it happen? How?
+
+Stan Druckenmiller: That’s what I’m most excited about with Bessent and Warsh. I think it can happen. I think it’s necessary. I can’t think of two people better placed in terms of skillsets and personalities to make it happen. So count me optimistic on that one.
