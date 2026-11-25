@@ -101,6 +101,22 @@ create table if not exists data_files (
   updated_at  timestamptz not null default now()
 );
 
+-- Cached key points per earnings call (scripts/earnings_calls/summarize.py;
+-- db/migrations/2026-11-25_transcript_summaries.sql).
+create table if not exists transcript_summaries (
+  symbol          text        not null,
+  call_date       date        not null,
+  prompt_version  text        not null,
+  model           text        not null,
+  summary         jsonb       not null,            -- one_line, ceo_present, tone, key_points[], guidance[], analyst_focus[], topics[]
+  input_tokens    int,
+  output_tokens   int,
+  created_at      timestamptz not null default now(),
+  primary key (symbol, call_date, prompt_version, model)
+);
+create index if not exists transcript_summaries_date_idx   on transcript_summaries (call_date);
+create index if not exists transcript_summaries_topics_idx on transcript_summaries using gin ((summary -> 'topics'));
+
 create table if not exists analysis_results (
   id          bigint generated always as identity primary key,
   analysis    text not null,                 -- e.g. event_study, holding_stats
@@ -192,7 +208,8 @@ do $$
 declare t text;
 begin
   foreach t in array array['securities','prices_daily','index_membership','picks',
-                           'alpha_picks_positions','fundamentals','data_files','analysis_results'] loop
+                           'alpha_picks_positions','fundamentals','data_files','analysis_results',
+                           'transcript_summaries'] loop
     execute format('drop trigger if exists %I on %I', t || '_log_ins', t);
     execute format('drop trigger if exists %I on %I', t || '_log_upd', t);
     execute format('drop trigger if exists %I on %I', t || '_log_del', t);
@@ -211,6 +228,7 @@ alter table alpha_picks_positions enable row level security;
 alter table fundamentals          enable row level security;
 alter table data_files            enable row level security;
 alter table analysis_results      enable row level security;
+alter table transcript_summaries  enable row level security;
 
 -- Make sure the secret key's role can use the tables through the Data API.
 grant usage on schema public to service_role;
