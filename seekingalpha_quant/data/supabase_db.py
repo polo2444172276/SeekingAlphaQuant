@@ -155,6 +155,16 @@ def delete(table, params):
     _req("DELETE", f"/rest/v1/{table}", params=params)
 
 
+def ddl(statement):
+    """Run one additive schema change through public.claude_ddl (db/migrations/2026-11-25_claude_ddl.sql).
+
+    Allowed: CREATE TABLE / CREATE INDEX / CREATE VIEW / ALTER TABLE ... ADD / COMMENT ON, public
+    schema only. DROP, TRUNCATE, RENAME, ALTER COLUMN and the like are refused by the database.
+    New tables get RLS, a service_role grant and the audit triggers. Wrap in change_note("why").
+    """
+    return _req("POST", "/rest/v1/rpc/claude_ddl", json={"stmt": statement}).json()
+
+
 def upload(path, data, content_type="application/octet-stream"):
     """Upload (overwrite) an object in the market-data bucket."""
     _req("POST", f"/storage/v1/object/{BUCKET}/{path}", data=data,

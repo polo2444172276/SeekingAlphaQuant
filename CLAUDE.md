@@ -36,9 +36,15 @@ Order of preference:
 - Only HTTPS works from cloud sessions (no direct Postgres port / psql).
 - PostgREST returns at most ~1000 rows per page; `select()` paginates. For
   more than ~100k rows, use the Parquet files instead of REST.
-- Schema: `db/schema.sql`. Schema changes: write the SQL into that file and
-  ask the user to run it in the Supabase SQL Editor (no management token is
-  stored on purpose).
+- Schema: `db/schema.sql`. Additive changes (new table, index, view, added
+  column, comment) can be made from a session with `db.ddl("create table ...")`
+  inside `with db.change_note("why"):` - one statement per call, public schema
+  only; new tables get RLS, the service_role grant and the audit triggers.
+  The database refuses DROP / TRUNCATE / RENAME / ALTER COLUMN and the like
+  (`public.claude_ddl`, `db/migrations/2026-11-25_claude_ddl.sql`). Also add the
+  DDL to `db/schema.sql`. Anything destructive or outside that list: write the
+  SQL into a migration file and ask the user to run it in the Supabase SQL
+  Editor (no management token is stored on purpose).
 
 ## Tables (public schema)
 
