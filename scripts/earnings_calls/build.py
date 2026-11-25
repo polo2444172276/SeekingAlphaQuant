@@ -65,7 +65,7 @@ def current_ceo(sym):
 def emit(sym, calls):
     """calls: list of dicts with full turns, sorted by date (one symbol, all sources)."""
     cd.apply_current(calls, current_ceo(sym), None)
-    cd.propagate(calls)
+    # cd.propagate(calls)  # disabled: back-fills future CEOs onto calls where they spoke as COO/CFO/IR
     for c in calls:
         rank, qk = rank_for(sym, c["date"])
         if rank is None:

@@ -8,12 +8,15 @@ Evidence, strongest first:
 """
 import re
 
-CEO_WORDS = r"(?:Chief Executive Officer|Chief Executive|CEO)"
-NAME = r"([A-Z][A-Za-z.'\-]+(?:\s+(?:[A-Z]\.|[A-Z][A-Za-z.'\-]+)){1,3})"
+CEO_WORDS = r"(?:Chief Executive Officer\b|Chief Executive\b(?!\s+Officer)|CEO\b)"
+# capitalised words incl. accented letters (André); a word may not end in "." unless it is a single initial,
+# so a match never runs across a sentence end ("... Chief Executive Officer. Jacek Olczak")
+_W = r"[A-ZÀ-ÖØ-Þ][a-zà-öø-ÿA-ZÀ-ÖØ-Þ'\-]+"
+NAME = r"((?!Officer\b|Chief\b|Executive\b)" + _W + r"(?:\s+(?:[A-Z]\.|" + _W + r")){1,3})"
 # "Tim Cook, our CEO" / "Tim Cook, Chairman and Chief Executive Officer"
 PAT_AFTER = re.compile(NAME + r",?\s+(?:who is\s+)?(?:our|the|Apple's|\w+'s)?\s*(?:[A-Z][a-z]+(?:,| and| &)?\s+){0,4}" + CEO_WORDS)
 # "our CEO, Tim Cook" / "Chief Executive Officer Jamie Dimon"
-PAT_BEFORE = re.compile(CEO_WORDS + r"(?:\s+and\s+[A-Z][a-z]+)*,?\s+" + NAME + r"(?!\s*[-–])")
+PAT_BEFORE = re.compile(CEO_WORDS + r"(?:\s+and\s+[A-Z][a-z]+)*,?\s+" + NAME + r"\b(?!\s*[-–])")
 NOT_CEO = re.compile(r"(Deputy|Vice|Former|Interim CFO|Financial|Operating|Investment|Technology|Accounting|Risk|Marketing|People|Legal|Commercial|Medical|Scientific|Information|Digital|Strategy)\s+(?:Chief\s+)?(?:Executive )?Officer", re.I)
 EXCLUDE_TOKENS = {"Officer", "Chief", "Executive", "Chairman", "President", "Our", "The", "And", "With", "Today", "Joining", "Me"}
 

@@ -10,7 +10,7 @@ Stored in Supabase Storage, bucket `market-data` (catalogued in `data_files`):
 | `us/sp500_top100/earnings_calls/calls.parquet` | 1 per call | symbol, call_date, fiscal_year/quarter, cik, mcap_rank, rank_quarter, ceo_name, ceo_src, source, url |
 | `us/sp500_top100/earnings_calls/turns/year=YYYY.parquet` | 1 per speaker turn | symbol, call_date, mcap_rank, turn, speaker, role (management/analyst/operator/unknown), section (prepared/qa), title, role_src, **is_ceo**, text |
 
-Coverage as of the 2026-11-25 build: 7,197 calls, 569,781 turns (115,360 by the CEO), 2005-10 to 2026-11.
+Coverage as of the 2026-11-25 build: 7,197 calls, 569,781 turns, 2005-10 to 2026-11.
 
 ## Sources
 - **2005-10 .. 2025-05-15**: Hugging Face `zcyeee/sp500-earnings-call-turns` (MIT; speaker turns and roles
@@ -29,8 +29,9 @@ Coverage as of the 2026-11-25 build: 7,197 calls, 569,781 turns (115,360 by the 
   symbol in the HF dataset (all were S&P 500 members at some point).
 - CEO identification (`ceo_src`): `title` (participant list / affiliation), `intro` (IR opening names the CEO),
   `roster`, `carry` (same person as the previous call's CEO), `fmp_current` (FMP current CEO, only after the last
-  call that named someone else), `propagated` (same company, nearest call that named them, <= 3 years).
-  `fmp_current` and `propagated` use information from other dates: drop them for strict point-in-time studies.
+  call that named someone else). `fmp_current` uses information from a later date: drop it for strict
+  point-in-time studies. (A nearest-call `propagated` rule was tried and removed: it labelled future CEOs as CEO
+  on calls where they spoke as COO/CFO/IR, e.g. Tim Cook in 2009-2011.)
   Some calls have no CEO on the line (e.g. pre-2016 Exxon, Ballmer-era Microsoft): `ceo_name` is null there.
 
 ## Rebuild
