@@ -12,6 +12,15 @@ Stored in Supabase Storage, bucket `market-data` (catalogued in `data_files`):
 
 Coverage as of the 2026-11-25 build: 7,197 calls, 569,781 turns, 2005-10 to 2026-11.
 
+## Per-call key-point cache (read this before the transcripts)
+`us/sp500_top100/earnings_calls/key_points/year=YYYY.parquet` — one row per call (`extract_key_points.py`):
+`topics` (tags), `forward_statements` (JSON: up to 15 forward-looking market/macro sentences, CEO's own when the
+CEO speaks, else other executives), `numeric_targets` (JSON: dated numeric goals), `scored_predictions`
+(JSON: predictions already checked against outcomes, from `analysis_results` `ceo_forecast_scorecard`), plus
+`ceo_name`, `ceo_present`, `mcap_rank`. Rebuild after adding a scorecard so the new scores are attached.
+LLM summaries (`summarize.py` -> table `transcript_summaries`) are planned on top of this once an
+`ANTHROPIC_API_KEY` is set and `db/migrations/2026-11-25_transcript_summaries.sql` has been run.
+
 ## Sources
 - **2005-10 .. 2025-05-15**: Hugging Face `zcyeee/sp500-earnings-call-turns` (MIT; speaker turns and roles
   from that dataset; misfiled calls with `company_check = not_this_company`, `tiny_content`, `no_speaker_labels` dropped).

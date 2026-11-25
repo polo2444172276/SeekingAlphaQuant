@@ -59,7 +59,10 @@ Parquet layout: `us/sp500/prices_daily/year=YYYY.parquet` (more markets to come)
 Earnings-call transcripts (point-in-time top-100 S&P 500 by market cap, 2005-10..2026-11, speaker turns
 with an `is_ceo` flag): `us/sp500_top100/earnings_calls/calls.parquet` and
 `us/sp500_top100/earnings_calls/turns/year=YYYY.parquet`. Sources, gaps and rebuild steps:
-`scripts/earnings_calls/README.md`.
+`scripts/earnings_calls/README.md`. Read the per-call cache first
+(`us/sp500_top100/earnings_calls/key_points/year=YYYY.parquet`: topics, forward-looking statements, numeric
+targets, already-scored predictions) and open the full turns only for what the cache lacks; after new
+analysis, save it to `analysis_results` and rebuild the cache (`extract_key_points.py`).
 
 ## Audit trail (who changed what, when)
 
